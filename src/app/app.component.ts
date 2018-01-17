@@ -18,16 +18,15 @@ export class AppComponent {
   }
 
   login() {
-    const param = {
-      username: 'Linc6',
-      password: '123'
-    };
+    const params = new URLSearchParams();
+    params.set('username', 'hllinc');
+    params.set('password', '123');
     // this.dataService.postData('/login', param).subscribe(data => {
     //   console.log(data);
     // });
 
-    // this.http.post(environment.serverHost + '/login', jQuery.param(param), this.options).subscribe(data => {
-    //
-    // });
+    this.http.post(environment.serverHost + '/login', params.toString(), this.options).subscribe(data => {
+      console.log(data);
+    });
   }
 }
