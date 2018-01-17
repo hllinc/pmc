@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import {DataService} from './services/data.service';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  ButtonModule, CheckboxModule, CodeHighlighterModule, InputTextModule, RadioButtonModule,
+  TabViewModule
+} from 'primeng/primeng';
 
 
 @NgModule({
@@ -14,9 +19,16 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    InputTextModule,
+    ButtonModule,
+    CheckboxModule,
+    RadioButtonModule,
+    TabViewModule,
+    CodeHighlighterModule
   ],
   providers: [
     DataService

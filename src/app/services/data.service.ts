@@ -6,7 +6,6 @@ import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {ServerData} from '../models/server-data.model';
-import 'rxjs/Rx';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()

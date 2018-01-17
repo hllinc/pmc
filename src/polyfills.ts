@@ -19,26 +19,26 @@
  */
 
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
-// import 'core-js/es6/symbol';
-// import 'core-js/es6/object';
-// import 'core-js/es6/function';
-// import 'core-js/es6/parse-int';
-// import 'core-js/es6/parse-float';
-// import 'core-js/es6/number';
-// import 'core-js/es6/math';
-// import 'core-js/es6/string';
-// import 'core-js/es6/date';
-// import 'core-js/es6/array';
-// import 'core-js/es6/regexp';
-// import 'core-js/es6/map';
-// import 'core-js/es6/weak-map';
-// import 'core-js/es6/set';
+import 'core-js/es6/symbol';
+import 'core-js/es6/object';
+import 'core-js/es6/function';
+import 'core-js/es6/parse-int';
+import 'core-js/es6/parse-float';
+import 'core-js/es6/number';
+import 'core-js/es6/math';
+import 'core-js/es6/string';
+import 'core-js/es6/date';
+import 'core-js/es6/array';
+import 'core-js/es6/regexp';
+import 'core-js/es6/map';
+import 'core-js/es6/weak-map';
+import 'core-js/es6/set';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
-// import 'classlist.js';  // Run `npm install --save classlist.js`.
+ import 'classlist.js';  // Run `npm install --save classlist.js`.
 
 /** IE10 and IE11 requires the following for the Reflect API. */
-// import 'core-js/es6/reflect';
+import 'core-js/es6/reflect';
 
 
 /** Evergreen browsers require these. **/
@@ -50,7 +50,7 @@ import 'core-js/es7/reflect';
  * Required to support Web Animations `@angular/platform-browser/animations`.
  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
  **/
-// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+ import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 
 
@@ -62,5 +62,15 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 
 /***************************************************************************************************
- * APPLICATION IMPORTS
+ * 应用程序填充
  */
+
+/**
+ * Date、currency、decimal 和 percent 管道
+ * 除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
+ */
+import 'intl';  // Run `npm install --save intl`.
+/**
+ * 从intl至少导入一个本地环境数据
+ */
+import 'intl/locale-data/jsonp/zh';
