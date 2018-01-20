@@ -3,8 +3,8 @@
  */
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {LoginComponent} from './components/login/login.component';
-import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {LoginComponent} from './login/login.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 
 const appRoutes: Routes = [
@@ -19,9 +19,9 @@ const appRoutes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'frame',
+    path: 'workspace',
     // canActivate: [AuthGuard],
-    loadChildren: './components/frame/frame.module#FrameModule'
+    loadChildren: './global-layout/workspace/workspace.module#WorkspaceModule'
   },
   {
     path: '**', // 注：这个404路由一定要写在最后，否则会影响其他路由的匹配

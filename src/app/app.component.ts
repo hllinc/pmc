@@ -6,7 +6,7 @@ import {environment} from '../environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'app';
@@ -24,6 +24,8 @@ export class AppComponent {
     // this.dataService.postData('/login', param).subscribe(data => {
     //   console.log(data);
     // });
+    document.getElementsByClassName('');
+
 
     this.http.post(environment.serverHost + '/login', params.toString(), this.options).subscribe(data => {
       console.log(data);

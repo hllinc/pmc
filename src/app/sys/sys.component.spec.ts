@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FrameComponent } from './frame.component';
+import { SysComponent } from './sys.component';
 
-describe('FrameComponent', () => {
-  let component: FrameComponent;
-  let fixture: ComponentFixture<FrameComponent>;
+describe('SysComponent', () => {
+  let component: SysComponent;
+  let fixture: ComponentFixture<SysComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FrameComponent ]
+      declarations: [ SysComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FrameComponent);
+    fixture = TestBed.createComponent(SysComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
