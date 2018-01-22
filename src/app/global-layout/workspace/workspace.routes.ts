@@ -7,10 +7,19 @@ export const workspaceRoutes = [
     path: '',
     component: WorkspaceComponent,
     children: [
-      {path: 'sys', loadChildren: '../../sys/sys.module#SysModule'}
+      {
+        path: '',
+        redirectTo: 'sys',
+        pathMatch: 'full'
+      },
+      {
+        path: 'sys',
+        loadChildren: '../../sys/sys.module#SysModule'
+      }
     ]
   }
 ];
+
 @NgModule({
   imports: [
     RouterModule.forChild(workspaceRoutes)

@@ -1,0 +1,64 @@
+[
+  {
+    "label": "研发部",
+    "data": "001",
+    "expandedIcon": "fa-folder-open",
+    "collapsedIcon": "fa-folder",
+    "children": [
+      {
+        "label": "移动事业部",
+        "data": "1-1",
+        "expandedIcon": "fa-folder-open",
+        "collapsedIcon": "fa-folder",
+        "children": [
+          {
+            "label": "江苏",
+            "icon": "fa-file-word-o",
+            "data": "1-1-1"
+          },
+          {
+            "label": "浙江",
+            "icon": "fa-file-word-o",
+            "data": "1-1-2"
+          }
+        ]
+      },
+      {
+        "label": "联通事业部",
+        "data": "1-2",
+        "expandedIcon": "fa-folder-open",
+        "collapsedIcon": "fa-folder",
+        "children": [
+          {
+            "label": "江苏",
+            "icon": "fa-file-word-o",
+            "data": "1-2-1"
+          },
+          {
+            "label": "浙江",
+            "icon": "fa-file-word-o",
+            "data": "1-2-2"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "市场部",
+    "data": "002",
+    "expandedIcon": "fa-folder-open",
+    "collapsedIcon": "fa-folder"
+  },
+  {
+    "label": "行政部",
+    "data": "003",
+    "expandedIcon": "fa-folder-open",
+    "collapsedIcon": "fa-folder"
+  },
+  {
+    "label": "财务部",
+    "data": "004",
+    "expandedIcon": "fa-folder-open",
+    "collapsedIcon": "fa-folder"
+  }
+]

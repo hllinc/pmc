@@ -18,7 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   padding: 0;
   margin: 0;
-  height: 100%;
+  //height: 100%;
   background-color: #f7f7f7;
 }
 
@@ -88,6 +88,10 @@ body {
 .splash-screen {
   background-color: #282828;
   height: 100%;
+}
+
+.ui-tree{
+  width: 100% !important;
 }
 
 //主体布局样式，分topbar、layout-menu-wrapper、layout-content、layout-footer共4个大区域
@@ -463,10 +467,9 @@ body {
     }
   }
   .layout-content {
-    min-height: 600px;
     padding: 15px;
     margin-right: 15px;
-    margin-top: 85px;
+    margin-top: 65px;
     margin-bottom: 15px;
     background-color: #ffffff;
     -moz-transition: margin-left 0.3s;

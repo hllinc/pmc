@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {AccordionModule} from 'primeng/primeng';
+import {AccordionModule, BreadcrumbModule} from 'primeng/primeng';
 
 import {LeftNavComponent} from '../left-nav/left-nav.component';
 import {TopMenuComponent} from '../top-menu/top-menu.component';
@@ -16,6 +16,7 @@ import {EventBusService} from '../../services/event-bus.service';
   imports: [
     SharedModule,
     AccordionModule,
+    BreadcrumbModule,
     WorkspaceRoutesModule
   ],
   exports: [],

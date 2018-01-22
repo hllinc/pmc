@@ -3,6 +3,9 @@
   <div class="layout-main">
     <left-nav></left-nav>
     <div class="layout-content">
+      <div class="navBread">
+        <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+      </div>
       <router-outlet></router-outlet>
     </div>
   </div>

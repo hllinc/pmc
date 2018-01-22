@@ -1,13 +1,17 @@
-import {Component, OnInit, ElementRef, HostListener} from '@angular/core';
+import {Component, OnInit, ElementRef} from '@angular/core';
 import {EventBusService} from '../../services/event-bus.service';
+import {MenuItem} from 'primeng/primeng';
 
 @Component({
-  selector: 'workspace',
+  selector: 'app-workspace',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
 export class WorkspaceComponent implements OnInit {
   public isCollapsed = false;
+
+  items: MenuItem[];
+  home: MenuItem;
 
   constructor(private elementRef: ElementRef, private eventBusService: EventBusService) {
 
@@ -17,6 +21,12 @@ export class WorkspaceComponent implements OnInit {
     this.eventBusService.topToggleBtn.subscribe(value => {
       this.toggleMenuStatus(value);
     });
+
+    this.items = [
+      {label: '系统管理'},
+      {label: '组织架构', url: ''}
+    ];
+    this.home = {icon: 'fa fa-home'};
   }
 
   private toggleMenuStatus(isCollapse: boolean): void {

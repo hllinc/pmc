@@ -7,6 +7,8 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {ServerData} from '../models/server-data.model';
 import {HttpErrorResponse} from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class DataService {

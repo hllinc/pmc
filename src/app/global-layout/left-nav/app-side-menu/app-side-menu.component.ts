@@ -10,7 +10,7 @@ export class AppSideMenuComponent implements OnInit {
   public menus = [
     {
       id: '1',
-      name: '权限管理',
+      name: '系统管理',
       isOpen: false,
       icon: 'fa-home',
       children: [
