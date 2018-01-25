@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../models/user';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   public user: User = new User();
 
   constructor(public router: Router,
-              public activatedRoute: ActivatedRoute) {
+              public activatedRoute: ActivatedRoute, public loginService: LoginService) {
 
   }
 
@@ -20,7 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.router.navigateByUrl('workspace');
+    this.loginService.loginForUser(this.user).subscribe(data => {
+      console.log(data);
+      this.router.navigateByUrl('workspace');
+    });
   }
 
   forgetPwd() {

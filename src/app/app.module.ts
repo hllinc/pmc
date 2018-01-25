@@ -11,6 +11,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AppRoutesModule} from './app.routes';
 import {AuthGuard} from './services/auth-guard.service';
 import {AuthService} from './services/auth.service';
+import {LoginService} from './login/login.service';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {AuthService} from './services/auth.service';
   providers: [
     AuthGuard,
     AuthService,
-    DataService
+    DataService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
