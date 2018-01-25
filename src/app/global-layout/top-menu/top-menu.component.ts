@@ -3,6 +3,9 @@ import {EventBusService} from '../../services/event-bus.service';
 import {AuthService} from '../../services/auth.service';
 import {User} from '../../models/user';
 import {LoginService} from '../../login/login.service';
+import {ConfirmationService} from 'primeng/primeng';
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'top-menu',
@@ -18,7 +21,9 @@ export class TopMenuComponent implements OnInit {
   constructor(private authService: AuthService,
               private loginService: LoginService,
               private elementRef: ElementRef,
-              private eventBusService: EventBusService) {
+              private eventBusService: EventBusService,
+              private confirmationService: ConfirmationService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -31,8 +36,16 @@ export class TopMenuComponent implements OnInit {
   }
 
   logoutEvent() {
-    this.loginService.logout().subscribe(data => {
-
+    this.showTopMenu = false;
+    this.confirmationService.confirm({
+      message: '确定退出系统吗？',
+      header: '系统提示',
+      icon: 'fa-question-circle',
+      accept: () => {
+        window.location.href = environment.serverHost + '/logout';
+      },
+      reject: () => {
+      }
     });
   }
 }

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {AccordionModule, BreadcrumbModule} from 'primeng/primeng';
+import {AccordionModule, BreadcrumbModule, ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
 
 import {LeftNavComponent} from '../left-nav/left-nav.component';
 import {TopMenuComponent} from '../top-menu/top-menu.component';
@@ -17,6 +17,7 @@ import {EventBusService} from '../../services/event-bus.service';
     SharedModule,
     AccordionModule,
     BreadcrumbModule,
+    ConfirmDialogModule,
     WorkspaceRoutesModule
   ],
   exports: [],
@@ -28,7 +29,8 @@ import {EventBusService} from '../../services/event-bus.service';
     AppSideMenuComponent
   ],
   providers: [
-    EventBusService
+    EventBusService,
+    ConfirmationService
   ]
 })
 export class WorkspaceModule {
