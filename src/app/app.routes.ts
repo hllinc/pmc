@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 
 const appRoutes: Routes = [
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'workspace',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: './global-layout/workspace/workspace.module#WorkspaceModule'
   },
   {

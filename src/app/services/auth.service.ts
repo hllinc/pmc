@@ -28,7 +28,7 @@ export class AuthService {
    * 获取当前用户
    */
   initCurrentUser(): Observable<any> {
-    return this.dataService.getData('/user/getCurrentUser');
+    return this.dataService.getData('/sys/user/getCurrentUser');
   }
 
   /**

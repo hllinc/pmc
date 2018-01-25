@@ -1,6 +1,8 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {EventBusService} from '../../services/event-bus.service';
 import {MenuItem} from 'primeng/primeng';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-workspace',
@@ -13,7 +15,7 @@ export class WorkspaceComponent implements OnInit {
   items: MenuItem[];
   home: MenuItem;
 
-  constructor(private elementRef: ElementRef, private eventBusService: EventBusService) {
+  constructor(private authService: AuthService, private elementRef: ElementRef, private eventBusService: EventBusService) {
 
   }
 

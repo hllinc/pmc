@@ -12,6 +12,7 @@ import {AppRoutesModule} from './app.routes';
 import {AuthGuard} from './services/auth-guard.service';
 import {AuthService} from './services/auth.service';
 import {LoginService} from './login/login.service';
+import {MessageModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {LoginService} from './login/login.service';
     FormsModule,
     HttpModule,
     JsonpModule,
-    AppRoutesModule
+    AppRoutesModule,
+    MessageModule
   ],
   providers: [
     AuthGuard,

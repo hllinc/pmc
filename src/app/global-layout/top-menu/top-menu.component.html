@@ -8,7 +8,7 @@
   </a>
   <a href="javascript:void(0);" class="user-display" (click)="showTopMenu=!showTopMenu">
     <img src="./assets/avatar/hllinc.png" alt="" height="32px" width="32px">
-    <span class="username">Hllinc</span>
+    <span class="username">{{user.username}}</span>
     <i class="fa fa-angle-down"></i>
   </a>
   <ul class="fadeInDown topbar-menu {{showTopMenu?'topbar-menu-visible':''}}">
@@ -32,7 +32,7 @@
       </a>
     </li>
     <li>
-      <a href="javascript:void(0);" (click)="showTopMenu=false;" routerLink="/login">
+      <a href="javascript:void(0);" (click)="logoutEvent()">
         <i class="topbar-icon fa fa-fw  fa-power-off "></i>
         <span class="topbar-item-name">退出</span>
         <span class="topbar-badge animated rubberBand">2</span>

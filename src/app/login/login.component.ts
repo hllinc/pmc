@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../models/user';
 import {LoginService} from './login.service';
+import {Message} from 'primeng/primeng';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import {LoginService} from './login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  message: any;
   public user: User = new User();
 
   constructor(public router: Router,
@@ -20,10 +22,14 @@ export class LoginComponent implements OnInit {
 
   }
 
-  login() {
-    this.loginService.loginForUser(this.user).subscribe(data => {
-      console.log(data);
-      this.router.navigateByUrl('workspace');
+  loginEvent() {
+    this.loginService.login(this.user).subscribe(data => {
+      if (data.code === 'ok') {
+        this.message = null;
+        this.router.navigateByUrl('workspace');
+      } else {
+        this.message = data.info;
+      }
     });
   }
 
