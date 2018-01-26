@@ -1,3 +1,37 @@
-<p>
-  user works!
-</p>
+<p-panel>
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <span class="ui-panel-title">用户列表</span>
+      <div class="rightOperatePlat">
+        <button pButton type="button" icon="fa-plus" pTooltip="添加" class="ui-button-info"></button>
+        <button pButton type="button" icon="fa-pencil" pTooltip="编辑" class="ui-button-warning"></button>
+        <button pButton type="button" icon="fa-minus" pTooltip="删除" class="ui-button-danger"></button>
+      </div>
+      <!--<p-splitButton [style]="{'float':'right'}" label="Save" icon="fa-check" (onClick)="save()" [model]="items"></p-splitButton>-->
+    </div>
+  </p-header>
+  <p-dataTable
+    [value]="users"
+    [loading]="tableLoading"
+    [rows]="20"
+    [paginator]="true"
+    [pageLinks]="3"
+    [rowsPerPageOptions]="[20,50,100]">
+    <p-column>
+      <ng-template pTemplate="header">
+        序号
+      </ng-template>
+      <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+        <span>{{i + 1}}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="username" header="用户名"></p-column>
+    <p-column field="age" header="年龄"></p-column>
+    <ng-template pTemplate="paginatorLeft">
+      <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+    <ng-template pTemplate="paginatorRight">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+    </ng-template>
+  </p-dataTable>
+</p-panel>

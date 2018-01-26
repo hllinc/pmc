@@ -1,7 +1,7 @@
 import {Component, OnInit, ElementRef, HostListener} from '@angular/core';
 import {EventBusService} from '../../services/event-bus.service';
 import {AuthService} from '../../services/auth.service';
-import {User} from '../../models/user';
+import {User} from '../../sys/models/user';
 import {LoginService} from '../../login/login.service';
 import {ConfirmationService} from 'primeng/primeng';
 import {Router} from '@angular/router';

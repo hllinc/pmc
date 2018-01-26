@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {User} from '../models/user';
+import {User} from '../sys/models/user';
 
 @Injectable()
 export class LoginService {

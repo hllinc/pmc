@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '../models/user';
+import {User} from '../sys/models/user';
 import {LoginService} from './login.service';
 import {Message} from 'primeng/primeng';
 

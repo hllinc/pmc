@@ -2,7 +2,6 @@ import {Component, OnInit, ElementRef} from '@angular/core';
 import {EventBusService} from '../../services/event-bus.service';
 import {MenuItem} from 'primeng/primeng';
 import {AuthService} from '../../services/auth.service';
-import {User} from '../../models/user';
 
 @Component({
   selector: 'app-workspace',

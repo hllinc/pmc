@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subscriber} from 'rxjs/Subscriber';
 import {DataService} from './data.service';
-import {User} from '../models/user';
+import {User} from '../sys/models/user';
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -68,23 +68,6 @@ export class AuthService {
         subscriber.complete();
       }
     });
-  }
-
-  /**
-   * 安全退出
-   * @returns {Observable<any>}
-   */
-  logout(): Observable<any> {
-    return this.dataService.getData('/endsession');
-  }
-
-  /**
-   * 切换岗位
-   * @param {string} bianMa
-   * @returns {Observable<any>}
-   */
-  changePost(bianMa: string): Observable<any> {
-    return this.dataService.getData('/user/getOrgByPost?gangWeiBianMa=' + bianMa);
   }
 
   /**

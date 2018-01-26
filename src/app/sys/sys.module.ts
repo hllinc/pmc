@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {SysComponent} from './sys.component';
 import {SysRoutesModule} from './sys.routes';
 import {OrgComponent} from './org/org.component';
@@ -9,10 +8,11 @@ import {ResourceComponent} from './resource/resource.component';
 import {ButtonModule, DataTableModule, PanelModule, TooltipModule, TreeModule} from 'primeng/primeng';
 import {OrgService} from './org/org.service';
 import {UserService} from './user/user.service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     SysRoutesModule,
     PanelModule,
     ButtonModule,
