@@ -2,12 +2,10 @@
  * Created by Hllinc on 2016-11-01 15:29.
  */
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {ServerData} from '../models/server-data.model';
-import {HttpErrorResponse} from '@angular/common/http';
-import 'rxjs/add/operator/map';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
@@ -15,10 +13,9 @@ export class DataService {
 
   serverHost: string = environment.serverHost;
 
-  headers = new Headers({'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'});
-  options = new RequestOptions({headers: this.headers});
+  options = {headers: {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}};
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   /**
@@ -34,7 +31,6 @@ export class DataService {
       uri = this.serverHost + url;
     }
     return this.http.get(uri, this.options)
-      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -46,22 +42,7 @@ export class DataService {
    */
   postData(url: string, body: any = null): Observable<ServerData> {
     return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options)
-      .map(this.extractData)
       .catch(this.handleError);
-  }
-
-  /**
-   * 提取数据
-   * @param res Response
-   * @returns {any|{}}
-   */
-  private extractData(res: Response) {
-    try {
-      const body = res.json();
-      return body || {};
-    } catch (error) {
-      console.error('JSON格式错误！');
-    }
   }
 
   /**

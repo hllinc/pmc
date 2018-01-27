@@ -20,9 +20,9 @@ const appRoutes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'workspace',
+    path: 'frame',
     canActivate: [AuthGuard],
-    loadChildren: './global-layout/workspace/workspace.module#WorkspaceModule'
+    loadChildren: './frame/frame.module#FrameModule'
   },
   {
     path: '**', // 注：这个404路由一定要写在最后，否则会影响其他路由的匹配

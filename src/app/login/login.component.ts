@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../sys/models/user';
 import {LoginService} from './login.service';
-import {Message} from 'primeng/primeng';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user).subscribe(data => {
       if (data.code === 'ok') {
         this.message = null;
-        this.router.navigateByUrl('workspace');
+        this.router.navigateByUrl('frame');
       } else {
         this.message = data.info;
       }

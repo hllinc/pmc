@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {User} from '../sys/models/user';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class LoginService {
 
-  headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'});
-  options = new RequestOptions({headers: this.headers});
+  options = {headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'}};
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   /**
@@ -24,8 +23,7 @@ export class LoginService {
     const params = new URLSearchParams();
     params.set('username', user.username);
     params.set('password', user.password);
-    return this.http.post(environment.serverHost + '/login', params.toString(), this.options).map(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(environment.serverHost + '/login', params.toString(), this.options).catch(this.handleError);
   }
 
   /**
@@ -33,21 +31,7 @@ export class LoginService {
    * @returns {Observable<any>}
    */
   logout(): Observable<any> {
-    return this.http.get(environment.serverHost + '/logout').map(this.extractData).catch(this.handleError);
-  }
-
-  /**
-   * 提取数据
-   * @param res Response
-   * @returns {any|{}}
-   */
-  private extractData(res: Response) {
-    try {
-      const body = res.json();
-      return body || {};
-    } catch (error) {
-      console.error('JSON格式错误！');
-    }
+    return this.http.get(environment.serverHost + '/logout').catch(this.handleError);
   }
 
   /**
@@ -57,7 +41,7 @@ export class LoginService {
    */
   private handleError(error: Response) {
     const errMsg = error.json();
-    return Observable.throw(errMsg.status + ':' + errMsg.message);
+    return Observable.throw(errMsg['status'] + ':' + errMsg['message']);
   }
 
 }
