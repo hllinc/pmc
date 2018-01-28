@@ -27,14 +27,6 @@ export class LoginService {
   }
 
   /**
-   * 退出登录
-   * @returns {Observable<any>}
-   */
-  logout(): Observable<any> {
-    return this.http.get(environment.serverHost + '/logout').catch(this.handleError);
-  }
-
-  /**
    * 请求错误
    * @param error 错误对象
    * @returns {ErrorObservable}

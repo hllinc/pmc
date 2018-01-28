@@ -5,6 +5,7 @@
   margin: 16px;
   color: white;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 :host ::ng-deep .ant-layout-sider-collapsed .nav-text {
@@ -30,4 +31,11 @@
 
 :host ::ng-deep .trigger:hover {
   color: #108ee9;
+}
+
+.head-message {
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  display: inline-block;
 }

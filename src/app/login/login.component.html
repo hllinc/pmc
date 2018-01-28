@@ -6,39 +6,38 @@
           <img src="./assets/logo.png" alt="" width="32px">
           PMC
         </h3>
-        <form #form="ngForm" (ngSubmit)="form.form.valid" novalidate class="form-horizontal" role="form">
-          <div class="form-group" [ngClass]="{ 'has-error': username.invalid && (username.dirty || username.touched) }">
-            <label class="col-sm-3 control-label">用户名：</label>
-            <div class="col-sm-7">
-              <input required name="username" [(ngModel)]="user.username" #username="ngModel" type="text" class="form-control" placeholder="请输入用户名...">
-              <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">用户名必须输入！</div>
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" class="form-horizontal" role="form">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+              <label for="username" nz-form-item-required>用户名</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+              <nz-input [nzSize]="'large'" formControlName="username" [(ngModel)]="user.username" [nzId]="'username'"></nz-input>
+              <div nz-form-explain *ngIf="getFormControl('username').dirty&&getFormControl('username').hasError('required')">请输入用户名！</div>
             </div>
           </div>
-          <div class="form-group" [ngClass]="{ 'has-error': password.invalid && (password.dirty || password.touched) }">
-            <label class="col-sm-3 control-label">密码：</label>
-            <div class="col-sm-7">
-              <input required minlength="8" [(ngModel)]="user.password" name="password" #password="ngModel" type="password" class="form-control"
-                     placeholder="请输入密码...">
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">密码必须输入,至少要8位！</div>
+          <div nz-form-item nz-row style="margin-bottom:8px;">
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+              <label for="password" nz-form-item-required>密码</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+              <nz-input [nzSize]="'large'" formControlName="password" [(ngModel)]="user.password" [nzType]="'password'" [nzId]="'password'"></nz-input>
+              <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！</div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-              <div class="checkbox">
-                <label>
-                  <input name="remeberMe" type="checkbox" [(ngModel)]="user.remeberMe" #remeberMe="ngModel">记住我
-                </label>
-              </div>
-              <div *ngIf="message" class="text-danger">{{message}}</div>
+          <div nz-form-item nz-row style="margin-bottom:8px;">
+            <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
+              <label nz-checkbox>
+                <span>记住我</span>
+              </label>
+            </div>
+          </div>
+          <div nz-form-item nz-row style="margin-bottom:8px;">
+            <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
+              <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="loginEvent()" [disabled]="!validateForm.valid">登录</button>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-              <button type="submit" class="btn btn-success" (click)="loginEvent()" [disabled]="form.invalid && (form.dirty || form.touched)">登录</button>
-              <button type="button" class="btn btn-danger" (click)="forgetPwd()">忘记密码？</button>
-            </div>
-          </div>
         </form>
       </div>
     </div>
