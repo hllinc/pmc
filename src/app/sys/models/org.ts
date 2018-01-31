@@ -7,4 +7,5 @@ export class Org {
   public no: string;
   public orderNum: number;
   public info: string;
+  public enable: boolean;
 }

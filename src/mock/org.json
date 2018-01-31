@@ -1,64 +1,58 @@
 [
   {
-    "label": "研发部",
-    "data": "001",
-    "expandedIcon": "fa-folder-open",
-    "collapsedIcon": "fa-folder",
+    "name": "研发部",
+    "id": "001",
+    "info": "fa-folder-open",
     "children": [
       {
-        "label": "移动事业部",
-        "data": "1-1",
-        "expandedIcon": "fa-folder-open",
-        "collapsedIcon": "fa-folder",
+        "name": "移动事业部",
+        "id": "1-1",
+        "info": "fa-folder-open",
         "children": [
           {
-            "label": "江苏",
+            "name": "江苏",
             "icon": "fa-file-word-o",
-            "data": "1-1-1"
+            "id": "1-1-1"
           },
           {
-            "label": "浙江",
+            "name": "浙江",
             "icon": "fa-file-word-o",
-            "data": "1-1-2"
+            "id": "1-1-2"
           }
         ]
       },
       {
-        "label": "联通事业部",
-        "data": "1-2",
-        "expandedIcon": "fa-folder-open",
-        "collapsedIcon": "fa-folder",
+        "name": "联通事业部",
+        "id": "1-2",
+        "info": "fa-folder-open",
         "children": [
           {
-            "label": "江苏",
+            "name": "江苏",
             "icon": "fa-file-word-o",
-            "data": "1-2-1"
+            "id": "1-2-1"
           },
           {
-            "label": "浙江",
+            "name": "浙江",
             "icon": "fa-file-word-o",
-            "data": "1-2-2"
+            "id": "1-2-2"
           }
         ]
       }
     ]
   },
   {
-    "label": "市场部",
-    "data": "002",
-    "expandedIcon": "fa-folder-open",
-    "collapsedIcon": "fa-folder"
+    "name": "市场部",
+    "id": "002",
+    "info": "fa-folder-open"
   },
   {
-    "label": "行政部",
-    "data": "003",
-    "expandedIcon": "fa-folder-open",
-    "collapsedIcon": "fa-folder"
+    "name": "行政部",
+    "id": "003",
+    "info": "fa-folder-open"
   },
   {
-    "label": "财务部",
-    "data": "004",
-    "expandedIcon": "fa-folder-open",
-    "collapsedIcon": "fa-folder"
+    "name": "财务部",
+    "id": "004",
+    "info": "fa-folder-open"
   }
 ]
