@@ -6,6 +6,10 @@
   color: white;
   font-weight: bold;
   white-space: nowrap;
+  line-height: 32px;
+}
+.logoText{
+  padding: 0 6px;
 }
 
 :host ::ng-deep .ant-layout-sider-collapsed .nav-text {

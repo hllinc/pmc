@@ -1,8 +1,8 @@
 <nz-layout>
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
     <div class="logo">
-      <img src="./assets/logo.png" alt="" width="32px">
-      <span *ngIf="!isCollapsed">项目管理协同办公系统</span>
+      <img src="./assets/logo.png" alt="" align="left" width="32px">
+      <span *ngIf="!isCollapsed" class="logoText">项目管理协同办公系统</span>
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
       <li nz-submenu>
@@ -27,7 +27,7 @@
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
       <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
-      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 62px;float: right;">
+      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;float: right;">
         <li nz-menu-item>
           <nz-badge [nzCount]="5">
             <ng-template #content>
@@ -38,7 +38,7 @@
           </nz-badge>
         </li>
         <li nz-submenu>
-          <span title><img src="./assets/avatar/hllinc.png" alt="" width="32px"><span class="nav-text"> 管理员</span></span>
+          <span title><img src="./assets/avatar/hllinc.png" alt="" style="vertical-align: middle;" width="32px"><span class="nav-text"> 管理员</span></span>
           <ul>
             <li nz-menu-item>
               <i class="anticon anticon-user"></i>

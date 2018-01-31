@@ -1,45 +1,51 @@
-<div class="container login-screen">
-  <div class="row loginPlat">
-    <div class="col-sm-6 col-sm-offset-3">
-      <div class="login-form-container">
-        <h3 class="center-block sys-title">
-          <img src="./assets/logo.png" alt="" width="32px">
-          PMC
-        </h3>
-        <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" class="form-horizontal" role="form">
-          <div nz-form-item nz-row>
-            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-              <label for="username" nz-form-item-required>用户名</label>
-            </div>
-            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-              <nz-input [nzSize]="'large'" formControlName="username" [(ngModel)]="user.username" [nzId]="'username'"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('username').dirty&&getFormControl('username').hasError('required')">请输入用户名！</div>
+<div nz-row class="login-screen" [nzType]="'flex'" [nzJustify]="'space-around'" [nzAlign]="'middle'">
+  <div nz-col [nzXs]="20" [nzSm]="18" [nzMd]="16" [nzLg]="12" [nzXl]="10">
+    <div class="login-form-container">
+      <h3 class="sys-title">
+        <img src="./assets/logo.png" alt="" width="32px">
+        PMC
+      </h3>
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" class="form-horizontal" role="form">
+        <div nz-form-item nz-row>
+          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            <label for="username" nz-form-item-required>用户名</label>
+          </div>
+          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+            <nz-input [nzSize]="'large'" formControlName="username" [(ngModel)]="user.username"
+                      [nzId]="'username'"></nz-input>
+            <div nz-form-explain
+                 *ngIf="getFormControl('username').dirty&&getFormControl('username').hasError('required')">请输入用户名！
             </div>
           </div>
-          <div nz-form-item nz-row style="margin-bottom:8px;">
-            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-              <label for="password" nz-form-item-required>密码</label>
-            </div>
-            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-              <nz-input [nzSize]="'large'" formControlName="password" [(ngModel)]="user.password" [nzType]="'password'" [nzId]="'password'"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！</div>
+        </div>
+        <div nz-form-item nz-row style="margin-bottom:8px;">
+          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            <label for="password" nz-form-item-required>密码</label>
+          </div>
+          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+            <nz-input [nzSize]="'large'" formControlName="password" [(ngModel)]="user.password" [nzType]="'password'"
+                      [nzId]="'password'"></nz-input>
+            <div nz-form-explain
+                 *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！
             </div>
           </div>
-          <div nz-form-item nz-row style="margin-bottom:8px;">
-            <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
-              <label nz-checkbox>
-                <span>记住我</span>
-              </label>
-            </div>
+        </div>
+        <div nz-form-item nz-row style="margin-bottom:8px;">
+          <div nz-form-control nz-col [nzSm]="{span:14, offset:6}" [nzXs]="24">
+            <label nz-checkbox>
+              <span>记住我</span>
+            </label>
           </div>
-          <div nz-form-item nz-row style="margin-bottom:8px;">
-            <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
-              <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="loginEvent()" [disabled]="!validateForm.valid">登录</button>
-            </div>
+        </div>
+        <div nz-form-item nz-row style="margin-bottom:8px;">
+          <div nz-form-control nz-col [nzSm]="{span:14, offset:6}" [nzXs]="24">
+            <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="loginEvent()"
+                    [disabled]="!validateForm.valid">登录
+            </button>
           </div>
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 </div>

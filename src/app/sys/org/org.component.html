@@ -1,1 +1,11 @@
-<h1>org</h1>
+<tree-root [nodes]="nodes" [options]="options">
+  <template #loadingTemplate>Loading, please hold....</template>
+</tree-root>
+<nz-card style="width:34%;" nzLoading>
+  <ng-template #title>
+    Card title
+  </ng-template>
+  <ng-template #body>
+    Whatever content
+  </ng-template>
+</nz-card>

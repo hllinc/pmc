@@ -1,9 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-//这是PrimeNG自己的皮肤样式
 //这是应用的整体布局样式，放在最底部引入，用来覆盖以上样式里面不好看的部分选择器
-@import "/assets/css/nicefish/layout-default.scss";
+@import '~angular-tree-component/dist/angular-tree-component.css';
 
-// 工具条右侧操作区域
-.rightOperatePlat {
-  float: right;
-}
