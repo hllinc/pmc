@@ -5,18 +5,21 @@
         组织架构
       </ng-template>
       <ng-template #extra>
-        <button nz-button [nzType]="'primary'" [disabled]="!selectedOrg">
+        <button nz-button [nzType]="'primary'" [disabled]="!selectedNode" (click)="addOrgTemp()">
           <i class="anticon anticon-plus-circle-o"></i>
         </button>
-        <button nz-button [nzType]="'danger'" [disabled]="!selectedOrg">
+        <button nz-button [nzType]="'danger'" [disabled]="!selectedNode" (click)="deleteOrg()">
           <i class="anticon anticon-minus-circle-o"></i>
         </button>
       </ng-template>
       <ng-template #body>
-        <tree-root
+        <tree-root #tree
           [nodes]="nodes"
           (activate)="treeActivate($event)"
-          [options]="options">
+          [options]="options"
+          [focused]="true"
+          (event)="onEvent($event)"
+          (initialized)="onInitialized(tree)">
           <template #loadingTemplate>Loading, please hold....</template>
         </tree-root>
       </ng-template>
@@ -40,11 +43,19 @@
           </div>
           <div nz-form-item nz-row>
             <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-              <label for="info" nz-form-item-required>备注</label>
+              <label for="no" nz-form-item-required>编号</label>
             </div>
             <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+              <nz-input [nzSize]="'large'" formControlName="no" [nzId]="'name'" [ngModel]="selectedOrg.no" [nzPlaceHolder]="'请输入编号'"></nz-input>
+              <div nz-form-explain *ngIf="getFormControl('no').dirty&&getFormControl('no').hasError('required')">编号不能为空！</div>
+            </div>
+          </div>
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+              <label for="info">备注</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
               <nz-input [nzSize]="'large'" formControlName="info" [nzRows]="2" [nzType]="'textarea'" [nzPlaceHolder]="'写点备注说明一下'" [nzId]="'info'" [ngModel]="selectedOrg.info"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('info').dirty&&getFormControl('info').hasError('required')">名称不能为空！</div>
             </div>
           </div>
           <div nz-form-item nz-row>

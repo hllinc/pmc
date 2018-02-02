@@ -25,7 +25,6 @@ export class FrameComponent implements OnInit {
         window.location.href = environment.serverHost + '/logout';
       }
     });
-
   }
 
 }
