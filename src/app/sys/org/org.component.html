@@ -8,7 +8,7 @@
         <button nz-button [nzType]="'primary'" [disabled]="!selectedNode" (click)="addOrgTemp()">
           <i class="anticon anticon-plus-circle-o"></i>
         </button>
-        <button nz-button [nzType]="'danger'" [disabled]="!selectedNode" (click)="deleteOrg()">
+        <button nz-button [nzType]="'danger'" [disabled]="!selectedNode||selectedOrg.pid==0" (click)="deleteOrg()">
           <i class="anticon anticon-minus-circle-o"></i>
         </button>
       </ng-template>
@@ -20,7 +20,7 @@
           [focused]="true"
           (event)="onEvent($event)"
           (initialized)="onInitialized(tree)">
-          <template #loadingTemplate>Loading, please hold....</template>
+          <ng-template #loadingTemplate>Loading, please hold....</ng-template>
         </tree-root>
       </ng-template>
     </nz-card>

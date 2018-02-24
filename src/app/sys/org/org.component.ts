@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Org} from '../models/org';
 import {OrgService} from './org.service';
 import {NzModalService} from 'ng-zorro-antd';
+import {Util} from '../../utils/util';
 
 const actionMapping: IActionMapping = {
   mouse: {
@@ -158,6 +159,9 @@ export class OrgComponent implements OnInit {
       onOk: () => {
         this.orgService.deleteById(this.selectedOrg.id).subscribe(data => {
           if (data.code === 'ok') {
+            const nodeToDelete = this.tree.treeModel.getNodeById(this.selectedOrg.id);
+            Util.removeNode(nodeToDelete);
+            this.tree.treeModel.update();
           } else {
           }
         });
