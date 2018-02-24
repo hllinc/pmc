@@ -31,12 +31,14 @@ export class LoginComponent implements OnInit {
   }
 
   getFormControl(name) {
-    return this.validateForm.controls[ name ];
+    return this.validateForm.controls[name];
   }
 
   _submitForm() {
     for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
+      if (true) {
+        this.validateForm.controls[i].markAsDirty();
+      }
     }
   }
 

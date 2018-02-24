@@ -62,4 +62,13 @@ export class OrgService {
     return this.dataService.getData('/sys/org/deleteById?id=' + id);
   }
 
+  /**
+   * 根据编号匹配删除
+   * @param {string} no
+   * @returns {Observable<ServerData>}
+   */
+  deleteByNoLike(no: string): Observable<ServerData> {
+    return this.dataService.getData('/sys/org/deleteByNoLike?no=' + no);
+  }
+
 }

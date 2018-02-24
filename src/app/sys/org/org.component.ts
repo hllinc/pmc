@@ -60,11 +60,11 @@ export class OrgComponent implements OnInit {
     nodeHeight: 23,
     allowDrag: (node) => {
       // console.log('allowDrag?');
-      return true;
+      return false;
     },
     allowDrop: (node) => {
       // console.log('allowDrop?');
-      return true;
+      return false;
     },
     useVirtualScroll: true,
     animateExpand: true,
@@ -73,7 +73,7 @@ export class OrgComponent implements OnInit {
   }
 
   onEvent(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   onInitialized(tree) {
@@ -130,12 +130,17 @@ export class OrgComponent implements OnInit {
    * 保存org
    */
   saveOrg() {
+    this.orgService.updateOrg(this.selectedOrg).subscribe(data => {
+      this.modalService.success({
+        title: '系统提示',
+        content: data.info
+      });
+    });
   }
 
   addOrgTemp() {
     const org = {
       pid: this.selectedOrg.id,
-      no: '0001',
       name: '新建节点'
     };
     this.orgService.addOrg(org).subscribe(data => {
@@ -155,9 +160,9 @@ export class OrgComponent implements OnInit {
   deleteOrg() {
     this.modalService.confirm({
       title: '系统提示',
-      content: '确定删除该组织吗？',
+      content: '确定删除该组织吗？确定后其子组织也将一并删除。',
       onOk: () => {
-        this.orgService.deleteById(this.selectedOrg.id).subscribe(data => {
+        this.orgService.deleteByNoLike(this.selectedOrg.no).subscribe(data => {
           if (data.code === 'ok') {
             const nodeToDelete = this.tree.treeModel.getNodeById(this.selectedOrg.id);
             Util.removeNode(nodeToDelete);
