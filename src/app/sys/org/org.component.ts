@@ -11,18 +11,18 @@ import {Util} from '../../utils/util';
 
 const actionMapping: IActionMapping = {
   mouse: {
-    contextMenu: (tree, node, $event) => {
-      $event.preventDefault();
-      alert(`context menu for ${node.data.name}`);
-    },
-    dblClick: (tree, node, $event) => {
-      if (node.hasChildren) {
-        TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-      }
-    },
-    click: (tree, node, $event) => {
-      TREE_ACTIONS.SELECT(tree, node, $event);
-    }
+    // contextMenu: (tree, node, $event) => {
+    //   $event.preventDefault();
+    //   alert(`context menu for ${node.data.name}`);
+    // },
+    // dblClick: (tree, node, $event) => {
+    //   if (node.hasChildren) {
+    //     TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+    //   }
+    // },
+    // click: (tree, node, $event) => {
+    //   TREE_ACTIONS.SELECT(tree, node, $event);
+    // }
   },
   keys: {
     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
