@@ -15,14 +15,15 @@ const actionMapping: IActionMapping = {
     //   $event.preventDefault();
     //   alert(`context menu for ${node.data.name}`);
     // },
-    // dblClick: (tree, node, $event) => {
-    //   if (node.hasChildren) {
-    //     TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-    //   }
-    // },
-    // click: (tree, node, $event) => {
-    //   TREE_ACTIONS.SELECT(tree, node, $event);
-    // }
+    dblClick: (tree, node, $event) => {
+      if (node.hasChildren) {
+        TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+      }
+    },
+    click: (tree, node, $event) => {
+      // TREE_ACTIONS.SELECT(tree, node, $event);
+      TREE_ACTIONS.ACTIVATE(tree, node, $event);
+    }
   },
   keys: {
     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
@@ -45,6 +46,11 @@ export class OrgComponent implements OnInit {
   selectedOrg: Org = new Org();
 
   constructor(private fb: FormBuilder, private orgService: OrgService, private modalService: NzModalService) {
+    this.orgService.getOrgRoot().subscribe(data => {
+      if (data.code === 'ok') {
+        this.nodes = data.result;
+      }
+    });
   }
 
   nodes: Org[];
@@ -181,10 +187,10 @@ export class OrgComponent implements OnInit {
       info: [false],
       enable: [false]
     });
-    this.orgService.getOrgRoot().subscribe(data => {
-      if (data.code === 'ok') {
-        this.nodes = data.result;
-      }
-    });
+    // this.orgService.getOrgRoot().subscribe(data => {
+    //   if (data.code === 'ok') {
+    //     this.nodes = data.result;
+    //   }
+    // });
   }
 }
