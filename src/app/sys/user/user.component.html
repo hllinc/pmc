@@ -1,0 +1,26 @@
+<nz-table #nzTable [nzDataSource]="users" [nzPageSize]="10" (nzDataChange)="_displayDataChange($event)" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
+  <thead nz-thead>
+  <tr>
+    <th nz-th nzCheckbox>
+      <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+      </label>
+    </th>
+    <th nz-th><span>登录名</span></th>
+    <th nz-th><span>年龄</span></th>
+    <th nz-th><span>Address</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td nzCheckbox>
+      <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)">
+      </label>
+    </td>
+    <td nz-td>
+      <a>{{data.username}}</a>
+    </td>
+    <td nz-td>{{data.age}}</td>
+    <td nz-td>{{data.address}}</td>
+  </tr>
+  </tbody>
+</nz-table>
