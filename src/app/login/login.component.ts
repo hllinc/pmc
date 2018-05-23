@@ -48,9 +48,9 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('frame');
       } else {
         this.modalService.warning({
-          title: '系统提示',
-          content: data.info,
-          okText: '确定'
+          nzTitle: '系统提示',
+          nzContent: data.info,
+          nzOkText: '确定'
         });
       }
     });

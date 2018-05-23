@@ -21,5 +21,5 @@ if (environment.hmr) {
     console.log('你确定在ng serve中设置了--hmr属性？');
   }
 } else {
-  bootstrap();
+  bootstrap().catch(err => console.log(err));
 }

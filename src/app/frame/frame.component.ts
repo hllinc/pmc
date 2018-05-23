@@ -19,9 +19,9 @@ export class FrameComponent implements OnInit {
 
   logoutEvent() {
     this.modalService.confirm({
-      title: '系统提示',
-      content: '确定退出系统吗？',
-      onOk: () => {
+      nzTitle: '系统提示',
+      nzContent: '确定退出系统吗？',
+      nzOnOk: () => {
         window.location.href = environment.serverHost + '/logout';
       }
     });

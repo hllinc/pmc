@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {User} from '../sys/models/user';
 import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class LoginService {
@@ -23,7 +24,7 @@ export class LoginService {
     const params = new URLSearchParams();
     params.set('username', user.username);
     params.set('password', user.password);
-    return this.http.post(environment.serverHost + '/login', params.toString(), this.options).catch(this.handleError);
+    return this.http.post(environment.serverHost + '/login', params.toString(), this.options).pipe(catchError(this.handleError));
   }
 
   /**

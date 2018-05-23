@@ -2,11 +2,12 @@
  * Created by Hllinc on 2016-11-01 15:29.
  */
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {ServerData} from '../models/server-data.model';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import 'rxjs/add/operator/catch';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class DataService {
@@ -21,9 +22,9 @@ export class DataService {
   /**
    * get请求
    * @param url 请求路径
-   * @returns {Observable<ServerData>}
+   * @returns {Observable<any>}
    */
-  getData(url: string, isMock?: boolean): Observable<ServerData> {
+  getData(url: string, isMock?: boolean): Observable<any> {
     let uri = '';
     if (isMock) {
       uri = url;
@@ -31,18 +32,18 @@ export class DataService {
       uri = this.serverHost + url;
     }
     return this.http.get(uri, this.options)
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   /**
    * post请求
    * @param url 请求路径
    * @param obj 请求body
-   * @returns {Observable<ServerData>}
+   * @returns {Observable<any>}
    */
-  postData(url: string, body: any = null): Observable<ServerData> {
+  postData(url: string, body: any = null): Observable<any> {
     return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options)
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   /**

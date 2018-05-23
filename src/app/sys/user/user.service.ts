@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {DataService} from '../../services/data.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Page} from '../../models/page';
 
 @Injectable()

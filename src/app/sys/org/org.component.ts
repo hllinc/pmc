@@ -76,7 +76,7 @@ export class OrgComponent implements OnInit {
     animateExpand: true,
     animateSpeed: 3,
     animateAcceleration: 1.2
-  }
+  };
 
   onEvent(event) {
     // console.log(event);
@@ -138,8 +138,8 @@ export class OrgComponent implements OnInit {
   saveOrg() {
     this.orgService.updateOrg(this.selectedOrg).subscribe(data => {
       this.modalService.success({
-        title: '系统提示',
-        content: data.info
+        nzTitle: '系统提示',
+        nzContent: data.info
       });
     });
   }
@@ -165,9 +165,9 @@ export class OrgComponent implements OnInit {
    */
   deleteOrg() {
     this.modalService.confirm({
-      title: '系统提示',
-      content: '确定删除该组织吗？确定后其子组织也将一并删除。',
-      onOk: () => {
+      nzTitle: '系统提示',
+      nzContent: '确定删除该组织吗？确定后其子组织也将一并删除。',
+      nzOnOk: () => {
         this.orgService.deleteByNoLike(this.selectedOrg.no).subscribe(data => {
           if (data.code === 'ok') {
             const nodeToDelete = this.tree.treeModel.getNodeById(this.selectedOrg.id);
