@@ -83,8 +83,8 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Date、currency、decimal 和 percent 管道
  * 除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
  */
-import 'intl';  // Run `npm install --save intl`.
+// import 'intl';  // Run `npm install --save intl`.
 /**
  * 从intl至少导入一个本地环境数据
  */
-import 'intl/locale-data/jsonp/zh';
+// import 'intl/locale-data/jsonp/zh';

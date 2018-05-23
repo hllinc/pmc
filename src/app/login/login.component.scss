@@ -1,26 +1,19 @@
 .login-screen {
-  background-color: #282828;
   height: 100%;
   width: 100%;
-}
-
-.sys-title {
-  text-align: center;
-  margin-bottom: 50px;
-  font-size: 32px;
-  line-height: 32px;
-  color: white;
-  img {
-    border: 1px solid #555;
+  padding-top: 10%;
+  background-color: #f0f2f5;
+  .sys-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 32px;
+    line-height: 32px;
+    img {
+      border: 1px solid #555;
+    }
   }
-}
 
-.login-form-container {
-  padding: 30px;
-  background: #333;
-  color: #fff;
-}
-
-.ant-form-item-label label, label {
-  color: white;
+  .login-form-container {
+    padding: 30px;
+  }
 }
