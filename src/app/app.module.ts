@@ -13,7 +13,12 @@ import {LoginService} from './login/login.service';
 import {HttpClientModule} from '@angular/common/http';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppRoutesModule} from './app.routes';
+import {DelonMockModule} from '@delon/mock';
+import {environment} from '../environments/environment';
 
+import * as MOCKDATA from '../../_mock';
+
+const MOCKMODULE = !environment.production ? [ DelonMockModule.forRoot({ data: MOCKDATA }) ] : [];
 
 @NgModule({
   declarations: [

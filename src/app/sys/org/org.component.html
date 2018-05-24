@@ -37,8 +37,8 @@
               <label for="name" nz-form-item-required>名称</label>
             </div>
             <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-              <nz-input [nzSize]="'large'" formControlName="name" [nzId]="'name'" [(ngModel)]="selectedOrg.name" [nzPlaceHolder]="'请输入组织名称'"></nz-input>
-              <div nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">名称不能为空！</div>
+              <input nz-input [nzSize]="'large'" formControlName="name" id="name" [(ngModel)]="selectedOrg.name" placeholder="请输入组织名称"/>
+              <nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">名称不能为空！</nz-form-explain>
             </div>
           </div>
           <div nz-form-item nz-row>
@@ -46,7 +46,7 @@
               <label for="no">编号</label>
             </div>
             <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-              <nz-input [nzSize]="'large'" formControlName="no" [nzId]="'name'" [(ngModel)]="selectedOrg.no" [nzReadonly]="true"></nz-input>
+              <input nz-input [nzSize]="'large'" formControlName="no" id="no" [(ngModel)]="selectedOrg.no" readonly="true"/>
             </div>
           </div>
           <div nz-form-item nz-row>
@@ -54,7 +54,7 @@
               <label for="info">备注</label>
             </div>
             <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-              <nz-input [nzSize]="'large'" formControlName="info" [nzRows]="2" [nzType]="'textarea'" [nzPlaceHolder]="'写点备注说明一下'" [nzId]="'info'" [(ngModel)]="selectedOrg.info"></nz-input>
+              <input nz-input [nzSize]="'large'" formControlName="info" type="textarea" placeholder="写点备注说明一下" id="info" [(ngModel)]="selectedOrg.info"/>
             </div>
           </div>
           <div nz-form-item nz-row>
