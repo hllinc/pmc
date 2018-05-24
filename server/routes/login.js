@@ -8,31 +8,29 @@ const {resultData} = require('../common/utils');
 /**
  * 登录
  */
-router.post('/saaslogin', function (req, res) {
+router.post('/login', function (req, res) {
   res.type('json');
   let params = req.body,
     ret = {};
-  if (params.account === 'linc' && params.password === '123456') {
+  if (params.username === 'linc' && params.password === '123456') {
     Object.assign(ret, resultData, {
-      success: true,
-      message: '登录成功',
-      data: null
+      code: 'ok',
+      info: '登录成功'
     });
   } else {
     Object.assign(ret, resultData, {
-      success: false,
-      message: '用户名或密码不正确',
-      data: null
+      code: 'error',
+      info: '用户名或密码不正确'
     });
   }
-  
+
   res.send(ret);
 });
 
 /**
  * 获取验证码
  */
-router.post('/captcha/img', function(req, res) {
+router.post('/getImageValidatorCode', function(req, res) {
   res.type('json');
   let params = req.body,
     ret = {};

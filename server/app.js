@@ -1,5 +1,4 @@
 'use strict';
-
 const express = require('express');
 const _ = require('lodash');
 const fs = require('fs');
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-//设置跨域访问
+// 设置跨域访问
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -26,10 +25,14 @@ app.all('*', function(req, res, next) {
   else next();
 });
 
+// 登录
+const login = require('./routes/login');
+app.use('/', login);
+
+// 用户资源
 const user = require('./routes/sys/user');
 app.use('/sys/user', user);
 
-//{pages}//
 
 const { resultData } = require('./common/utils');
 
@@ -42,8 +45,8 @@ app.get('/index', function(req, res) {
   let ret = {};
 
   Object.assign(ret, resultData, {
-    data: null,
-    message: 'This url has no data!'
+    result: null,
+    info: 'This url has no data!'
   });
   res.send(ret);
 });

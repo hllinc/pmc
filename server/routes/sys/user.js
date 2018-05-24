@@ -16,13 +16,13 @@ router.get('/getCurrentUser', function (req, res) {
   let params = req.body,
     ret = {};
   Object.assign(ret, resultData, {
-    success: true,
+    code: "ok",
     data: {
       id: '1',
       username: 'Hllinc',
       email: 'hllinc@163.com'
     },
-    message: '获取数据成功！'
+    info: '获取数据成功！'
   });
 
   res.send(ret);
