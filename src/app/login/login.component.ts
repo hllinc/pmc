@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
 
   loginEvent() {
     this.loginService.login(this.user).subscribe(data => {
-      console.log(data);
       if (data.code === 'ok') {
         this.router.navigateByUrl('frame');
       } else {

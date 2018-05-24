@@ -6,6 +6,7 @@ import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanAct
 import {Observable, Subscriber} from 'rxjs';
 import {AuthService} from './auth.service';
 import {User} from '../sys/models/user';
+import {ServerData} from '../models/server-data.model';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
@@ -26,7 +27,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   checkLogin(url: string): Observable<boolean> | boolean {
     return new Observable<boolean>((subscriber: Subscriber<any>) => {
       // 如果浏览器支持localStorage
-      this.authService.initCurrentUser().subscribe((user: User) => {
+      this.authService.initCurrentUser().subscribe((serverData: ServerData) => {
+        const user = serverData.result;
         if (user) {
           this.authService.initParams(this.authService.redirectUrl || url, user).subscribe((data: boolean) => {
             if (data) {

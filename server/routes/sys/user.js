@@ -17,7 +17,7 @@ router.get('/getCurrentUser', function (req, res) {
     ret = {};
   Object.assign(ret, resultData, {
     code: "ok",
-    data: {
+    result: {
       id: '1',
       username: 'Hllinc',
       email: 'hllinc@163.com'

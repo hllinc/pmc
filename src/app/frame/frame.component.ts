@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {NzModalService} from 'ng-zorro-antd';
+import {User} from '../sys/models/user';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-frame',
@@ -10,11 +12,13 @@ import {NzModalService} from 'ng-zorro-antd';
 export class FrameComponent implements OnInit {
 
   isCollapsed = false;
+  user: User;
 
-  constructor(private modalService: NzModalService) {
+  constructor(private authService: AuthService, private modalService: NzModalService) {
   }
 
   ngOnInit() {
+    this.user = this.authService.getUser();
   }
 
   logoutEvent() {
