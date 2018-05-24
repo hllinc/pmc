@@ -7,6 +7,7 @@ import {Observable, Subscriber} from 'rxjs';
 import {DataService} from './data.service';
 import {User} from '../sys/models/user';
 import {Router} from '@angular/router';
+import {ServerData} from '../models/server-data.model';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,14 @@ export class AuthService {
    * 获取当前用户
    */
   initCurrentUser(): Observable<any> {
-    return this.dataService.getData('/sys/user/getCurrentUser');
+    if (this.user) {
+      return new Observable<any>((subscriber: Subscriber<any>) => {
+        subscriber.next(new ServerData('从缓存中获取用户信息成功！', 'ok', this.user));
+        subscriber.complete();
+      });
+    } else {
+      return this.dataService.getData('/sys/user/getCurrentUser');
+    }
   }
 
   /**
