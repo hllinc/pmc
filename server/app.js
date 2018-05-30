@@ -33,6 +33,10 @@ app.use('/', login);
 const user = require('./routes/sys/user');
 app.use('/sys/user', user);
 
+// 组织机构
+const org = require('./routes/sys/org');
+app.use('/sys/org', org);
+
 
 const { resultData } = require('./common/utils');
 
