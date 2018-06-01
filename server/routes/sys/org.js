@@ -17,11 +17,11 @@ router.get('/getOrgRoot', function (req, res) {
     ret = {};
   Object.assign(ret, resultData, {
     code: "ok",
-    result: {
-      id: '1',
-      name: '组织机构',
-      expanded: 'hllinc@163.com'
-    },
+    result: [{
+      title: '组织机构',
+      key: '001',
+      children: []
+    }],
     info: '获取数据成功！'
   });
 

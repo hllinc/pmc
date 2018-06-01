@@ -1,34 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS, TreeComponent, TreeModel,
-  TreeNode
-} from 'angular-tree-component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Org} from '../models/org';
 import {OrgService} from './org.service';
-import {NzModalService} from 'ng-zorro-antd';
-import {Util} from '../../utils/util';
-
-const actionMapping: IActionMapping = {
-  mouse: {
-    // contextMenu: (tree, node, $event) => {
-    //   $event.preventDefault();
-    //   alert(`context menu for ${node.data.name}`);
-    // },
-    dblClick: (tree, node, $event) => {
-      if (node.hasChildren) {
-        TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-      }
-    },
-    click: (tree, node, $event) => {
-      // TREE_ACTIONS.SELECT(tree, node, $event);
-      TREE_ACTIONS.ACTIVATE(tree, node, $event);
-    }
-  },
-  keys: {
-    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-  }
-};
+import {NzFormatEmitEvent, NzModalService, NzTreeNode} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-org',
@@ -39,61 +13,37 @@ export class OrgComponent implements OnInit {
 
   // 表单对象
   validateForm: FormGroup;
-  tree: TreeComponent;
-  // 当前选中节点对象
-  selectedNode: TreeNode;
   // 选中的组织
   selectedOrg: Org = new Org();
 
   constructor(private fb: FormBuilder, private orgService: OrgService, private modalService: NzModalService) {
     this.orgService.getOrgRoot().subscribe(data => {
       if (data.code === 'ok') {
-        this.nodes = data.result;
+        // this.nodes = [new NzTreeNode(data.result[0])];
       }
     });
   }
 
-  nodes: Org[];
-  options: ITreeOptions = {
-    // displayField: 'subTitle',
-    displayField: 'name',
-    isExpandedField: 'expanded',
-    idField: 'id',
-    getChildren: (node: TreeNode) => {
-      return this.orgService.getOrgsByParentId(node.data.id).toPromise();
-    },
-    actionMapping,
-    nodeHeight: 23,
-    allowDrag: (node) => {
-      // console.log('allowDrag?');
-      return false;
-    },
-    allowDrop: (node) => {
-      // console.log('allowDrop?');
-      return false;
-    },
-    useVirtualScroll: true,
-    animateExpand: true,
-    animateSpeed: 3,
-    animateAcceleration: 1.2
-  };
-
-  onEvent(event) {
-    // console.log(event);
-  }
-
-  onInitialized(tree) {
-    this.tree = tree;
-    // tree.treeModel.getNodeById('11').setActiveAndVisible();
-  }
+  nodes = [
+    new NzTreeNode({
+      title   : 'root1',
+      key     : '1001',
+      children: []
+    }),
+    new NzTreeNode({
+      title   : 'root2',
+      key     : '1002',
+      children: []
+    }),
+    new NzTreeNode({
+      title: 'root3',
+      key  : '1003'
+    })
+  ];
 
   go($event) {
     $event.stopPropagation();
     alert('this method is on the app component');
-  }
-
-  activeNodes(treeModel) {
-    console.log(treeModel.activeNodes);
   }
 
   _submitForm() {
@@ -103,35 +53,27 @@ export class OrgComponent implements OnInit {
       }
     }
   }
-
-  treeActivate($event) {
-    this.selectedNode = $event.node;
-    this.selectedOrg = this.selectedNode.data;
-  }
-
-  updateConfirmValidator() {
-    /** wait for refresh value */
-    setTimeout(_ => {
-      this.validateForm.controls['checkPassword'].updateValueAndValidity();
-    });
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return {required: true};
-    } else if (control.value !== this.validateForm.controls['password'].value) {
-      return {confirm: true, error: true};
+  mouseAction(name: string, e: NzFormatEmitEvent): void {
+    if (name === 'expand') {
+      setTimeout(_ => {
+        if (e.node.getChildren().length === 0 && e.node.isExpanded) {
+          e.node.addChildren([
+            {
+              title: 'childAdd-1',
+              key  : '10031-' + (new Date()).getTime()
+            },
+            {
+              title : 'childAdd-2',
+              key   : '10032-' + (new Date()).getTime(),
+              isLeaf: true
+            } ]);
+        }
+      }, 1000);
     }
   }
-
-  getCaptcha(e: MouseEvent) {
-    e.preventDefault();
-  }
-
   getFormControl(name) {
     return this.validateForm.controls[name];
   }
-
   /**
    * 保存org
    */
@@ -154,28 +96,6 @@ export class OrgComponent implements OnInit {
         if (!this.selectedOrg.children) {
           this.selectedOrg.children = [];
         }
-        this.selectedOrg.children.push(data.result);
-        this.tree.treeModel.update();
-      }
-    });
-  }
-
-  /**
-   * 删除组织
-   */
-  deleteOrg() {
-    this.modalService.confirm({
-      nzTitle: '系统提示',
-      nzContent: '确定删除该组织吗？确定后其子组织也将一并删除。',
-      nzOnOk: () => {
-        this.orgService.deleteByNoLike(this.selectedOrg.no).subscribe(data => {
-          if (data.code === 'ok') {
-            const nodeToDelete = this.tree.treeModel.getNodeById(this.selectedOrg.id);
-            Util.removeNode(nodeToDelete);
-            this.tree.treeModel.update();
-          } else {
-          }
-        });
       }
     });
   }
@@ -187,10 +107,5 @@ export class OrgComponent implements OnInit {
       info: [false],
       enable: [false]
     });
-    // this.orgService.getOrgRoot().subscribe(data => {
-    //   if (data.code === 'ok') {
-    //     this.nodes = data.result;
-    //   }
-    // });
   }
 }
