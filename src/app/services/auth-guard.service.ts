@@ -26,7 +26,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   checkLogin(url: string): Observable<boolean> | boolean {
     return new Observable<boolean>((subscriber: Subscriber<any>) => {
-      // 如果浏览器支持localStorage
       this.authService.initCurrentUser().subscribe((serverData: ServerData) => {
         const user = serverData.result;
         if (user) {

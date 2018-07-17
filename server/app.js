@@ -29,13 +29,17 @@ app.all('*', function(req, res, next) {
 const login = require('./routes/login');
 app.use('/', login);
 
-// 用户资源
+// 用户
 const user = require('./routes/sys/user');
 app.use('/sys/user', user);
 
 // 组织机构
 const org = require('./routes/sys/org');
 app.use('/sys/org', org);
+
+// 资源
+const resource = require('./routes/sys/resource');
+app.use('/sys/resource', resource);
 
 
 const { resultData } = require('./common/utils');

@@ -5,6 +5,7 @@ import {FrameComponent} from './frame.component';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {AuthGuard} from '../services/auth-guard.service';
+import {HomeComponent} from '../home/home.component';
 
 export const frameRoutes = [
   {
@@ -13,8 +14,12 @@ export const frameRoutes = [
     children: [
       {
         path: '',
-        redirectTo: 'sys',
+        redirectTo: 'home',
         pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        component: HomeComponent
       },
       {
         path: 'sys',

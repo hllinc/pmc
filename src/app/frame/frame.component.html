@@ -1,75 +1,88 @@
 <nz-layout>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
+  <nz-header style="padding: 0 25px;">
     <div class="logo">
-      <img src="./assets/logo.png" alt="" width="32px">
-      <span *ngIf="!isCollapsed" class="logoText">PMC</span>
+      <img src="./assets/logo.png" align="left" alt="" width="32px">
+      &nbsp;
+      <span>PMC</span>
     </div>
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
-      <li nz-submenu>
-        <span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;" *ngIf="userResources">
+      <li *ngFor="let resource of userResources" nz-menu-item [routerLink]="resource.routerLink"
+          [routerLinkActive]="resource.routerLinkActive" (click)="setSubMenuByResourceId(resource.id)"><i [class]="resource.icon"></i> {{resource.name}}
+      </li>
+
+      <li nz-submenu style="float: right;">
+        <span title><i class="anticon anticon-setting"></i><span class="nav-text">设置</span></span>
         <ul>
-          <li nz-menu-item routerLink="./sys/org" routerLinkActive="ant-menu-item-selected">组织架构</li>
-          <li nz-menu-item routerLink="./sys/user" routerLinkActive="ant-menu-item-selected">用户</li>
-          <li nz-menu-item routerLink="./sys/role" routerLinkActive="ant-menu-item-selected">角色</li>
-          <li nz-menu-item routerLink="./sys/resource" routerLinkActive="ant-menu-item-selected">资源</li>
+          <li nz-menu-item>
+            <i class="anticon anticon-question-circle-o"></i>
+            帮助
+          </li>
         </ul>
       </li>
-      <li nz-submenu>
-        <span title><i class="anticon anticon-team"></i><span class="nav-text">Team</span></span>
+      <li nz-submenu style="float: right;">
+          <span title><img src="./assets/avatar/hllinc.png" alt="" style="vertical-align: middle;" width="32px"><span
+            class="nav-text"> {{this.user.username}}</span></span>
         <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
+          <li nz-menu-item>
+            <i class="anticon anticon-user"></i>
+            个人信息
+          </li>
+          <li nz-menu-item (click)="logoutEvent()">
+            <i class="anticon anticon-logout"></i>
+            安全退出
+          </li>
         </ul>
       </li>
-      <li nz-menu-item><span><i class="anticon anticon-file"></i><span class="nav-text">File</span></span></li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header style="background: #fff; padding:0;">
-      <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
-      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;float: right;">
-        <li nz-menu-item>
-          <nz-badge [nzCount]="5">
-            <ng-template #content>
+      <li nz-menu-item style="float: right;">
+        <nz-badge [nzCount]="5">
+          <ng-template #content>
               <span class="head-message">
                 <i class="anticon anticon-message"></i>消息
               </span>
-            </ng-template>
-          </nz-badge>
-        </li>
-        <li nz-submenu>
-          <span title><img src="./assets/avatar/hllinc.png" alt="" style="vertical-align: middle;" width="32px"><span class="nav-text"> {{this.user.username}}</span></span>
-          <ul>
-            <li nz-menu-item>
-              <i class="anticon anticon-user"></i>
-              个人信息
-            </li>
-            <li nz-menu-item (click)="logoutEvent()">
-              <i class="anticon anticon-logout"></i>
-              安全退出
-            </li>
-          </ul>
-        </li>
-        <li nz-submenu>
-          <span title><i class="anticon anticon-setting"></i><span class="nav-text">设置</span></span>
-          <ul>
-            <li nz-menu-item>
-              <i class="anticon anticon-question-circle-o"></i>
-              帮助
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nz-header>
-    <nz-content style="margin:0 16px;">
-      <nz-breadcrumb style="margin:12px 0;">
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div style="padding:24px; background: #fff; min-height: 360px;">
-        <router-outlet></router-outlet>
+          </ng-template>
+        </nz-badge>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'" *ngIf="subMenu && subMenu.length > 0">
+      <div class="trigger-bar">
+        <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"
+           (click)="isCollapsed=!isCollapsed"></i>
       </div>
-    </nz-content>
-    <nz-footer style="text-align: center;">PMC ©2018 Implement By Hllinc</nz-footer>
+      <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu>
+          <span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
+          <ul>
+            <li nz-menu-item routerLink="./sys/org" routerLinkActive="ant-menu-item-selected">组织架构</li>
+            <li nz-menu-item routerLink="./sys/user" routerLinkActive="ant-menu-item-selected">用户</li>
+            <li nz-menu-item routerLink="./sys/role" routerLinkActive="ant-menu-item-selected">角色</li>
+            <li nz-menu-item routerLink="./sys/resource" routerLinkActive="ant-menu-item-selected">资源</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><i class="anticon anticon-team"></i><span class="nav-text">Team</span></span>
+          <ul>
+            <li nz-menu-item>Team 1</li>
+            <li nz-menu-item>Team 2</li>
+          </ul>
+        </li>
+        <li nz-menu-item><span><i class="anticon anticon-file"></i><span class="nav-text">File</span></span></li>
+      </ul>
+    </nz-sider>
+
+    <nz-layout>
+      <nz-content style="margin:0 16px;">
+        <nz-breadcrumb style="margin:16px 0;">
+          <nz-breadcrumb-item>User</nz-breadcrumb-item>
+          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div style="padding:24px; background: #fff; min-height: 660px;">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer style="text-align: center;">PMC ©2018 Implement By Hllinc</nz-footer>
+    </nz-layout>
+
   </nz-layout>
 </nz-layout>

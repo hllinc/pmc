@@ -16,7 +16,7 @@ export class AuthService {
   private user: User = null;
 
   // 当前角色所有的菜单资源
-  currResources: any[] = null;
+  private currentUserResources: any[] = null;
 
   // 登录前的路径
   redirectUrl: string = null;
@@ -39,6 +39,14 @@ export class AuthService {
   }
 
   /**
+   * 获取当前用户资源
+   * @returns {Observable<any>}
+   */
+  initCurrentUserResources(): Observable<any> {
+    return this.dataService.getData('/sys/resource/getCurrentUserResources');
+  }
+
+  /**
    * 设置用户值
    * @param {User} user
    */
@@ -55,6 +63,14 @@ export class AuthService {
   }
 
   /**
+   * 获取当前用户资源
+   * @returns {any[]}
+   */
+  getCurrentUserResources() {
+    return this.currentUserResources;
+  }
+
+  /**
    * 初始化变量
    * @param redirectUrl
    * @param user
@@ -65,12 +81,16 @@ export class AuthService {
       if (user) {
         this.redirectUrl = redirectUrl;
         this.user = user;
-        subscriber.next(true);
-        subscriber.complete();
+        this.initCurrentUserResources().subscribe(data => {
+          if (data.code === 'ok') {
+            this.currentUserResources = data.result;
+          }
+          subscriber.next(true);
+          subscriber.complete();
+        });
       } else {
         this.redirectUrl = redirectUrl;
-        this.user = user;
-        this.currResources = null;
+        this.currentUserResources = null;
         subscriber.next(true);
         subscriber.complete();
       }

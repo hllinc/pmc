@@ -1,45 +1,27 @@
-:host ::ng-deep .logo {
-  height: 32px;
-  background: #333;
-  border-radius: 6px;
-  margin: 16px;
-  color: white;
-  font-weight: bold;
-  white-space: nowrap;
-  line-height: 32px;
-}
-.logoText{
-  padding: 0 6px;
-}
-
-:host ::ng-deep .ant-layout-sider-collapsed .nav-text {
-  display: none;
-}
-
-:host ::ng-deep .ant-layout-sider-collapsed .ant-menu-submenu-title:after {
-  display: none;
-}
-
-:host ::ng-deep .ant-layout-sider-collapsed .anticon {
-  font-size: 16px;
-  margin-left: 8px;
-}
-
 :host ::ng-deep .trigger {
   font-size: 18px;
-  line-height: 64px;
-  padding: 0 16px;
+  line-height: 34px;
+  padding: 0 24px;
   cursor: pointer;
   transition: color .3s;
 }
 
 :host ::ng-deep .trigger:hover {
-  color: #108ee9;
+  color: #1890ff;
 }
 
-.head-message {
-  height: 32px;
-  line-height: 32px;
+:host ::ng-deep .logo {
+  width: 150px;
+  height: 30px;
+  background: rgba(255, 255, 255, .2);
+  margin: 16px 25px 16px 0;
+  color: white;
+  white-space: nowrap;
+  line-height: 30px;
+  float: left;
+}
+
+.trigger-bar {
   text-align: center;
-  display: inline-block;
+  color: white;
 }
