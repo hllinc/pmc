@@ -11,8 +11,12 @@ import {AuthGuard} from './services/auth-guard.service';
 import {AuthService} from './services/auth.service';
 import {LoginService} from './login/login.service';
 import {HttpClientModule} from '@angular/common/http';
-import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import {AppRoutesModule} from './app.routes';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -26,14 +30,15 @@ import {AppRoutesModule} from './app.routes';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgZorroAntdModule.forRoot(),
-    AppRoutesModule
+    AppRoutesModule,
+    NgZorroAntdModule
   ],
   providers: [
     AuthGuard,
     AuthService,
     DataService,
-    LoginService
+    LoginService,
+    { provide: NZ_I18N, useValue: zh_CN }
   ],
   bootstrap: [AppComponent]
 })

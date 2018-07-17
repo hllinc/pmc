@@ -19,10 +19,10 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getUsersByPage(this.page).subscribe(data => {
-      this.users = data.content;
-      this.tableLoading = false;
-    });
+    // this.userService.getUsersByPage(this.page).subscribe(data => {
+    //   this.users = data.content;
+    //   this.tableLoading = false;
+    // });
   }
   _displayDataChange($event) {
     this._displayData = $event;

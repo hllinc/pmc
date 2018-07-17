@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npm run server | ng serve --hmr -o",
+    "start": "npm run server | ng serve --configuration hmr -o",
     "start-with-backend": "ng serve --hmr -o --proxy-config proxy.conf.json",
     "build-prod": "ng build --prod --named-chunks --env=prod --base-href /pmc/",
     "test": "ng test",
@@ -28,9 +28,8 @@
     "ie-shim": "^0.1.0",
     "intl": "^1.2.5",
     "jquery": "^3.3.1",
-    "ng-zorro-antd": "^0.7.0",
+    "ng-zorro-antd": "^1.1.1",
     "rxjs": "^6.0.0",
-    "rxjs-compat": "^6.1.0",
     "tether": "^1.4.0",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.26"

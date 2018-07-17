@@ -4,9 +4,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {ServerData} from '../models/server-data.model';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import 'rxjs/add/operator/catch';
 import {catchError} from 'rxjs/operators';
 
 @Injectable()

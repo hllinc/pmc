@@ -26,6 +26,19 @@ router.post('/login', function (req, res) {
 
   res.send(ret);
 });
+/**
+ * 安全退出
+ */
+router.post('/logout', function (req, res) {
+  res.type('json');
+  let ret = {};
+  Object.assign(ret, resultData, {
+    code: 'ok',
+    info: '退出成功'
+  });
+
+  res.send(ret);
+});
 
 /**
  * 获取验证码
