@@ -9,10 +9,9 @@ import {
   NavigationEnd,
   NavigationError,
   NavigationStart,
-  Router, RouterStateSnapshot,
+  Router,
   RoutesRecognized
 } from '@angular/router';
-import {st} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-frame',
@@ -28,19 +27,11 @@ export class FrameComponent implements OnInit, AfterContentInit {
   constructor(private authService: AuthService, private modalService: NzModalService, private router: Router) {
     // 监听路由改变事件
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        //
-      } else if (event instanceof NavigationEnd) {
-        //
+      if (event instanceof NavigationEnd) {
+        // 导航结束事件
         if (this.userResources) {
           this.setSubMenuByResourceUrl(router.url.split('/')[2]);
         }
-      } else if (event instanceof NavigationCancel) {
-        //
-      } else if (event instanceof NavigationError) {
-        //
-      } else if (event instanceof RoutesRecognized) {
-        //
       }
     });
   }
