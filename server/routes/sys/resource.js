@@ -37,21 +37,21 @@ router.get('/getCurrentUserResources', function (req, res) {
         routerLinkActive: 'ant-menu-item-selected',
         icon: 'anticon anticon-table',
         children: []
-      },{
+      }, {
         id: 22,
         name: '用户管理',
         routerLink: './sys/user',
         routerLinkActive: 'ant-menu-item-selected',
         icon: 'anticon anticon-team',
         children: []
-      },{
+      }, {
         id: 23,
         name: '角色管理',
         routerLink: './sys/role',
         routerLinkActive: 'ant-menu-item-selected',
         icon: 'anticon anticon-user',
         children: []
-      },{
+      }, {
         id: 24,
         name: '资源管理',
         routerLink: './sys/resource',
