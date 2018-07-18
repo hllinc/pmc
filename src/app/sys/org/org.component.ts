@@ -103,7 +103,7 @@ export class OrgComponent implements OnInit {
   ngOnInit() {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
-      no: [null, [Validators.required]],
+      no: [false],
       info: [false],
       enable: [false]
     });

@@ -20,50 +20,49 @@
   <div nz-col [nzSm]="16">
     <nz-card nzTitle="详情">
       <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-            <label for="name" nz-form-item-required>名称</label>
-          </div>
-          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-            <input nz-input [nzSize]="'large'" formControlName="name" id="name" [(ngModel)]="selectedOrg.name"
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            <span>名称</span>
+          </nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="name" id="name" [(ngModel)]="selectedOrg.name"
                    placeholder="请输入组织名称"/>
             <nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">
               名称不能为空！
             </nz-form-explain>
-          </div>
-        </div>
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-            <label for="no">编号</label>
-          </div>
-          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="no" id="no" [(ngModel)]="selectedOrg.no"
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            编号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="no" id="no" [(ngModel)]="selectedOrg.no"
                    readonly="true"/>
-          </div>
-        </div>
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-            <label for="info">备注</label>
-          </div>
-          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="info" type="textarea" placeholder="写点备注说明一下" id="info"
-                   [(ngModel)]="selectedOrg.info"/>
-          </div>
-        </div>
-        <div nz-form-item nz-row>
-          <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            备注
+          </nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <textarea formControlName="info" nz-input rows="2" placeholder="写点备注说明一下" [(ngModel)]="selectedOrg.info"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+          <nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
             <label nz-checkbox formControlName="enable" [(ngModel)]="selectedOrg.enable">
               <span>启用</span>
             </label>
-          </div>
-        </div>
-        <div nz-form-item nz-row style="margin-bottom:8px;">
-          <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row style="margin-bottom:8px;">
+          <nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
             <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="saveOrg()"
                     [disabled]="!validateForm.valid">保存
             </button>
-          </div>
-        </div>
+          </nz-form-control>
+        </nz-form-item>
       </form>
     </nz-card>
   </div>
