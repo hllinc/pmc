@@ -35,7 +35,7 @@ router.get('/getCurrentUserResources', function (req, res) {
         name: '组织架构',
         routerLink: './sys/org',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'fa fa-sitemap',
+        icon: 'anticon anticon-table',
         children: []
       },{
         id: 22,
@@ -49,7 +49,7 @@ router.get('/getCurrentUserResources', function (req, res) {
         name: '角色管理',
         routerLink: './sys/role',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'fa fa-meh-rolling-eyes',
+        icon: 'anticon anticon-user',
         children: []
       },{
         id: 24,

@@ -51,23 +51,27 @@
            (click)="isCollapsed=!isCollapsed"></i>
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" [nzInlineCollapsed]="isCollapsed">
-        <li nz-submenu>
-          <span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
-          <ul>
-            <li nz-menu-item routerLink="./sys/org" routerLinkActive="ant-menu-item-selected">组织架构</li>
-            <li nz-menu-item routerLink="./sys/user" routerLinkActive="ant-menu-item-selected">用户</li>
-            <li nz-menu-item routerLink="./sys/role" routerLinkActive="ant-menu-item-selected">角色</li>
-            <li nz-menu-item routerLink="./sys/resource" routerLinkActive="ant-menu-item-selected">资源</li>
-          </ul>
+        <li *ngFor="let resource of subMenu" nz-menu-item [routerLink]="resource.routerLink"
+            [routerLinkActive]="resource.routerLinkActive">
+          <span><i [class]="resource.icon"></i> <span class="nav-text">{{resource.name}}</span></span>
         </li>
-        <li nz-submenu>
-          <span title><i class="anticon anticon-team"></i><span class="nav-text">Team</span></span>
-          <ul>
-            <li nz-menu-item>Team 1</li>
-            <li nz-menu-item>Team 2</li>
-          </ul>
-        </li>
-        <li nz-menu-item><span><i class="anticon anticon-file"></i><span class="nav-text">File</span></span></li>
+        <!--<li nz-submenu>-->
+          <!--<span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>-->
+          <!--<ul>-->
+            <!--<li nz-menu-item routerLink="./sys/org" routerLinkActive="ant-menu-item-selected">组织架构</li>-->
+            <!--<li nz-menu-item routerLink="./sys/user" routerLinkActive="ant-menu-item-selected">用户</li>-->
+            <!--<li nz-menu-item routerLink="./sys/role" routerLinkActive="ant-menu-item-selected">角色</li>-->
+            <!--<li nz-menu-item routerLink="./sys/resource" routerLinkActive="ant-menu-item-selected">资源</li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!--<li nz-submenu>-->
+          <!--<span title><i class="anticon anticon-team"></i><span class="nav-text">Team</span></span>-->
+          <!--<ul>-->
+            <!--<li nz-menu-item>Team 1</li>-->
+            <!--<li nz-menu-item>Team 2</li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!--<li nz-menu-item><span><i class="anticon anticon-file"></i><span class="nav-text">File</span></span></li>-->
       </ul>
     </nz-sider>
 
