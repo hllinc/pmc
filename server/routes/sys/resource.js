@@ -20,14 +20,14 @@ router.get('/getCurrentUserResources', function (req, res) {
     result: [{
       id: 1,
       name: '首页',
-      routerLink: './home',
+      routerLink: 'home',
       routerLinkActive: 'ant-menu-item-selected',
       icon: 'anticon anticon-setting',
       children: []
     }, {
       id: 2,
       name: '系统管理',
-      routerLink: './sys',
+      routerLink: 'sys',
       routerLinkActive: 'ant-menu-item-selected',
       icon: 'anticon anticon-setting',
       children: [{

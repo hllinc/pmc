@@ -1,27 +1,58 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {NzModalService} from 'ng-zorro-antd';
 import {User} from '../sys/models/user';
 import {AuthService} from '../services/auth.service';
 import {Resource} from '../sys/models/resource';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router, RouterStateSnapshot,
+  RoutesRecognized
+} from '@angular/router';
+import {st} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-frame',
   templateUrl: './frame.component.html',
   styleUrls: ['./frame.component.scss']
 })
-export class FrameComponent implements OnInit {
+export class FrameComponent implements OnInit, AfterContentInit {
   isCollapsed = false;
   user: User;
   userResources: Resource[] = null;
   subMenu: Resource[];
 
-  constructor(private authService: AuthService, private modalService: NzModalService) {
+  constructor(private authService: AuthService, private modalService: NzModalService, private router: Router) {
+    // 监听路由改变事件
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        //
+      } else if (event instanceof NavigationEnd) {
+        //
+        if (this.userResources) {
+          this.setSubMenuByResourceUrl(router.url.split('/')[2]);
+        }
+      } else if (event instanceof NavigationCancel) {
+        //
+      } else if (event instanceof NavigationError) {
+        //
+      } else if (event instanceof RoutesRecognized) {
+        //
+      }
+    });
   }
 
   ngOnInit() {
     this.user = this.authService.getUser();
     this.userResources = this.authService.getCurrentUserResources();
+  }
+
+  ngAfterContentInit() {
+    // 页面初始加载时设置子菜单数据
+    this.setSubMenuByResourceUrl(this.router.url.split('/')[2]);
   }
 
   logoutEvent() {
@@ -39,11 +70,15 @@ export class FrameComponent implements OnInit {
    * @param {number} id
    * @returns {Resource[]}
    */
-  setSubMenuByResourceId(id: number) {
+  setSubMenuByResourceUrl(url: string) {
+    let menu = null;
     for (let i = 0; i < this.userResources.length; i++) {
-      if (this.userResources[i].id === id) {
-        this.subMenu = this.userResources[i].children;
+      if (this.userResources[i].routerLink === url) {
+        menu = this.userResources[i].children;
       }
+    }
+    if (this.subMenu !== menu) {
+      this.subMenu = menu;
     }
   }
 }

@@ -7,7 +7,8 @@
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;" *ngIf="userResources">
       <li *ngFor="let resource of userResources" nz-menu-item [routerLink]="resource.routerLink"
-          [routerLinkActive]="resource.routerLinkActive" (click)="setSubMenuByResourceId(resource.id)"><i [class]="resource.icon"></i> {{resource.name}}
+          [routerLinkActive]="resource.routerLinkActive" #rla="routerLinkActive"><i [class]="resource.icon"></i> {{resource.name}}
+        <!--{{rla.isActive? setSubMenuByResourceId(resource.id): ''}}-->
       </li>
 
       <li nz-submenu style="float: right;">
