@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run server | ng serve --configuration hmr -o",
     "start-with-backend": "ng serve --hmr -o --proxy-config proxy.conf.json",
-    "build-prod": "ng build --prod --named-chunks --env=prod --base-href /pmc/",
+    "build-prod": "ng build --prod --named-chunks --base-href /pmc/",
     "test": "ng test",
     "e2e": "ng e2e --hmr --proxy-config proxy.conf.json",
     "lint": "ng lint",
