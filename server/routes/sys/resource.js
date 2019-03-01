@@ -22,41 +22,41 @@ router.get('/getCurrentUserResources', function (req, res) {
       name: '首页',
       routerLink: 'home',
       routerLinkActive: 'ant-menu-item-selected',
-      icon: 'anticon anticon-setting',
+      icon: 'home',
       children: []
     }, {
       id: 2,
       name: '系统管理',
       routerLink: 'sys',
       routerLinkActive: 'ant-menu-item-selected',
-      icon: 'anticon anticon-setting',
+      icon: 'setting',
       children: [{
         id: 21,
         name: '组织架构',
         routerLink: './sys/org',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'anticon anticon-table',
+        icon: 'table',
         children: []
       }, {
         id: 22,
         name: '用户管理',
         routerLink: './sys/user',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'anticon anticon-team',
+        icon: 'team',
         children: []
       }, {
         id: 23,
         name: '角色管理',
         routerLink: './sys/role',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'anticon anticon-user',
+        icon: 'user',
         children: []
       }, {
         id: 24,
         name: '资源管理',
         routerLink: './sys/resource',
         routerLinkActive: 'ant-menu-item-selected',
-        icon: 'anticon anticon-bars',
+        icon: 'bars',
         children: []
       }]
     }],

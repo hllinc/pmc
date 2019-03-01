@@ -7,7 +7,7 @@
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;" *ngIf="userResources">
       <li *ngFor="let resource of userResources" nz-menu-item [routerLink]="resource.routerLink"
-          [routerLinkActive]="resource.routerLinkActive" #rla="routerLinkActive"><i [class]="resource.icon"></i> {{resource.name}}
+          [routerLinkActive]="resource.routerLinkActive" #rla="routerLinkActive"><i nz-icon [type]="resource.icon"></i> {{resource.name}}
         <!--{{rla.isActive? setSubMenuByResourceId(resource.id): ''}}-->
       </li>
 
@@ -54,7 +54,7 @@
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" [nzInlineCollapsed]="isCollapsed">
         <li *ngFor="let resource of subMenu" nz-menu-item [routerLink]="resource.routerLink"
             [routerLinkActive]="resource.routerLinkActive">
-          <span><i [class]="resource.icon"></i> <span class="nav-text">{{resource.name}}</span></span>
+          <span><i nz-icon [type]="resource.icon"></i> <span class="nav-text">{{resource.name}}</span></span>
         </li>
         <!--<li nz-submenu>-->
           <!--<span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>-->

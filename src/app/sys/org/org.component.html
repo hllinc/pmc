@@ -27,9 +27,10 @@
             <span>名称</span>
           </nz-form-label>
           <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="id" hidden/>
             <input nz-input formControlName="name"
                    placeholder="请输入组织名称"/>
-            <nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">
+            <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').errors">
               名称不能为空！
             </nz-form-explain>
           </nz-form-control>

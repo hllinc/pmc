@@ -43,7 +43,9 @@ export class OrgComponent implements OnInit {
   nzClick(event: NzFormatEmitEvent): void {
     // console.log(event, event.selectedKeys, event.keys, event.nodes, this.treeCom.getSelectedNodeList());
     const selectedOrg = this.treeCom.getSelectedNodeList()[0];
+    console.log(selectedOrg);
     const org: Org = new Org();
+    org.id = selectedOrg.key;
     org.name = selectedOrg.title;
     org.no = '1212';
     org.info = '1212';
@@ -116,10 +118,11 @@ export class OrgComponent implements OnInit {
 
   ngOnInit() {
     this.validateForm = this.fb.group({
+      id: [null],
       name: [null, [Validators.required]],
-      no: [false],
-      info: [false],
-      enable: [false]
+      no: [null],
+      info: [null],
+      enable: [null]
     });
   }
 }

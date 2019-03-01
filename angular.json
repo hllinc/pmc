@@ -19,15 +19,31 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/mock"
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/mock",
+                "output": "/mock"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
               "src/styles.scss",
-              "./node_modules/font-awesome/css/font-awesome.css",
-              "./node_modules/ng-zorro-antd/src/ng-zorro-antd.less"
+              "./node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },
