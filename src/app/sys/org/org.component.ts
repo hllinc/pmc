@@ -40,22 +40,28 @@ export class OrgComponent implements OnInit {
       key: '1003'
     })
   ];
+
   nzClick(event: NzFormatEmitEvent): void {
     // console.log(event, event.selectedKeys, event.keys, event.nodes, this.treeCom.getSelectedNodeList());
+    // const selectedOrg = event.node;
     const selectedOrg = this.treeCom.getSelectedNodeList()[0];
-    console.log(selectedOrg);
-    const org: Org = new Org();
-    org.id = selectedOrg.key;
-    org.name = selectedOrg.title;
-    org.no = '1212';
-    org.info = '1212';
-    org.enable = true;
-    this.setFormValue(org);
+    if (selectedOrg) {
+      const org: Org = new Org();
+      org.id = selectedOrg.key;
+      org.name = selectedOrg.title;
+      org.no = '1212';
+      org.info = '1212';
+      org.enable = true;
+      this.setFormValue(org);
+    } else {
+      this.validateForm.reset();
+    }
   }
+
   /**
    * 设置表单值
    */
-  setFormValue(org: Org) {
+  setFormValue(org) {
     this.validateForm.setValue(org);
   }
 
@@ -89,10 +95,6 @@ export class OrgComponent implements OnInit {
         }
       }, 1000);
     }
-  }
-
-  getFormControl(name) {
-    return this.validateForm.controls[name];
   }
 
   /**
