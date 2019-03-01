@@ -1,26 +1,38 @@
 <div nz-row [nzGutter]="20">
   <div nz-col [nzSm]="8">
     <nz-card nzTitle="组织架构" [nzExtra]="extraTemplate">
-      <nz-tree [(ngModel)]="nodes"
+      <nz-tree [nzData]="nodes"
                #treeCom
                [nzAsyncData]="true"
                (nzClick)="nzClick($event)"
                (nzExpandChange)="mouseAction('expand',$event)">
+        <ng-template #nzTreeTemplate let-node>
+          <span class="custom-node" [class.active]="activedNode?.origin.id===node?.origin.id">
+          <span *ngIf="!node.isLeaf">
+            <i nz-icon [type]="node.isExpanded ? 'folder-open' : 'folder'"></i>
+            <span class="folder-name">{{node?.origin?.name}}</span>
+          </span>
+          <span *ngIf="node.isLeaf">
+            <i nz-icon type="file"></i>
+            <span class="file-name">{{node?.origin?.name}}</span>
+          </span>
+          </span>
+        </ng-template>
       </nz-tree>
     </nz-card>
     <ng-template #extraTemplate>
-      <nz-button-group>
+      <nz-button-group nzSize="small">
         <button nz-button nzType="primary" (click)="addOrgTemp()">
-          <i class="anticon anticon-plus-circle-o"></i>
+          <i nz-icon type="plus-circle-o"></i>
         </button>
         <button nz-button nzType="danger">
-          <i class="anticon anticon-minus-circle-o"></i>
+          <i nz-icon type="minus-circle-o"></i>
         </button>
       </nz-button-group>
     </ng-template>
   </div>
   <div nz-col [nzSm]="16">
-    <nz-card nzTitle="详情">
+    <nz-card nzTitle="详情" [nzLoading]="orgPropLoading">
       <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
         <nz-form-item nz-row>
           <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
@@ -37,26 +49,10 @@
         </nz-form-item>
         <nz-form-item nz-row>
           <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-            编号
-          </nz-form-label>
-          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="no"
-                   readonly="true"/>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item nz-row>
-          <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
             备注
           </nz-form-label>
           <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
             <textarea formControlName="info" nz-input rows="2" placeholder="写点备注说明一下"></textarea>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item nz-row>
-          <nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
-            <label nz-checkbox formControlName="enable">
-              <span>启用</span>
-            </label>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nz-row style="margin-bottom:8px;">

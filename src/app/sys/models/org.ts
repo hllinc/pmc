@@ -6,10 +6,7 @@ export class Org {
   public id?: number;
   public parentId?: number;
   public name?: string;
-  public no?: string;
   public orderNo?: number;
   public info?: string;
-  public enable?: boolean;
-  public hasChildren?: boolean;
   public children?: Org[];
 }

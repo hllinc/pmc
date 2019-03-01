@@ -12,10 +12,10 @@
       </li>
 
       <li nz-submenu style="float: right;">
-        <span title><i class="anticon anticon-setting"></i><span class="nav-text">设置</span></span>
+        <span title><i nz-icon type="setting"></i><span class="nav-text">设置</span></span>
         <ul>
           <li nz-menu-item>
-            <i class="anticon anticon-question-circle-o"></i>
+            <i nz-icon type="question-circle-o"></i>
             帮助
           </li>
         </ul>
@@ -25,11 +25,11 @@
             class="nav-text"> {{this.user.username}}</span></span>
         <ul>
           <li nz-menu-item>
-            <i class="anticon anticon-user"></i>
+            <i nz-icon type="user"></i>
             个人信息
           </li>
           <li nz-menu-item (click)="logoutEvent()">
-            <i class="anticon anticon-logout"></i>
+            <i nz-icon type="logout"></i>
             安全退出
           </li>
         </ul>
@@ -38,7 +38,7 @@
         <nz-badge [nzCount]="5">
           <ng-template #content>
               <span class="head-message">
-                <i class="anticon anticon-message"></i>消息
+                <i nz-icon type="message"></i>消息
               </span>
           </ng-template>
         </nz-badge>
@@ -48,7 +48,7 @@
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'" *ngIf="subMenu && subMenu.length > 0">
       <div class="trigger-bar">
-        <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"
+        <i nz-icon type="trigger" [type]="isCollapsed?'menu-unfold':'menu-fold'"
            (click)="isCollapsed=!isCollapsed"></i>
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" [nzInlineCollapsed]="isCollapsed">
@@ -82,7 +82,7 @@
           <nz-breadcrumb-item>User</nz-breadcrumb-item>
           <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
         </nz-breadcrumb>
-        <div style="padding:24px; background: #fff; min-height: 660px;">
+        <div style="padding:24px; background: #fff; min-height: 800px;">
           <router-outlet></router-outlet>
         </div>
       </nz-content>

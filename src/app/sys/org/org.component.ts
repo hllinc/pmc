@@ -14,55 +14,46 @@ export class OrgComponent implements OnInit {
   // 表单对象
   validateForm: FormGroup;
 
+  orgPropLoading = true;
+  // 树数据
+  nodes = [];
+
+  activedNode: NzTreeNode;
+
   @ViewChild('treeCom') treeCom;
 
   constructor(private fb: FormBuilder, private orgService: OrgService, private modalService: NzModalService) {
     this.orgService.getOrgRoot().subscribe(data => {
       if (data.code === 'ok') {
-        // this.nodes = [new NzTreeNode(data.result[0])];
+        this.nodes = [new NzTreeNode(data.result[0])];
       }
     });
   }
 
-  nodes = [
-    new NzTreeNode({
-      title: 'root1',
-      key: '1001',
-      children: []
-    }),
-    new NzTreeNode({
-      title: 'root2',
-      key: '1002',
-      children: []
-    }),
-    new NzTreeNode({
-      title: 'root3',
-      key: '1003'
-    })
-  ];
-
-  nzClick(event: NzFormatEmitEvent): void {
+  nzClick(data: NzFormatEmitEvent): void {
+    if (this.activedNode) {
+      // delete selectedNodeList(u can do anything u want)
+      this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
+    }
+    data.node.isSelected = true;
+    this.activedNode = data.node;
     // console.log(event, event.selectedKeys, event.keys, event.nodes, this.treeCom.getSelectedNodeList());
     // const selectedOrg = event.node;
-    const selectedOrg = this.treeCom.getSelectedNodeList()[0];
-    if (selectedOrg) {
-      const org: Org = new Org();
-      org.id = selectedOrg.key;
-      org.name = selectedOrg.title;
-      org.no = '1212';
-      org.info = '1212';
-      org.enable = true;
-      this.setFormValue(org);
-    } else {
-      this.validateForm.reset();
+    if (this.activedNode) {
+      this.orgPropLoading = false;
+      this.setFormValue(this.activedNode.origin);
     }
   }
 
   /**
    * 设置表单值
    */
-  setFormValue(org) {
-    this.validateForm.setValue(org);
+  setFormValue(org: Org) {
+    this.validateForm.setValue({
+      id: org.id,
+      name: org.name,
+      info: org.info
+    });
   }
 
   go($event) {
@@ -84,12 +75,14 @@ export class OrgComponent implements OnInit {
         if (e.node.getChildren().length === 0 && e.node.isExpanded) {
           e.node.addChildren([
             {
-              title: 'childAdd-1',
-              key: '10031-' + (new Date()).getTime()
+              name: 'childAdd-1',
+              info: '121212',
+              id: '10031-' + (new Date()).getTime()
             },
             {
-              title: 'childAdd-2',
-              key: '10032-' + (new Date()).getTime(),
+              name: 'childAdd-2',
+              info: '121212',
+              id: '10032-' + (new Date()).getTime(),
               isLeaf: true
             }]);
         }
@@ -100,13 +93,8 @@ export class OrgComponent implements OnInit {
   /**
    * 保存org
    */
-  saveOrg(org) {
-    this.orgService.updateOrg(org).subscribe(data => {
-      this.modalService.success({
-        nzTitle: '系统提示',
-        nzContent: data.info
-      });
-    });
+  saveOrg() {
+    const newOrg = this.validateForm.value;
   }
 
   addOrgTemp() {
@@ -122,9 +110,7 @@ export class OrgComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      no: [null],
-      info: [null],
-      enable: [null]
+      info: [null]
     });
   }
 }

@@ -18,8 +18,9 @@ router.get('/getOrgRoot', function (req, res) {
   Object.assign(ret, resultData, {
     code: "ok",
     result: [{
-      title: '组织机构',
-      key: '001',
+      id: 1,
+      name: '根组织',
+      info: '描述',
       children: []
     }],
     info: '获取数据成功！'
