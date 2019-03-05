@@ -1,3 +1,27 @@
-<p>
-  sub-system works!
-</p>
+<button nz-button (click)="addSubSystem()" class="editable-add-btn"><i nz-icon type="plus"></i> 添加</button>
+<nz-table #basicTable [nzData]="dataSet" nzSize="middle">
+  <thead>
+  <tr>
+    <th>序号</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>地址</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data; let i = index;">
+    <td>{{i+1}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.info}}</td>
+    <td>{{data.url}}</td>
+    <td>
+      <a (click)="modifySubSystem(data)">编辑</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <nz-popconfirm [nzTitle]="'确定删除['+data.name+']这条数据?'" (nzOnConfirm)="deleteSubSystem(data.id)">
+        <a nz-popconfirm>删除</a>
+      </nz-popconfirm>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

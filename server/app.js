@@ -29,6 +29,9 @@ app.all('*', function(req, res, next) {
 const login = require('./routes/login');
 app.use('/', login);
 
+// 子系统
+const subSystem = require('./routes/sys/subSystem');
+app.use('/sys/subSystem', subSystem);
 // 用户
 const user = require('./routes/sys/user');
 app.use('/sys/user', user);

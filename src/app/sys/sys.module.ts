@@ -8,7 +8,9 @@ import {ResourceComponent} from './resource/resource.component';
 import {OrgService} from './org/org.service';
 import {UserService} from './user/user.service';
 import {SharedModule} from '../shared/shared.module';
-import { SubSystemComponent } from './sub-system/sub-system.component';
+import {SubSystemComponent} from './sub-system/sub-system.component';
+import {SubSystemService} from './sub-system/sub-system.service';
+import { SubSystemFormComponent } from './sub-system/sub-system-form/sub-system-form.component';
 
 @NgModule({
   imports: [
@@ -21,11 +23,16 @@ import { SubSystemComponent } from './sub-system/sub-system.component';
     RoleComponent,
     UserComponent,
     ResourceComponent,
-    SubSystemComponent
+    SubSystemComponent,
+    SubSystemFormComponent
   ],
   providers: [
+    SubSystemService,
     OrgService,
     UserService
+  ],
+  entryComponents: [
+    SubSystemFormComponent
   ]
 })
 export class SysModule {
