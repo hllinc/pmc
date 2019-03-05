@@ -65,6 +65,7 @@ export class OrgComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       if (true) {
         this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[ i ].updateValueAndValidity();
       }
     }
   }
@@ -95,6 +96,7 @@ export class OrgComponent implements OnInit {
    */
   saveOrg() {
     const newOrg = this.validateForm.value;
+    console.log(newOrg);
   }
 
   addOrgTemp() {
