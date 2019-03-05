@@ -65,7 +65,7 @@ export class OrgComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       if (true) {
         this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[ i ].updateValueAndValidity();
+        this.validateForm.controls[i].updateValueAndValidity();
       }
     }
   }
@@ -112,8 +112,7 @@ export class OrgComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      info: [null],
-      subSystemId: [null]
+      info: [null]
     });
   }
 }

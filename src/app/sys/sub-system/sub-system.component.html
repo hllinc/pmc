@@ -1,11 +1,15 @@
-<button nz-button (click)="addSubSystem()" class="editable-add-btn"><i nz-icon type="plus"></i> 添加</button>
+<div style="margin-bottom: 16px;">
+  <button nz-button (click)="addSubSystem()" nzType="primary" class="editable-add-btn"><i nz-icon type="plus-circle" theme="outline"></i>
+    添加
+  </button>
+</div>
 <nz-table #basicTable [nzData]="dataSet" nzSize="middle">
   <thead>
   <tr>
     <th>序号</th>
     <th>名称</th>
-    <th>描述</th>
     <th>地址</th>
+    <th>描述</th>
     <th>操作</th>
   </tr>
   </thead>
@@ -13,8 +17,8 @@
   <tr *ngFor="let data of basicTable.data; let i = index;">
     <td>{{i+1}}</td>
     <td>{{data.name}}</td>
-    <td>{{data.info}}</td>
     <td>{{data.url}}</td>
+    <td>{{data.info}}</td>
     <td>
       <a (click)="modifySubSystem(data)">编辑</a>
       <nz-divider nzType="vertical"></nz-divider>

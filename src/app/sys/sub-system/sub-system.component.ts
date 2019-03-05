@@ -26,58 +26,44 @@ export class SubSystemComponent implements OnInit {
 
   addSubSystem() {
     const modal = this.modalService.create({
-      nzTitle: 'Modal Title',
+      nzTitle: '添加子系统',
       nzContent: SubSystemFormComponent,
-      nzComponentParams: {
-        title: 'title in component',
-        subtitle: 'component sub title，will be changed after 2 sec'
-      },
+      nzComponentParams: {},
       nzFooter: [{
-        label: 'change component tilte from outside',
+        label: '取消',
         onClick: (componentInstance) => {
-          componentInstance.title = 'title in inner component is changed';
+          modal.close();
+        }
+      }, {
+        label: '添加',
+        type: 'primary',
+        onClick: (componentInstance) => {
+          console.log(componentInstance.getFormValue());
         }
       }]
     });
-
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // Return a result when closed
-    modal.afterClose.subscribe((result) => console.log('[afterClose] The result is:', result));
-
-    // delay until modal instance created
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.subtitle = 'sub title is changed';
-    }, 2000);
   }
 
   modifySubSystem(subSystem: SubSystem) {
     const modal = this.modalService.create({
-      nzTitle: 'Modal Title',
+      nzTitle: '编辑子系统',
       nzContent: SubSystemFormComponent,
       nzComponentParams: {
-        title: 'title in component',
-        subtitle: 'component sub title，will be changed after 2 sec'
+        subSystem: subSystem
       },
       nzFooter: [{
-        label: 'change component tilte from outside',
+        label: '取消',
         onClick: (componentInstance) => {
-          componentInstance.title = 'title in inner component is changed';
+          modal.close();
+        }
+      }, {
+        label: '保存',
+        type: 'primary',
+        onClick: (componentInstance) => {
+          console.log(componentInstance.getFormValue());
         }
       }]
     });
-
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // Return a result when closed
-    modal.afterClose.subscribe((result) => console.log('[afterClose] The result is:', result));
-
-    // delay until modal instance created
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.subtitle = 'sub title is changed';
-    }, 2000);
   }
 
   deleteSubSystem(id: number) {
