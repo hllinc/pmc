@@ -1,16 +1,16 @@
 # PMC
 Angular 6，hmr热部署，ng-zorro-antd 1.1.1，集成mock本地服务。:smile:  
 ## 依赖组件
-* Angular @ 6.0.3
-* @angularclass/hmr @2.1.3
-* ng-zorro-antd @1.1.1
+* Angular ^6.1.10
+* @angularclass/hmr ^2.1.33
+* ng-zorro-antd ^1.8.1
 * ...
 
 ## 项目运行说明
 * 用户名：`linc`
 * 密码： `123456`
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version ^6.1.10.
 
 ## Development server
 
