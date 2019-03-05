@@ -2,7 +2,7 @@
 Angular 6，hmr热部署，ng-zorro-antd 1.1.1，集成mock本地服务。:smile:  
 ## 依赖组件
 * Angular ^6.1.10
-* @angularclass/hmr ^2.1.33
+* @angularclass/hmr ^2.1.3
 * ng-zorro-antd ^1.8.1
 * ...
 
