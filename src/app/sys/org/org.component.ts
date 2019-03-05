@@ -112,7 +112,8 @@ export class OrgComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      info: [null]
+      info: [null],
+      subSystemId: [null]
     });
   }
 }

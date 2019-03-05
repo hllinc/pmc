@@ -31,6 +31,13 @@ router.get('/getCurrentUserResources', function (req, res) {
       routerLinkActive: 'ant-menu-item-selected',
       icon: 'setting',
       children: [{
+        id: 20,
+        name: '子系统',
+        routerLink: './sys/sub-system',
+        routerLinkActive: 'ant-menu-item-selected',
+        icon: 'cluster',
+        children: []
+      }, {
         id: 21,
         name: '组织架构',
         routerLink: './sys/org',

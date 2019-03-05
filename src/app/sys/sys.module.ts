@@ -8,6 +8,7 @@ import {ResourceComponent} from './resource/resource.component';
 import {OrgService} from './org/org.service';
 import {UserService} from './user/user.service';
 import {SharedModule} from '../shared/shared.module';
+import { SubSystemComponent } from './sub-system/sub-system.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {SharedModule} from '../shared/shared.module';
     OrgComponent,
     RoleComponent,
     UserComponent,
-    ResourceComponent
+    ResourceComponent,
+    SubSystemComponent
   ],
   providers: [
     OrgService,

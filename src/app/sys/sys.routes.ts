@@ -8,6 +8,7 @@ import {OrgComponent} from './org/org.component';
 import {UserComponent} from './user/user.component';
 import {RoleComponent} from './role/role.component';
 import {ResourceComponent} from './resource/resource.component';
+import {SubSystemComponent} from './sub-system/sub-system.component';
 
 export const sysRoutes = [
   {
@@ -16,8 +17,12 @@ export const sysRoutes = [
     children: [
       {
         path: '',
-        redirectTo: 'org',
+        redirectTo: 'sub-system',
         pathMatch: 'full'
+      },
+      {
+        path: 'sub-system',
+        component: SubSystemComponent
       },
       {
         path: 'org',
