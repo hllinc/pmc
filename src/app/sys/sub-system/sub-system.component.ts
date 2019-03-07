@@ -14,14 +14,22 @@ export class SubSystemComponent implements OnInit {
   dataSet = [];
 
   constructor(private subSystemService: SubSystemService, private modalService: NzModalService) {
-    subSystemService.getSubSystems().subscribe(data => {
+
+  }
+
+  ngOnInit() {
+    this.loadSubSystemTable();
+  }
+
+  /**
+   * 加载列表
+   */
+  loadSubSystemTable() {
+    this.subSystemService.getSubSystems().subscribe(data => {
       if (data.code === 'ok') {
         this.dataSet = data.result;
       }
     });
-  }
-
-  ngOnInit() {
   }
 
   addSubSystem() {
@@ -38,7 +46,19 @@ export class SubSystemComponent implements OnInit {
         label: '添加',
         type: 'primary',
         onClick: (componentInstance) => {
-          console.log(componentInstance.getFormValue());
+          const newSubSystem = componentInstance.getFormValue();
+          if (newSubSystem) {
+            this.subSystemService.addSubSystem(newSubSystem).subscribe(data => {
+              if (data.code === 'ok') {
+                modal.close();
+                this.modalService.success({
+                  nzTitle: '系统提示',
+                  nzContent: data.info
+                });
+                this.loadSubSystemTable();
+              }
+            });
+          }
         }
       }]
     });
@@ -60,14 +80,34 @@ export class SubSystemComponent implements OnInit {
         label: '保存',
         type: 'primary',
         onClick: (componentInstance) => {
-          console.log(componentInstance.getFormValue());
+          const newSubSystem = componentInstance.getFormValue();
+          if (newSubSystem) {
+            this.subSystemService.modifySubSystem(newSubSystem).subscribe(data => {
+              if (data.code === 'ok') {
+                modal.close();
+                this.modalService.success({
+                  nzTitle: '系统提示',
+                  nzContent: data.info
+                });
+                this.loadSubSystemTable();
+              }
+            });
+          }
         }
       }]
     });
   }
 
   deleteSubSystem(id: number) {
-
+    this.subSystemService.deleteSubSystem(id).subscribe(data => {
+      if (data.code === 'ok') {
+        this.modalService.success({
+          nzTitle: '提示',
+          nzContent: data.info
+        });
+        this.loadSubSystemTable();
+      }
+    });
   }
 
 }

@@ -40,4 +40,52 @@ router.get('/getSubSystems', function (req, res) {
   res.send(ret);
 });
 
+/**
+ * 添加
+ */
+router.post('/add', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: null,
+    info: '添加成功！'
+  });
+
+  res.send(ret);
+});
+
+/**
+ * 编辑
+ */
+router.post('/modify', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: null,
+    info: '修改成功！'
+  });
+
+  res.send(ret);
+});
+
+/**
+ * 删除
+ */
+router.post('/delete', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: null,
+    info: '删除成功！'
+  });
+
+  res.send(ret);
+});
+
 module.exports = router;
