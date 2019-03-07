@@ -6,7 +6,7 @@ export class Org {
   public id?: number;
   public parentId?: number;
   public name?: string;
-  public orderNo?: number;
   public info?: string;
+  public isLeaf?: boolean;
   public children?: Org[];
 }

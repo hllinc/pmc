@@ -15,13 +15,15 @@
             "name": "江苏",
             "info": "fa-file-word-o",
             "subSystemId": "1",
-            "id": "111"
+            "id": "111",
+            "isLeaf": true
           },
           {
             "name": "浙江",
             "info": "fa-file-word-o",
             "subSystemId": "1",
-            "id": "112"
+            "id": "112",
+            "isLeaf": true
           }
         ]
       },
@@ -35,13 +37,15 @@
             "name": "江苏",
             "info": "fa-file-word-o",
             "subSystemId": "1",
-            "id": "121"
+            "id": "121",
+            "isLeaf": true
           },
           {
             "name": "浙江",
             "info": "fa-file-word-o",
             "subSystemId": "1",
-            "id": "122"
+            "id": "122",
+            "isLeaf": true
           }
         ]
       }
@@ -51,18 +55,21 @@
     "name": "市场部",
     "id": "2",
     "info": "fa-folder-open",
-    "subSystemId": "2"
+    "subSystemId": "2",
+    "isLeaf": true
   },
   {
     "name": "行政部",
     "id": "3",
     "info": "fa-folder-open",
-    "subSystemId": "2"
+    "subSystemId": "2",
+    "isLeaf": true
   },
   {
     "name": "财务部",
     "id": "4",
     "info": "fa-folder-open",
-    "subSystemId": "2"
+    "subSystemId": "2",
+    "isLeaf": true
   }
 ]
