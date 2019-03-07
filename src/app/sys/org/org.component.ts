@@ -45,6 +45,7 @@ export class OrgComponent implements OnInit {
       if (data.code === 'ok') {
         this.nodes = data.result;
         this.orgLoading = false;
+        this.addOrgBtnStatus = false;
       }
     });
   }
@@ -56,7 +57,6 @@ export class OrgComponent implements OnInit {
     // const selectedOrg = event.node;
     if (this.activedNode) {
       this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
-      this.deleteOrgBtnStatus = false;
       this.addOrgBtnStatus = false;
       this.orgPropLoading = false;
       this.setFormValue(this.activedNode.origin);
