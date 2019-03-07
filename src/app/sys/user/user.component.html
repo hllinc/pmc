@@ -1,3 +1,4 @@
+<app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
 <nz-table #nzTable [nzData]="users" [nzPageSize]="10" (nzDataChange)="_displayDataChange($event)" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
   <thead nz-thead>
   <tr>

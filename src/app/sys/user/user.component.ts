@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../models/user';
 import {UserService} from './user.service';
 import {Page} from '../../models/page';
+import {SubSystem} from '../models/sub-system';
 
 @Component({
   selector: 'app-user',
@@ -23,6 +24,14 @@ export class UserComponent implements OnInit {
     //   this.users = data.content;
     //   this.tableLoading = false;
     // });
+  }
+
+  /**
+   * 子系统切换事件
+   * @param subSystem
+   */
+  orgChangeSubSystemEvent(subSystem: SubSystem) {
+    console.log(subSystem);
   }
   _displayDataChange($event) {
     this._displayData = $event;
