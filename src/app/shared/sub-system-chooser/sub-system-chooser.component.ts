@@ -8,9 +8,12 @@ import {SubSystemService} from '../../sys/sub-system/sub-system.service';
   styleUrls: ['./sub-system-chooser.component.css']
 })
 export class SubSystemChooserComponent implements OnInit {
+  // 选中的子系统
   selectedSubSystem: SubSystem;
+  // 子系统列表
   subSystems: SubSystem[];
 
+  // 向外发送数据触发器
   @Output() changeSubSystemEvent = new EventEmitter();
 
   constructor(private subSystemService: SubSystemService) {
