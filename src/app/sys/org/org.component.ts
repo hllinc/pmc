@@ -13,9 +13,6 @@ import {SubSystem} from '../models/sub-system';
 })
 export class OrgComponent implements OnInit {
 
-  selectedSubSystem: SubSystem;
-  subSystems: SubSystem[];
-
   // 表单对象
   validateForm: FormGroup;
 
@@ -36,11 +33,8 @@ export class OrgComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private orgService: OrgService,
-              private subSystemService: SubSystemService,
               private modalService: NzModalService) {
-    this.subSystemService.getSubSystems().subscribe(data => {
-      this.subSystems = data.result;
-    });
+
 
     // this.orgService.getOrgDataBySubSystemId().subscribe(data => {
     //   if (data.code === 'ok') {
@@ -50,12 +44,11 @@ export class OrgComponent implements OnInit {
   }
 
   /**
-   * 子系统改变事件
+   * 子系统切换事件
+   * @param subSystem
    */
-  changeSubSystemEvent() {
-    console.log(this.selectedSubSystem);
-    const selectedSubSystemId = this.selectedSubSystem.id;
-    this.orgService.getOrgDataBySubSystemId(selectedSubSystemId).subscribe(data => {
+  orgChangeSubSystemEvent(subSystem: SubSystem) {
+    this.orgService.getOrgDataBySubSystemId(subSystem.id).subscribe(data => {
       if (data.code === 'ok') {
         this.nodes = data.result;
         this.orgLoading = false;

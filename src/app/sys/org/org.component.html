@@ -2,10 +2,7 @@
   <div nz-col [nzSm]="8">
     <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate" [nzLoading]="orgLoading">
       <ng-template #cardTitle>
-        子系统：
-        <nz-select nzSize="small" style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="选择子系统" [(ngModel)]="selectedSubSystem" (ngModelChange)="changeSubSystemEvent()">
-          <nz-option *ngFor="let item of subSystems" nzCustomContent [nzLabel]="item.name" [nzValue]="item"><i nz-icon type="desktop"></i> {{item.name}}</nz-option>
-        </nz-select>
+        <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
       </ng-template>
       <nz-tree [nzData]="nodes"
                #treeCom
