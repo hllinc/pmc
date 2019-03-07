@@ -3,18 +3,21 @@
     "name": "研发部",
     "id": "1",
     "subSystemId": "1",
+    "parentId": null,
     "info": "fa-folder-open",
     "children": [
       {
         "name": "移动事业部",
         "id": "11",
         "subSystemId": "1",
+        "parentId": "1",
         "info": "fa-folder-open",
         "children": [
           {
             "name": "江苏",
             "info": "fa-file-word-o",
             "subSystemId": "1",
+            "parentId": "11",
             "id": "111",
             "isLeaf": true
           },
@@ -22,6 +25,7 @@
             "name": "浙江",
             "info": "fa-file-word-o",
             "subSystemId": "1",
+            "parentId": "11",
             "id": "112",
             "isLeaf": true
           }
@@ -32,11 +36,13 @@
         "id": "12",
         "info": "fa-folder-open",
         "subSystemId": "1",
+        "parentId": "1",
         "children": [
           {
             "name": "江苏",
             "info": "fa-file-word-o",
             "subSystemId": "1",
+            "parentId": "12",
             "id": "121",
             "isLeaf": true
           },
@@ -44,6 +50,7 @@
             "name": "浙江",
             "info": "fa-file-word-o",
             "subSystemId": "1",
+            "parentId": "12",
             "id": "122",
             "isLeaf": true
           }
@@ -56,13 +63,15 @@
     "id": "2",
     "info": "fa-folder-open",
     "subSystemId": "2",
-    "isLeaf": true
+    "parentId": null,
+    "isLeaf": false
   },
   {
     "name": "行政部",
     "id": "3",
     "info": "fa-folder-open",
     "subSystemId": "2",
+    "parentId": null,
     "isLeaf": true
   },
   {
@@ -70,6 +79,23 @@
     "id": "4",
     "info": "fa-folder-open",
     "subSystemId": "2",
+    "parentId": null,
+    "isLeaf": true
+  },
+  {
+    "name": "市场部11",
+    "id": "111",
+    "info": "fa-folder-open",
+    "subSystemId": null,
+    "parentId": "2",
+    "isLeaf": true
+  },
+  {
+    "name": "市场部12",
+    "id": "112",
+    "info": "fa-folder-open",
+    "subSystemId": null,
+    "parentId": "2",
     "isLeaf": true
   }
 ]

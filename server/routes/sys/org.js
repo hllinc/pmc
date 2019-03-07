@@ -7,9 +7,9 @@
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
-const {resultData, loadJSONFile} = require('../../common/utils');
+const {resultData, loadFile} = require('../../common/utils');
 /**
- * 获取当前用户信息
+ * 根据子系统id获取根节点
  */
 router.get('/getOrgDataBySubSystemId', function (req, res) {
   const id = req.query.id;
@@ -17,16 +17,42 @@ router.get('/getOrgDataBySubSystemId', function (req, res) {
   let params = req.body,
     ret = {};
 
-  loadJSONFile('/mock/org.json', function (data) {
-    let resultData = [];
+  loadFile('/mock/org.json', function (data) {
+    let result = [];
     for (var i = 0; i < data.length; i++) {
       if (data[i]['subSystemId'] === id) {
-        resultData.push(data[i]);
+        result.push(data[i]);
       }
     }
     Object.assign(ret, resultData, {
       code: "ok",
-      result: resultData,
+      result: result,
+      info: '获取数据成功！'
+    });
+
+    res.send(ret);
+  });
+});
+
+/**
+ * 根据父节点获取下级节点
+ */
+router.get('/getOrgByParentId', function (req, res) {
+  const pid = req.query.parentId;
+  res.type('json');
+  let params = req.body,
+    ret = {};
+
+  loadFile('/mock/org.json', function (data) {
+    let result = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i]['parentId'] === pid) {
+        result.push(data[i]);
+      }
+    }
+    Object.assign(ret, resultData, {
+      code: "ok",
+      result: result,
       info: '获取数据成功！'
     });
 

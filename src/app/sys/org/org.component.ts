@@ -34,13 +34,6 @@ export class OrgComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private orgService: OrgService,
               private modalService: NzModalService) {
-
-
-    // this.orgService.getOrgDataBySubSystemId().subscribe(data => {
-    //   if (data.code === 'ok') {
-    //     this.nodes = [new NzTreeNode(data.result[0])];
-    //   }
-    // });
   }
 
   /**
@@ -57,15 +50,14 @@ export class OrgComponent implements OnInit {
   }
 
   nzClick(data: NzFormatEmitEvent): void {
-    if (this.activedNode) {
-      // delete selectedNodeList(u can do anything u want)
-      this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
-    }
     data.node.isSelected = true;
     this.activedNode = data.node;
     // console.log(event, event.selectedKeys, event.keys, event.nodes, this.treeCom.getSelectedNodeList());
     // const selectedOrg = event.node;
     if (this.activedNode) {
+      this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
+      this.deleteOrgBtnStatus = false;
+      this.addOrgBtnStatus = false;
       this.orgPropLoading = false;
       this.setFormValue(this.activedNode.origin);
     }
@@ -98,22 +90,18 @@ export class OrgComponent implements OnInit {
 
   mouseAction(name: string, e: NzFormatEmitEvent): void {
     if (name === 'expand') {
-      setTimeout(_ => {
-        if (e.node.getChildren().length === 0 && e.node.isExpanded) {
-          e.node.addChildren([
-            {
-              name: 'childAdd-1',
-              info: '121212',
-              id: '10031-' + (new Date()).getTime()
-            },
-            {
-              name: 'childAdd-2',
-              info: '121212',
-              id: '10032-' + (new Date()).getTime(),
-              isLeaf: true
-            }]);
-        }
-      }, 1000);
+      if (e.node.getChildren().length === 0 && e.node.isExpanded) {
+        this.orgService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
+          if (data.code === 'ok') {
+            e.node.addChildren(data.result);
+          } else {
+            this.modalService.warning({
+              nzTitle: '提示',
+              nzContent: data.info
+            });
+          }
+        });
+      }
     }
   }
 

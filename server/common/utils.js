@@ -5,7 +5,7 @@ var fs = require('fs');  //fs是读取文件的模板工具
  * @param url
  * @param callback
  */
-function loadJSONFile(url, callback) {
+function loadFile(url, callback) {
   fs.readFile(__dirname + url, function (err, data) {//读取同目录下的book.json文件
     if (err) {
       throw err;
@@ -23,5 +23,5 @@ const resultData = {
 
 module.exports = {
   resultData,
-  loadJSONFile
+  loadFile
 };

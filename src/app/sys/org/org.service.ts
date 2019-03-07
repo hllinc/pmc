@@ -19,20 +19,20 @@ export class OrgService {
   }
 
   /**
-   * 根据父id获取组织列表
-   * @param {number} pid
-   * @returns {Observable<ServerData>}
-   */
-  getOrgsByParentId(pid: number): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/findByPid?pid=' + pid);
-  }
-
-  /**
    * 获取根节点
    * @returns {Observable<ServerData>}
    */
   getOrgDataBySubSystemId(id: number): Observable<ServerData> {
     return this.dataService.getData('/sys/org/getOrgDataBySubSystemId?id=' + id);
+  }
+
+  /**
+   * 根据父id获取组织列表
+   * @param {number} pid
+   * @returns {Observable<ServerData>}
+   */
+  getOrgsByParentId(pid: number): Observable<ServerData> {
+    return this.dataService.getData('/sys/org/getOrgByParentId?parentId=' + pid);
   }
 
   /**
