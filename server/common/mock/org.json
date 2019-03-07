@@ -1,0 +1,68 @@
+[
+  {
+    "name": "研发部",
+    "id": "1",
+    "subSystemId": "1",
+    "info": "fa-folder-open",
+    "children": [
+      {
+        "name": "移动事业部",
+        "id": "11",
+        "subSystemId": "1",
+        "info": "fa-folder-open",
+        "children": [
+          {
+            "name": "江苏",
+            "info": "fa-file-word-o",
+            "subSystemId": "1",
+            "id": "111"
+          },
+          {
+            "name": "浙江",
+            "info": "fa-file-word-o",
+            "subSystemId": "1",
+            "id": "112"
+          }
+        ]
+      },
+      {
+        "name": "联通事业部",
+        "id": "12",
+        "info": "fa-folder-open",
+        "subSystemId": "1",
+        "children": [
+          {
+            "name": "江苏",
+            "info": "fa-file-word-o",
+            "subSystemId": "1",
+            "id": "121"
+          },
+          {
+            "name": "浙江",
+            "info": "fa-file-word-o",
+            "subSystemId": "1",
+            "id": "122"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "市场部",
+    "id": "2",
+    "info": "fa-folder-open",
+    "subSystemId": "2"
+  },
+  {
+    "name": "行政部",
+    "id": "3",
+    "info": "fa-folder-open",
+    "subSystemId": "2"
+  },
+  {
+    "name": "财务部",
+    "id": "4",
+    "info": "fa-folder-open",
+    "subSystemId": "2"
+  }
+]

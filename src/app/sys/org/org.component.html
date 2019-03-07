@@ -1,6 +1,12 @@
 <div nz-row [nzGutter]="20">
   <div nz-col [nzSm]="8">
-    <nz-card nzTitle="组织架构" [nzExtra]="extraTemplate">
+    <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate" [nzLoading]="orgLoading">
+      <ng-template #cardTitle>
+        子系统：
+        <nz-select nzSize="small" style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="选择子系统" [(ngModel)]="selectedSubSystem" (ngModelChange)="changeSubSystemEvent()">
+          <nz-option *ngFor="let item of subSystems" nzCustomContent [nzLabel]="item.name" [nzValue]="item"><i nz-icon type="desktop"></i> {{item.name}}</nz-option>
+        </nz-select>
+      </ng-template>
       <nz-tree [nzData]="nodes"
                #treeCom
                [nzAsyncData]="true"
@@ -22,10 +28,10 @@
     </nz-card>
     <ng-template #extraTemplate>
       <nz-button-group nzSize="small">
-        <button nz-button nzType="primary" (click)="addOrgTemp()">
+        <button nz-button nzType="primary" (click)="addOrgTemp()" [disabled]="addOrgBtnStatus">
           <i nz-icon type="plus-circle-o"></i>
         </button>
-        <button nz-button nzType="danger">
+        <button nz-button nzType="danger" [disabled]="deleteOrgBtnStatus">
           <i nz-icon type="minus-circle-o"></i>
         </button>
       </nz-button-group>

@@ -31,8 +31,8 @@ export class OrgService {
    * 获取根节点
    * @returns {Observable<ServerData>}
    */
-  getOrgRoot(): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/getOrgRoot');
+  getOrgDataBySubSystemId(id: number): Observable<ServerData> {
+    return this.dataService.getData('/sys/org/getOrgDataBySubSystemId?id=' + id);
   }
 
   /**

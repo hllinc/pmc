@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Org} from '../models/org';
 import {OrgService} from './org.service';
 import {NzFormatEmitEvent, NzModalService, NzTreeNode} from 'ng-zorro-antd';
+import {SubSystemService} from '../sub-system/sub-system.service';
+import {SubSystem} from '../models/sub-system';
 
 @Component({
   selector: 'app-org',
@@ -11,10 +13,20 @@ import {NzFormatEmitEvent, NzModalService, NzTreeNode} from 'ng-zorro-antd';
 })
 export class OrgComponent implements OnInit {
 
+  selectedSubSystem: SubSystem;
+  subSystems: SubSystem[];
+
   // 表单对象
   validateForm: FormGroup;
 
+  // 组织机构属性面板遮罩
   orgPropLoading = true;
+  // 组织机构面板遮罩
+  orgLoading = true;
+
+  // 按钮状态
+  addOrgBtnStatus = true;
+  deleteOrgBtnStatus = true;
   // 树数据
   nodes = [];
 
@@ -22,10 +34,31 @@ export class OrgComponent implements OnInit {
 
   @ViewChild('treeCom') treeCom;
 
-  constructor(private fb: FormBuilder, private orgService: OrgService, private modalService: NzModalService) {
-    this.orgService.getOrgRoot().subscribe(data => {
+  constructor(private fb: FormBuilder,
+              private orgService: OrgService,
+              private subSystemService: SubSystemService,
+              private modalService: NzModalService) {
+    this.subSystemService.getSubSystems().subscribe(data => {
+      this.subSystems = data.result;
+    });
+
+    // this.orgService.getOrgDataBySubSystemId().subscribe(data => {
+    //   if (data.code === 'ok') {
+    //     this.nodes = [new NzTreeNode(data.result[0])];
+    //   }
+    // });
+  }
+
+  /**
+   * 子系统改变事件
+   */
+  changeSubSystemEvent() {
+    console.log(this.selectedSubSystem);
+    const selectedSubSystemId = this.selectedSubSystem.id;
+    this.orgService.getOrgDataBySubSystemId(selectedSubSystemId).subscribe(data => {
       if (data.code === 'ok') {
-        this.nodes = [new NzTreeNode(data.result[0])];
+        this.nodes = data.result;
+        this.orgLoading = false;
       }
     });
   }
