@@ -14,7 +14,7 @@ export class SubSystemChooserComponent implements OnInit {
   subSystems: SubSystem[];
 
   // 向外发送数据触发器
-  @Output() changeSubSystemEvent = new EventEmitter();
+  @Output() changeSubSystemEvent = new EventEmitter<SubSystem>();
 
   constructor(private subSystemService: SubSystemService) {
     this.subSystemService.getSubSystems().subscribe(data => {
