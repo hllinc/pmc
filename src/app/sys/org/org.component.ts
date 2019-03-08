@@ -59,6 +59,7 @@ export class OrgComponent implements OnInit {
     // const selectedOrg = this.treeCom.getSelectedNodeList()[0];
     // toogle选择模式
     if (data.node === this.activedNode) {
+      // 置空当前激活的节点以正常添加根节点
       this.activedNode = null;
     } else {
       this.activedNode = data.node;
@@ -162,7 +163,9 @@ export class OrgComponent implements OnInit {
         // 选中新增节点
         this.activedNode = newNode;
         this.activedNode.setSelected(true);
-        // 重置表单
+        // 可删除
+        this.deleteOrgBtnStatus = false;
+        // 设置表单值
         this.setFormValue(newNode.origin);
       }
     });
@@ -180,7 +183,35 @@ export class OrgComponent implements OnInit {
       nzOnOk: () => {
         this.orgService.deleteById(this.activedNode.origin.id).subscribe(data => {
           if (data.code === 'ok') {
-            // to-do 删除树上对应的节点和重置表单
+            // 如果是根节点
+            if (this.activedNode.level === 0) {
+              this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {
+                if (node === this.activedNode) {
+                  // 删除节点
+                  this.treeCom.nzTreeService.rootNodes.splice(index, 1);
+                  return;
+                }
+              });
+            } else {
+              // 如果是子节点
+              this.activedNode.getParentNode().getChildren().forEach((node, index, array) => {
+                if (node === this.activedNode) {
+                  // 删除节点
+                  this.activedNode.getParentNode().getChildren().splice(index, 1);
+                  // 如果父节点下没有子节点，则将父节点的类型变为叶子节点
+                  if (this.activedNode.getParentNode().getChildren().length === 0) {
+                    this.activedNode.getParentNode().isLeaf = true;
+                  }
+                  return;
+                }
+              });
+            }
+            // 可删除
+            this.deleteOrgBtnStatus = true;
+            // 置空当前激活的节点以正常添加根节点
+            this.activedNode = null;
+            // 重置表单
+            this.validateForm.reset();
           }
         });
       },
