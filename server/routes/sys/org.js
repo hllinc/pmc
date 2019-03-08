@@ -60,4 +60,52 @@ router.get('/getOrgByParentId', function (req, res) {
   });
 });
 
+/**
+ * 添加
+ */
+router.post('/add', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: new Date().getTime(),
+    info: '添加成功！'
+  });
+
+  res.send(ret);
+});
+
+/**
+ * 修改
+ */
+router.post('/update', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: new Date().getTime(),
+    info: '修改成功！'
+  });
+
+  res.send(ret);
+});
+
+/**
+ * 删除
+ */
+router.post('/delete', function (req, res) {
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  Object.assign(ret, resultData, {
+    code: "ok",
+    result: new Date().getTime(),
+    info: '删除成功！'
+  });
+
+  res.send(ret);
+});
+
 module.exports = router;
