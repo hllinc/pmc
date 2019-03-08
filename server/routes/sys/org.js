@@ -95,7 +95,8 @@ router.post('/update', function (req, res) {
 /**
  * 删除
  */
-router.post('/delete', function (req, res) {
+router.get('/delete', function (req, res) {
+  const id = req.query.id;
   res.type('json');
   let params = req.body,
     ret = {};

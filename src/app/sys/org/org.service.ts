@@ -59,7 +59,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   deleteById(id: number): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/deleteById?id=' + id);
+    return this.dataService.getData('/sys/org/delete?id=' + id);
   }
 
   /**

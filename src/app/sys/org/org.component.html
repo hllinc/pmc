@@ -28,7 +28,7 @@
         <button nz-button nzType="primary" (click)="addOrg()" [disabled]="addOrgBtnStatus">
           <i nz-icon type="plus-circle-o"></i>
         </button>
-        <button nz-button nzType="danger" [disabled]="deleteOrgBtnStatus">
+        <button nz-button nzType="danger" (click)="deleteOrg()" [disabled]="deleteOrgBtnStatus">
           <i nz-icon type="minus-circle-o"></i>
         </button>
       </nz-button-group>

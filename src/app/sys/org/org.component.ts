@@ -106,11 +106,6 @@ export class OrgComponent implements OnInit {
         this.orgService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
           if (data.code === 'ok') {
             e.node.addChildren(data.result);
-          } else {
-            this.modalService.warning({
-              nzTitle: '提示',
-              nzContent: data.info
-            });
           }
         });
       }
@@ -120,17 +115,12 @@ export class OrgComponent implements OnInit {
   /**
    * 保存org
    */
-  saveOrg() {
+  saveOrg(): void {
     const newOrg = this.validateForm.value;
     this.orgService.updateOrg(newOrg).subscribe(data => {
       if (data.code === 'ok') {
         this.activedNode.origin = newOrg;
         this.modalService.success({
-          nzTitle: '提示',
-          nzContent: data.info
-        });
-      } else {
-        this.modalService.warning({
           nzTitle: '提示',
           nzContent: data.info
         });
@@ -141,7 +131,7 @@ export class OrgComponent implements OnInit {
   /**
    * 添加节点
    */
-  addOrg() {
+  addOrg(): void {
     const org = {
       id: null,
       key: null,
@@ -175,6 +165,27 @@ export class OrgComponent implements OnInit {
         // 重置表单
         this.setFormValue(newNode.origin);
       }
+    });
+  }
+
+  /**
+   * 删除
+   */
+  deleteOrg(): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除[' + this.activedNode.origin.name + ']节点数据吗?',
+      nzContent: '确定后该节点以及其所有子节点均会被删除且不能恢复！',
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.orgService.deleteById(this.activedNode.origin.id).subscribe(data => {
+          if (data.code === 'ok') {
+            // to-do 删除树上对应的节点和重置表单
+          }
+        });
+      },
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
 
