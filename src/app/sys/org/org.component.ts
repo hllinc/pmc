@@ -122,7 +122,20 @@ export class OrgComponent implements OnInit {
    */
   saveOrg() {
     const newOrg = this.validateForm.value;
-    console.log(newOrg);
+    this.orgService.updateOrg(newOrg).subscribe(data => {
+      if (data.code === 'ok') {
+        this.activedNode.origin = newOrg;
+        this.modalService.success({
+          nzTitle: '提示',
+          nzContent: data.info
+        });
+      } else {
+        this.modalService.warning({
+          nzTitle: '提示',
+          nzContent: data.info
+        });
+      }
+    });
   }
 
   /**
