@@ -1,8 +1,9 @@
 /**
  * 用户类
  */
-export class User {
-  id: number;
+import {BaseModel} from '../../models/base-model';
+
+export class User extends BaseModel {
   username: string;
   password: string;
   remeberMe: boolean;
