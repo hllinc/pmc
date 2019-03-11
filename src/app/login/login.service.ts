@@ -11,8 +11,8 @@ export class LoginService {
 
   options = {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Requested-With': 'XMLHttpRequest'
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Accept': 'application/json'
     }
   };
 
@@ -31,8 +31,15 @@ export class LoginService {
     params.set('username', user.username);
     params.set('password', user.password);
     params.set('grant_type', 'password');
-    const options = Object.assign({header: {'Authorization': 'Basic ' + btoa(appId + ':' + appScret)}}, this.options);
-    return this.http.post(environment.serverHost + '/sys/user/login', params.toString(), options).pipe(catchError(this.handleError));
+    // Object.assign(this.options, {header: {'Authorization': 'Basic ' + btoa(appId + ':' + appScret)}});
+    const options = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': 'Basic ' + btoa(appId + ':' + appScret)
+      }
+    };
+    return this.http.post(environment.serverHost + '/oauth/token', params.toString(), options).pipe(catchError(this.handleError));
   }
 
   /**
