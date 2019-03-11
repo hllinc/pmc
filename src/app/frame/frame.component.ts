@@ -12,6 +12,7 @@ import {
   Router,
   RoutesRecognized
 } from '@angular/router';
+import {LoginService} from '../login/login.service';
 
 @Component({
   selector: 'app-frame',
@@ -24,7 +25,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
   userResources: Resource[] = null;
   subMenu: Resource[];
 
-  constructor(private authService: AuthService, private modalService: NzModalService, private router: Router) {
+  constructor(private authService: AuthService, private modalService: NzModalService, private router: Router, private loginService: LoginService) {
     // 监听路由改变事件
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -51,7 +52,11 @@ export class FrameComponent implements OnInit, AfterContentInit {
       nzTitle: '系统提示',
       nzContent: '确定退出系统吗？',
       nzOnOk: () => {
-        window.location.href = environment.serverHost + '/logout';
+        this.loginService.logout().subscribe(data => {
+          if (data.code === 'ok') {
+            this.router.navigate(['/login']);
+          }
+        });
       }
     });
   }

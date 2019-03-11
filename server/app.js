@@ -25,16 +25,13 @@ app.all('*', function(req, res, next) {
   else next();
 });
 
-// 登录
-const login = require('./routes/login');
-app.use('/', login);
+// 用户
+const user = require('./routes/sys/user');
+app.use('/sys/user', user);
 
 // 子系统
 const subSystem = require('./routes/sys/subSystem');
 app.use('/sys/subSystem', subSystem);
-// 用户
-const user = require('./routes/sys/user');
-app.use('/sys/user', user);
 
 // 组织机构
 const org = require('./routes/sys/org');
@@ -43,7 +40,6 @@ app.use('/sys/org', org);
 // 资源
 const resource = require('./routes/sys/resource');
 app.use('/sys/resource', resource);
-
 
 const { resultData } = require('./common/utils');
 

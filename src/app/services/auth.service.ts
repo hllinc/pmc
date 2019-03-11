@@ -96,21 +96,4 @@ export class AuthService {
       }
     });
   }
-
-  /**
-   * 跳转到缓存url
-   * @param {Router} router
-   */
-  navicateToStorageUrl(router: Router) {
-    // 如果浏览器支持localStorage
-    if (window.localStorage) {
-      const redirectUrl = window.localStorage.getItem('redirectUrl');
-      if (redirectUrl) {
-        // 跳转到登录前要访问的页面
-        router.navigate([redirectUrl]);
-        // 清空缓存
-        window.localStorage.removeItem('redirectUrl');
-      }
-    }
-  }
 }
