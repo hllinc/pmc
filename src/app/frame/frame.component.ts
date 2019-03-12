@@ -25,7 +25,8 @@ export class FrameComponent implements OnInit, AfterContentInit {
   userResources: Resource[] = null;
   subMenu: Resource[];
 
-  constructor(private authService: AuthService, private modalService: NzModalService, private router: Router, private loginService: LoginService) {
+  constructor(private authService: AuthService, private modalService: NzModalService,
+              private router: Router, private loginService: LoginService) {
     // 监听路由改变事件
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -38,7 +39,9 @@ export class FrameComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
+    this.authService.initCurrentUser().subscribe(data => {
+      this.user = this.authService.getUser();
+    });
     this.userResources = this.authService.getCurrentUserResources();
   }
 

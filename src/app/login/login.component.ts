@@ -4,6 +4,8 @@ import {User} from '../sys/models/user';
 import {LoginService} from './login.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd';
+import {DataService} from '../services/data.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
               public loginService: LoginService,
+              public authService: AuthService,
               private fb: FormBuilder,
-              private modalService: NzModalService) {
+              private modalService: NzModalService,
+              private dataService: DataService) {
 
   }
 
@@ -44,13 +48,17 @@ export class LoginComponent implements OnInit {
   }
 
   loginEvent() {
+    this.user = this.validateForm.value;
     this.loginService.login(this.user).subscribe(data => {
-      if (data.code === 'ok') {
+      if (data.access_token) {
+        localStorage.setItem('token', data.access_token);
         this.router.navigateByUrl('frame');
+        // this.authService.initCurrentUser().subscribe(data => {
+        // });
       } else {
         this.modalService.warning({
           nzTitle: '系统提示',
-          nzContent: data.info,
+          nzContent: data.error,
           nzOkText: '确定'
         });
       }

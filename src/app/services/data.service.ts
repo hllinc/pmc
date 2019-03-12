@@ -12,9 +12,19 @@ export class DataService {
 
   serverHost: string = environment.serverHost;
 
-  options = {headers: {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}};
+  token: string;
+
+  options = {headers: {'Content-Type': 'application/json'}};
 
   constructor(private http: HttpClient) {
+  }
+
+  /**
+   * 设置token
+   * @param t
+   */
+  setToken(t: string) {
+    this.token = t;
   }
 
   /**
@@ -23,14 +33,14 @@ export class DataService {
    * @returns {Observable<any>}
    */
   getData(url: string, isMock?: boolean): Observable<any> {
+    this.options.headers[ 'Authorization'] = 'Bearer ' + localStorage.getItem('token');
     let uri = '';
     if (isMock) {
       uri = url;
     } else {
       uri = this.serverHost + url;
     }
-    return this.http.get(uri, this.options)
-      .pipe(catchError(this.handleError));
+    return this.http.get(uri, this.options);
   }
 
   /**
@@ -40,27 +50,7 @@ export class DataService {
    * @returns {Observable<any>}
    */
   postData(url: string, body: any = null): Observable<any> {
-    return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options)
-      .pipe(catchError(this.handleError));
-  }
-
-  /**
-   * 请求错误
-   * @param error 错误对象
-   * @returns {ErrorObservable}
-   */
-  private handleError(error: HttpErrorResponse) {
-    const errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    if (error.status === 403) {
-      // 如果后台返回403
-      if (window.localStorage) {
-        // 缓存要加载的路由
-        window.localStorage.setItem('redirectUrl', window.localStorage.getItem('historyUrl'));
-      }
-      // 跳到服务器要求的指定页面
-      window.location.href = error.headers.get('redirect');
-    }
-    return Observable.throw(errMsg);
+    this.options.headers[ 'Authorization'] = 'Bearer ' + localStorage.getItem('token');
+    return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options);
   }
 }

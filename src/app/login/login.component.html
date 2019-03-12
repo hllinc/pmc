@@ -9,7 +9,7 @@
         <nz-form-item>
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="username" id="username" [(ngModel)]="user.username"/>
+            <input nz-input [nzSize]="'large'" formControlName="username" id="username"/>
             <nz-form-explain
               *ngIf="getFormControl('username').dirty&&getFormControl('username').hasError('required')">请输入用户名！
             </nz-form-explain>
@@ -18,7 +18,7 @@
         <nz-form-item nz-row style="margin-bottom:8px;">
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="password" [(ngModel)]="user.password" type="password"/>
+            <input nz-input [nzSize]="'large'" formControlName="password" type="password"/>
             <nz-form-explain
                  *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！
             </nz-form-explain>
