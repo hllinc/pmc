@@ -25,6 +25,27 @@ app.all('*', function(req, res, next) {
   else next();
 });
 
+app.all('/oauth/token', function(req,res,next){
+  res.type('json');
+  let params = req.body,
+    ret = {};
+  if (params.username === 'linc' && params.password === '123456') {
+    Object.assign(ret, resultData, {
+      code: 'ok',
+      access_token: 'mock_token',
+      info: '登录成功'
+    });
+  } else {
+    Object.assign(ret, resultData, {
+      code: 'error',
+      error: '用户名或密码不正确'
+    });
+  }
+
+  res.send(ret);
+});
+
+
 // 用户
 const user = require('./routes/sys/user');
 app.use('/sys/user', user);

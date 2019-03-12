@@ -72,6 +72,10 @@
                   "with": "src/environments/environment.hmr.ts"
                 }
               ]
+            },
+            "hmrWithBackend": {
+              "fileReplacements": [
+              ]
             }
           }
         },
@@ -87,6 +91,10 @@
             "hmr": {
               "hmr": true,
               "browserTarget": "pmc:build:hmr"
+            },
+            "hmrWithBackend": {
+              "hmr": true,
+              "browserTarget": "pmc:build:hmrWithBackend"
             }
           }
         },

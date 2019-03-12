@@ -18,9 +18,7 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
 
   constructor(public router: Router,
-              public activatedRoute: ActivatedRoute,
               public loginService: LoginService,
-              public authService: AuthService,
               private fb: FormBuilder,
               private modalService: NzModalService,
               private dataService: DataService) {
@@ -51,10 +49,8 @@ export class LoginComponent implements OnInit {
     this.user = this.validateForm.value;
     this.loginService.login(this.user).subscribe(data => {
       if (data.access_token) {
-        localStorage.setItem('token', data.access_token);
+        this.dataService.setToken(data.access_token);
         this.router.navigateByUrl('frame');
-        // this.authService.initCurrentUser().subscribe(data => {
-        // });
       } else {
         this.modalService.warning({
           nzTitle: '系统提示',

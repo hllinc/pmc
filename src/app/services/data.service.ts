@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class DataService {
@@ -19,12 +20,16 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  /**
-   * 设置token
-   * @param t
-   */
-  setToken(t: string) {
-    this.token = t;
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  clearToken() {
+    localStorage.removeItem('token');
   }
 
   /**
@@ -33,14 +38,18 @@ export class DataService {
    * @returns {Observable<any>}
    */
   getData(url: string, isMock?: boolean): Observable<any> {
-    this.options.headers[ 'Authorization'] = 'Bearer ' + localStorage.getItem('token');
+    this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     let uri = '';
     if (isMock) {
       uri = url;
     } else {
       uri = this.serverHost + url;
     }
-    return this.http.get(uri, this.options);
+    if (environment.production) {
+      return this.http.get(uri, this.options);
+    } else {
+      return this.http.get(uri);
+    }
   }
 
   /**
@@ -50,7 +59,11 @@ export class DataService {
    * @returns {Observable<any>}
    */
   postData(url: string, body: any = null): Observable<any> {
-    this.options.headers[ 'Authorization'] = 'Bearer ' + localStorage.getItem('token');
-    return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options);
+    this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
+    if (environment.production) {
+      return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options);
+    } else {
+      return this.http.post(this.serverHost + url, body && JSON.stringify(body));
+    }
   }
 }

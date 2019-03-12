@@ -1,16 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {User} from '../sys/models/user';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {DataService} from '../services/data.service';
-import {RequestOptions} from '@angular/http';
 
 @Injectable()
 export class LoginService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dataService: DataService) {
   }
 
   /**
@@ -29,15 +27,23 @@ export class LoginService {
         'Authorization': 'Basic ' + btoa(appId + ':' + appScret)
       }
     };
-    return this.http.post(environment.serverHost + '/oauth/token', params.toString(), options);
+    if (environment.production) {
+      return this.http.post(environment.serverHost + '/oauth/token', params.toString(), options);
+    } else {
+      return this.http.post(environment.serverHost + '/oauth/token', params);
+    }
   }
 
   /**
    * 退出登录
    */
   logout(): Observable<any> {
-    const options = {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}};
-    return this.http.get(environment.serverHost + '/sys/user/logout', options);
+    const options = {headers: {'Authorization': 'Bearer ' + this.dataService.getToken()}};
+    if (environment.production) {
+      return this.http.get(environment.serverHost + '/sys/user/logout', options);
+    } else {
+      return this.http.get(environment.serverHost + '/sys/user/logout');
+    }
   }
 
 }

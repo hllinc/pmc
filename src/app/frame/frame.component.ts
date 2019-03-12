@@ -13,6 +13,7 @@ import {
   RoutesRecognized
 } from '@angular/router';
 import {LoginService} from '../login/login.service';
+import {DataService} from '../services/data.service';
 
 @Component({
   selector: 'app-frame',
@@ -26,7 +27,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
   subMenu: Resource[];
 
   constructor(private authService: AuthService, private modalService: NzModalService,
-              private router: Router, private loginService: LoginService) {
+              private router: Router, private loginService: LoginService, private dataService: DataService) {
     // 监听路由改变事件
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -39,9 +40,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    this.authService.initCurrentUser().subscribe(data => {
-      this.user = this.authService.getUser();
-    });
+    this.user = this.authService.getUser();
     this.userResources = this.authService.getCurrentUserResources();
   }
 
@@ -57,6 +56,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
       nzOnOk: () => {
         this.loginService.logout().subscribe(data => {
           if (data.code === 'ok') {
+            this.dataService.clearToken();
             this.router.navigate(['/login']);
           }
         });
