@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SubSystem} from '../models/sub-system';
 
 @Component({
   selector: 'app-resource',
@@ -8,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class ResourceComponent implements OnInit {
 
   constructor() { }
-
+  /**
+   * 子系统切换事件
+   * @param subSystem
+   */
+  orgChangeSubSystemEvent(subSystem: SubSystem) {
+  }
   ngOnInit() {
   }
 
