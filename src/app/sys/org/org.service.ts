@@ -11,14 +11,6 @@ export class OrgService {
   }
 
   /**
-   * 获取组织树
-   * @returns {Observable<any>}
-   */
-  getOrgData(): Observable<any> {
-    return this.dataService.getData('./mock/org.json', true);
-  }
-
-  /**
    * 获取根节点
    * @returns {Observable<ServerData>}
    */

@@ -37,14 +37,9 @@ export class DataService {
    * @param url 请求路径
    * @returns {Observable<any>}
    */
-  getData(url: string, isMock?: boolean): Observable<any> {
+  getData(url: string): Observable<any> {
     this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
-    let uri = '';
-    if (isMock) {
-      uri = url;
-    } else {
-      uri = this.serverHost + url;
-    }
+    const uri = this.serverHost + url;
     if (environment.production) {
       return this.http.get(uri, this.options);
     } else {

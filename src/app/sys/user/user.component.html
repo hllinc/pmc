@@ -1,13 +1,15 @@
-<nz-table #nzTable [nzData]="users" [nzPageSize]="10" (nzDataChange)="_displayDataChange($event)" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
+<nz-table #nzTable [nzData]="users" [nzPageSize]="10" (nzDataChange)="_displayDataChange($event)"
+          (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
   <thead nz-thead>
   <tr>
     <th nz-th nzCheckbox>
-      <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+      <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate"
+             (ngModelChange)="_checkAll($event)">
       </label>
     </th>
     <th nz-th><span>登录名</span></th>
     <th nz-th><span>年龄</span></th>
-    <th nz-th><span>Address</span></th>
+    <th nz-th><span>邮箱</span></th>
   </tr>
   </thead>
   <tbody nz-tbody>
@@ -16,11 +18,9 @@
       <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)">
       </label>
     </td>
-    <td nz-td>
-      <a>{{data.username}}</a>
-    </td>
+    <td nz-td>{{data.username}}</td>
     <td nz-td>{{data.age}}</td>
-    <td nz-td>{{data.address}}</td>
+    <td nz-td>{{data.email}}</td>
   </tr>
   </tbody>
 </nz-table>

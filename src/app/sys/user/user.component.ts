@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../models/user';
 import {UserService} from './user.service';
 import {Page} from '../../models/page';
@@ -17,13 +17,17 @@ export class UserComponent implements OnInit {
   _allChecked = false;
   _indeterminate = false;
   _displayData = [];
-  constructor(private userService: UserService) { }
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
-    // this.userService.getUsersByPage(this.page).subscribe(data => {
-    //   this.users = data.content;
-    //   this.tableLoading = false;
-    // });
+    this.userService.getUsersByPage(this.page).subscribe(data => {
+      if (data.code === 'ok') {
+        this.users = data.result;
+        this.tableLoading = false;
+      }
+    });
   }
 
   /**
@@ -33,6 +37,7 @@ export class UserComponent implements OnInit {
   orgChangeSubSystemEvent(subSystem: SubSystem) {
     console.log(subSystem);
   }
+
   _displayDataChange($event) {
     this._displayData = $event;
     this._refreshStatus();

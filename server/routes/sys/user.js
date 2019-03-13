@@ -7,7 +7,7 @@
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
-const {resultData} = require('../../common/utils');
+const {resultData, loadFile} = require('../../common/utils');
 
 /**
  * 安全退出
@@ -52,16 +52,10 @@ router.get('/selectPage', function (req, res) {
   let params = req.body,
     ret = {};
 
-  loadFile('/mock/org.json', function (data) {
-    let result = [];
-    for (var i = 0; i < data.length; i++) {
-      if (data[i]['subSystemId'] === id) {
-        result.push(data[i]);
-      }
-    }
+  loadFile('/mock/users.json', function (data) {
     Object.assign(ret, resultData, {
       code: "ok",
-      result: result,
+      result: data,
       info: '获取数据成功！'
     });
 
