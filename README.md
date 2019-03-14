@@ -1,5 +1,5 @@
 # PMC
-Angular 6，hmr热部署，ng-zorro-antd ^1.8.1，集成mock本地服务。:smile:  
+Angular 6，hmr热部署，ng-zorro-antd ^1.8.1，集成mock本地服务，后端数据源切换，oauth认证。:smile:  
 ## 依赖组件
 * Angular ^6.1.10
 * @angularclass/hmr ^2.1.3
