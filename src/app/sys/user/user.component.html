@@ -1,6 +1,14 @@
-<nz-table #nzTable [nzData]="users" [nzPageSize]="10" (nzDataChange)="_displayDataChange($event)"
-          (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
-  <thead nz-thead>
+<nz-table #nzTable
+          nzShowSizeChanger
+          [nzFrontPagination]="false"
+          [nzData]="dataSet"
+          [nzLoading]="loading"
+          [nzTotal]="total"
+          [(nzPageIndex)]="pageIndex"
+          [(nzPageSize)]="pageSize"
+          (nzPageIndexChange)="searchData()"
+          (nzPageSizeChange)="searchData(true)">
+  <thead nz-thead (nzSortChange)="sort($event)" nzSingleSort>
   <tr>
     <th nz-th nzCheckbox>
       <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate"

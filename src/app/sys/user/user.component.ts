@@ -10,57 +10,47 @@ import {SubSystem} from '../models/sub-system';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  public users: User[] = [];
-  public tableLoading = true;
+  pageIndex = 1;
+  pageSize = 10;
+  total = 1;
+  dataSet: User[] = [];
+  loading = true;
+  sortValue = null;
+  sortKey = null;
+  filterGender = [
+    { text: 'male', value: 'male' },
+    { text: 'female', value: 'female' }
+  ];
+  searchGenderList: string[] = [];
 
-  page: Page = new Page(1, 10);
-  _allChecked = false;
-  _indeterminate = false;
-  _displayData = [];
+  sort(sort: { key: string, value: string }): void {
+    this.sortKey = sort.key;
+    this.sortValue = sort.value;
+    this.searchData();
+  }
 
   constructor(private userService: UserService) {
   }
-
-  ngOnInit() {
-    this.userService.getUsersByPage(this.page).subscribe(data => {
-      if (data.code === 'ok') {
-        this.users = data.result;
-        this.tableLoading = false;
-      }
+  searchData(reset: boolean = false): void {
+    if (reset) {
+      this.pageIndex = 1;
+    }
+    this.loading = true;
+    const page: Page = new Page(this.pageIndex, this.pageSize);
+    this.userService.getUsersByPage(page).subscribe((data: any) => {
+      this.loading = false;
+      // this.total = 200;
+      this.dataSet = data.result;
     });
   }
 
-  /**
-   * 子系统切换事件
-   * @param subSystem
-   */
-  orgChangeSubSystemEvent(subSystem: SubSystem) {
-    console.log(subSystem);
+  updateFilter(value: string[]): void {
+    this.searchGenderList = value;
+    this.searchData(true);
   }
 
-  _displayDataChange($event) {
-    this._displayData = $event;
-    this._refreshStatus();
-  }
-
-  _refreshStatus() {
-    const allChecked = this._displayData.every(value => value.checked === true);
-    const allUnChecked = this._displayData.every(value => !value.checked);
-    this._allChecked = allChecked;
-    this._indeterminate = (!allChecked) && (!allUnChecked);
-  }
-
-  _checkAll(value) {
-    if (value) {
-      this._displayData.forEach(data => {
-        data.checked = true;
-      });
-    } else {
-      this._displayData.forEach(data => {
-        data.checked = false;
-      });
-    }
-    this._refreshStatus();
+  ngOnInit() {
+    this.searchData();
   }
 
 }
