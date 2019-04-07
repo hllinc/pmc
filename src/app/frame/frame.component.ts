@@ -71,10 +71,17 @@ export class FrameComponent implements OnInit, AfterContentInit {
    */
   setSubMenuByResourceUrl(url: string) {
     let menu = null;
-    for (let i = 0; i < this.userResources.length; i++) {
-      if (this.userResources[i].routerLink === url) {
-        menu = this.userResources[i].children;
+    if (this.userResources) {
+      for (let i = 0; i < this.userResources.length; i++) {
+        if (this.userResources[i].routerLink === url) {
+          menu = this.userResources[i].children;
+        }
       }
+    } else {
+      this.modalService.warning({
+        nzTitle: '系统提示',
+        nzContent: '您当前没有菜单资源权限，请联系管理员为您分配。'
+      });
     }
     if (this.subMenu !== menu) {
       this.subMenu = menu;

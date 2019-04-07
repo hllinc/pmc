@@ -9,5 +9,6 @@ export class Org extends BaseModel {
   public name?: string;
   public info?: string;
   public isLeaf?: boolean;
+  public subSystemId?: number;
   public children?: Org[];
 }
