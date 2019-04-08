@@ -17,8 +17,8 @@ export class SubSystemChooserComponent implements OnInit {
   @Output() changeSubSystemEvent = new EventEmitter<SubSystem>();
 
   constructor(private subSystemService: SubSystemService) {
-    this.subSystemService.getSubSystems().subscribe(data => {
-      this.subSystems = data.result;
+    this.subSystemService.getSubSystems(1, 20).subscribe(data => {
+      this.subSystems = data.list;
     });
   }
 

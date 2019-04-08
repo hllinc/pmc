@@ -37,7 +37,7 @@ export class DataService {
    * @param url 请求路径
    * @returns {Observable<any>}
    */
-  getData(url: string): Observable<any> {
+  get(url: string): Observable<any> {
     this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     const uri = this.serverHost + url;
     if (environment.production) {
@@ -48,12 +48,26 @@ export class DataService {
   }
 
   /**
+   * delete请求
+   * @param url
+   */
+  delete(url: string): Observable<any> {
+    this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
+    const uri = this.serverHost + url;
+    if (environment.production) {
+      return this.http.delete(uri, this.options);
+    } else {
+      return this.http.delete(uri);
+    }
+  }
+
+  /**
    * post请求
    * @param url 请求路径
    * @param obj 请求body
    * @returns {Observable<any>}
    */
-  postData(url: string, body: any = null): Observable<any> {
+  post(url: string, body: any = null): Observable<any> {
     this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     if (environment.production) {
       return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options);

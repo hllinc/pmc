@@ -14,8 +14,16 @@ export class SubSystemService {
   /**
    * 获取子系统列表
    */
-  getSubSystems(): Observable<any> {
-    return this.dataService.getData('/sys/subSystem/getSubSystems');
+  getSubSystems(pageNum: number, pageSize: number): Observable<any> {
+    return this.dataService.get('/sys/subSystem/selectPage?pageNum=' + pageNum + '&pageSize=' + pageSize);
+  }
+
+  /**
+   * 根据id获取单个子系统
+   * @param id
+   */
+  getSubSystemById(id: number): Observable<any> {
+    return this.dataService.get('/sys/subSystem/' + id);
   }
 
   /**
@@ -23,7 +31,7 @@ export class SubSystemService {
    * @param subSystem
    */
   addSubSystem(subSystem: SubSystem): Observable<any> {
-    return this.dataService.postData('/sys/subSystem/add');
+    return this.dataService.post('/sys/subSystem/add', subSystem);
   }
 
   /**
@@ -31,10 +39,14 @@ export class SubSystemService {
    * @param subSystem
    */
   modifySubSystem(subSystem: SubSystem): Observable<any> {
-    return this.dataService.postData('/sys/subSystem/modify');
+    return this.dataService.post('/sys/subSystem/update', subSystem);
   }
 
+  /**
+   * 单个删除
+   * @param id
+   */
   deleteSubSystem(id: number): Observable<any> {
-    return this.dataService.postData('/sys/subSystem/delete');
+    return this.dataService.delete('/sys/subSystem/delete/' + id);
   }
 }

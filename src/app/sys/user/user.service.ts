@@ -15,7 +15,7 @@ export class UserService {
    * @returns {Observable<any>}
    */
   getUsersByPage(page: Page): Observable<any> {
-    return this.dataService.getData('/sys/user/selectPage?number=' + page.number + '&size=' + page.size);
+    return this.dataService.get('/sys/user/selectPage?number=' + page.number + '&size=' + page.size);
   }
 
 }

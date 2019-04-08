@@ -6,8 +6,8 @@ import {BaseModel} from '../../models/base-model';
 
 export class Resource extends BaseModel {
   name: string;
-  routerLink: string;
-  routerLinkActive: boolean;
+  url: string;
+  type: number;
   icon: string;
   children: Resource[];
 }

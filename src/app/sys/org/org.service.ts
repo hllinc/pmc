@@ -15,7 +15,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   getOrgDataBySubSystemId(id: number): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/getOrgDataBySubSystemId?id=' + id);
+    return this.dataService.get('/sys/org/getOrgDataBySubSystemId?id=' + id);
   }
 
   /**
@@ -24,7 +24,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   getOrgsByParentId(pid: number): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/getOrgByParentId?parentId=' + pid);
+    return this.dataService.get('/sys/org/getOrgByParentId?parentId=' + pid);
   }
 
   /**
@@ -33,7 +33,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   addOrg(org: Org): Observable<ServerData> {
-    return this.dataService.postData('/sys/org/add', org);
+    return this.dataService.post('/sys/org/add', org);
   }
 
   /**
@@ -42,7 +42,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   updateOrg(org: Org): Observable<ServerData> {
-    return this.dataService.postData('/sys/org/update', org);
+    return this.dataService.post('/sys/org/update', org);
   }
 
   /**
@@ -51,7 +51,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   deleteById(id: number): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/delete?id=' + id);
+    return this.dataService.get('/sys/org/delete?id=' + id);
   }
 
   /**
@@ -60,7 +60,7 @@ export class OrgService {
    * @returns {Observable<ServerData>}
    */
   deleteByNoLike(no: string): Observable<ServerData> {
-    return this.dataService.getData('/sys/org/deleteByNoLike?no=' + no);
+    return this.dataService.get('/sys/org/deleteByNoLike?no=' + no);
   }
 
 }

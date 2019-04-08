@@ -11,7 +11,7 @@ const {resultData} = require('../../common/utils');
 /**
  * 获取子系统列表
  */
-router.get('/getSubSystems', function (req, res) {
+router.get('/selectPage', function (req, res) {
   res.type('json');
   let params = req.body,
     ret = {};

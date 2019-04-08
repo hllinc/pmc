@@ -34,7 +34,7 @@ export class AuthService {
         subscriber.complete();
       });
     } else {
-      return this.dataService.getData('/sys/user/getCurrentUser');
+      return this.dataService.get('/sys/user/getCurrentUser');
     }
   }
 
@@ -43,7 +43,7 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   initCurrentUserResources(): Observable<any> {
-    return this.dataService.getData('/sys/resource/getCurrentUserResources');
+    return this.dataService.get('/sys/resource/getCurrentUserResources');
   }
 
   /**
@@ -82,9 +82,7 @@ export class AuthService {
         this.redirectUrl = redirectUrl;
         this.user = user;
         this.initCurrentUserResources().subscribe(data => {
-          if (data.code === 'ok') {
-            this.currentUserResources = data.result;
-          }
+          this.currentUserResources = data;
           subscriber.next(true);
           subscriber.complete();
         });

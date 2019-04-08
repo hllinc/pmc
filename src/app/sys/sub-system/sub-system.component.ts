@@ -11,6 +11,9 @@ import {SubSystem} from '../models/sub-system';
 })
 export class SubSystemComponent implements OnInit {
 
+  pageNum = 1;
+  pageSize = 20;
+
   dataSet = [];
 
   constructor(private subSystemService: SubSystemService, private modalService: NzModalService) {
@@ -25,10 +28,8 @@ export class SubSystemComponent implements OnInit {
    * 加载列表
    */
   loadSubSystemTable() {
-    this.subSystemService.getSubSystems().subscribe(data => {
-      if (data.code === 'ok') {
-        this.dataSet = data.result;
-      }
+    this.subSystemService.getSubSystems(this.pageNum, this.pageSize).subscribe(data => {
+      this.dataSet = data.list;
     });
   }
 
@@ -36,6 +37,7 @@ export class SubSystemComponent implements OnInit {
     const modal = this.modalService.create({
       nzTitle: '添加子系统',
       nzContent: SubSystemFormComponent,
+      nzMaskClosable: false,
       nzComponentParams: {},
       nzFooter: [{
         label: '取消',
@@ -49,14 +51,12 @@ export class SubSystemComponent implements OnInit {
           const newSubSystem = componentInstance.getFormValue();
           if (newSubSystem) {
             this.subSystemService.addSubSystem(newSubSystem).subscribe(data => {
-              if (data.code === 'ok') {
-                modal.close();
-                this.modalService.success({
-                  nzTitle: '系统提示',
-                  nzContent: data.info
-                });
-                this.loadSubSystemTable();
-              }
+              modal.close();
+              // this.modalService.success({
+              //   nzTitle: '系统提示',
+              //   nzContent: '添加成功'
+              // });
+              this.loadSubSystemTable();
             });
           }
         }
@@ -68,6 +68,7 @@ export class SubSystemComponent implements OnInit {
     const modal = this.modalService.create({
       nzTitle: '编辑子系统',
       nzContent: SubSystemFormComponent,
+      nzMaskClosable: false,
       nzComponentParams: {
         subSystem: subSystem
       },
@@ -83,14 +84,12 @@ export class SubSystemComponent implements OnInit {
           const newSubSystem = componentInstance.getFormValue();
           if (newSubSystem) {
             this.subSystemService.modifySubSystem(newSubSystem).subscribe(data => {
-              if (data.code === 'ok') {
-                modal.close();
-                this.modalService.success({
-                  nzTitle: '系统提示',
-                  nzContent: data.info
-                });
-                this.loadSubSystemTable();
-              }
+              modal.close();
+              // this.modalService.success({
+              //   nzTitle: '系统提示',
+              //   nzContent: '修改成功'
+              // });
+              this.loadSubSystemTable();
             });
           }
         }
@@ -100,13 +99,11 @@ export class SubSystemComponent implements OnInit {
 
   deleteSubSystem(id: number) {
     this.subSystemService.deleteSubSystem(id).subscribe(data => {
-      if (data.code === 'ok') {
-        this.modalService.success({
-          nzTitle: '提示',
-          nzContent: data.info
-        });
-        this.loadSubSystemTable();
-      }
+      // this.modalService.success({
+      //   nzTitle: '提示',
+      //   nzContent: '删除成功'
+      // });
+      this.loadSubSystemTable();
     });
   }
 

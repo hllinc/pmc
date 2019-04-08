@@ -73,7 +73,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
     let menu = null;
     if (this.userResources) {
       for (let i = 0; i < this.userResources.length; i++) {
-        if (this.userResources[i].routerLink === url) {
+        if (this.userResources[i].url === url) {
           menu = this.userResources[i].children;
         }
       }

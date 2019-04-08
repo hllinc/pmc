@@ -3,6 +3,7 @@ import {NzModalRef} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Org} from '../../models/org';
 import {SubSystem} from '../../models/sub-system';
+import {SubSystemService} from '../sub-system.service';
 
 @Component({
   selector: 'app-sub-system-form',
@@ -18,7 +19,7 @@ export class SubSystemFormComponent implements OnInit {
   // 表单对象
   validateForm: FormGroup;
 
-  constructor(private modal: NzModalRef, private fb: FormBuilder) {
+  constructor(private modal: NzModalRef, private fb: FormBuilder, private subSystemService: SubSystemService) {
   }
 
   /**
@@ -71,7 +72,10 @@ export class SubSystemFormComponent implements OnInit {
     });
     // 初始化表单数据
     if (this.subSystem) {
-      this.setFormValue(this.subSystem);
+      this.subSystemService.getSubSystemById(this.subSystem.id).subscribe(data => {
+        this.subSystem = data;
+        this.setFormValue(this.subSystem);
+      });
     }
   }
 

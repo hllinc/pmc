@@ -6,8 +6,8 @@
       <span>PMC</span>
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;" *ngIf="userResources">
-      <li *ngFor="let resource of userResources" nz-menu-item [routerLink]="resource.routerLink"
-          [routerLinkActive]="resource.routerLinkActive" #rla="routerLinkActive"><i nz-icon [type]="resource.icon"></i> {{resource.name}}
+      <li *ngFor="let resource of userResources" nz-menu-item [routerLink]="resource.url"
+          routerLinkActive="ant-menu-item-selected" #rla="routerLinkActive"><i nz-icon [type]="resource.icon"></i> {{resource.name}}
         <!--{{rla.isActive? setSubMenuByResourceId(resource.id): ''}}-->
       </li>
 
@@ -52,8 +52,8 @@
            (click)="isCollapsed=!isCollapsed"></i>
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" [nzInlineCollapsed]="isCollapsed">
-        <li *ngFor="let resource of subMenu" nz-menu-item [routerLink]="resource.routerLink"
-            [routerLinkActive]="resource.routerLinkActive">
+        <li *ngFor="let resource of subMenu" nz-menu-item [routerLink]="resource.url"
+            routerLinkActive="ant-menu-item-selected">
           <span><i nz-icon [type]="resource.icon"></i> <span class="nav-text">{{resource.name}}</span></span>
         </li>
         <!--<li nz-submenu>-->
