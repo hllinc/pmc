@@ -1,6 +1,6 @@
 系统切换：
 <nz-select nzSize="small" style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="选择子系统"
-           [(ngModel)]="selectedSubSystem" (ngModelChange)="changeEvent()">
+           [(ngModel)]="selectedSubSystem" (ngModelChange)="changeEvent()" [nzAllowClear]="false">
   <nz-option *ngFor="let item of subSystems" nzCustomContent [nzLabel]="item.name" [nzValue]="item">
     <i nz-icon type="desktop"></i>
     {{item.name}}
