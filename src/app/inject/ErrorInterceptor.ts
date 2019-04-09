@@ -17,7 +17,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
       this.modalService.error({
         nzTitle: err.name,
-        nzContent: err.error.message,
+        nzContent: err.message,
         nzOkText: '确定'
       });
       const error = err.error.message || err.statusText;

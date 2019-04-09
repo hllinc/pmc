@@ -38,7 +38,7 @@ export class DataService {
    * @returns {Observable<any>}
    */
   get(url: string): Observable<any> {
-    this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
+    // this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     const uri = this.serverHost + url;
     if (environment.production) {
       return this.http.get(uri, this.options);
