@@ -55,10 +55,8 @@ export class FrameComponent implements OnInit, AfterContentInit {
       nzContent: '确定退出系统吗？',
       nzOnOk: () => {
         this.loginService.logout().subscribe(data => {
-          if (data.code === 'ok') {
-            this.dataService.clearToken();
-            this.router.navigate(['/login']);
-          }
+          this.dataService.clearToken();
+          this.router.navigate(['/login']);
         });
       }
     });

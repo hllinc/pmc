@@ -40,7 +40,7 @@ export class LoginService {
   logout(): Observable<any> {
     const options = {headers: {'Authorization': 'Bearer ' + this.dataService.getToken()}};
     if (environment.production) {
-      return this.http.get(environment.serverHost + '/sys/user/logout', options);
+      return this.http.get(environment.serverHost + '/sys/user/logout?tokenId=' + this.dataService.getToken(), options);
     } else {
       return this.http.get(environment.serverHost + '/sys/user/logout');
     }
