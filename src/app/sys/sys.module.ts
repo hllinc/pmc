@@ -11,6 +11,7 @@ import {SharedModule} from '../shared/shared.module';
 import {SubSystemComponent} from './sub-system/sub-system.component';
 import {SubSystemService} from './sub-system/sub-system.service';
 import { SubSystemFormComponent } from './sub-system/sub-system-form/sub-system-form.component';
+import { UserFormComponent } from './user/user-form/user-form.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SubSystemFormComponent } from './sub-system/sub-system-form/sub-system-
     UserComponent,
     ResourceComponent,
     SubSystemComponent,
-    SubSystemFormComponent
+    SubSystemFormComponent,
+    UserFormComponent
   ],
   providers: [
     SubSystemService,
@@ -32,7 +34,8 @@ import { SubSystemFormComponent } from './sub-system/sub-system-form/sub-system-
     UserService
   ],
   entryComponents: [
-    SubSystemFormComponent
+    SubSystemFormComponent,
+    UserFormComponent
   ]
 })
 export class SysModule {

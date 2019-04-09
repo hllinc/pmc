@@ -13,6 +13,7 @@ export class SubSystemComponent implements OnInit {
 
   pageNum = 1;
   pageSize = 20;
+  startRow = 1;
 
   dataSet = [];
 
@@ -37,6 +38,7 @@ export class SubSystemComponent implements OnInit {
     this.subSystemService.getSubSystems(this.pageNum, this.pageSize).subscribe(data => {
       this.dataSet = data.list;
       this.total = data.total;
+      this.startRow = data.startRow;
       this.loading = false;
     });
   }

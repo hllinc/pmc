@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzModalRef} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Org} from '../../models/org';
 import {SubSystem} from '../../models/sub-system';
 import {SubSystemService} from '../sub-system.service';
 
@@ -11,9 +10,6 @@ import {SubSystemService} from '../sub-system.service';
   styleUrls: ['./sub-system-form.component.css']
 })
 export class SubSystemFormComponent implements OnInit {
-
-  @Input() title: string;
-  @Input() subtitle: string;
 
   @Input() subSystem: SubSystem;
   // 表单对象

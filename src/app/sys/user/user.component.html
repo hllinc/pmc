@@ -1,5 +1,5 @@
 <div nz-row [nzGutter]="20">
-  <div nz-col [nzSm]="8">
+  <div nz-col [nzSm]="6">
     <nz-card [nzTitle]="cardTitle">
       <ng-template #cardTitle>
         <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
@@ -8,7 +8,7 @@
                        [loadOrgData]="subSystem.id"></app-org-chooser>
     </nz-card>
   </div>
-  <div nz-col [nzSm]="16">
+  <div nz-col [nzSm]="18">
     <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate">
       <nz-table #nzTable
                 nzShowSizeChanger
@@ -22,24 +22,36 @@
                 (nzPageSizeChange)="loadUserTable(true)">
         <thead nz-thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
+          <th nz-th><span>序号</span></th>
           <th nz-th><span>登录名</span></th>
           <th nz-th><span>组织ID</span></th>
+          <th nz-th><span>手机</span></th>
           <th nz-th><span>邮箱</span></th>
+          <th nz-th>操作</th>
         </tr>
         </thead>
         <tbody nz-tbody>
-        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data; let i=index;">
+          <td nz-td>{{ startRow+i }}</td>
           <td nz-td>{{data.username}}</td>
           <td nz-td>{{data.orgId}}</td>
+          <td nz-td>{{data.phone}}</td>
           <td nz-td>{{data.email}}</td>
+          <td>
+            <a (click)="modifyUser(data)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定删除['+data.username+']用户吗?'" (nzOnConfirm)="deleteUser(data.id)">
+              <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
         </tr>
         </tbody>
       </nz-table>
     </nz-card>
     <ng-template #extraTemplate>
-      <button nz-button nzSize="small" (click)="addUser()" nzType="primary">
+      <button nz-button nzSize="small" (click)="addUser()" nzType="primary" [disabled]="!subSystem">
         <i nz-icon type="plus-circle" theme="outline"></i>
-        添加ksksk
+        添加
       </button>
     </ng-template>
   </div>

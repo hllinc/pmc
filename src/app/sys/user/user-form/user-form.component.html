@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      <span>用户名</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input formControlName="username"
+             placeholder="请输入用户名"/>
+      <nz-form-explain *ngIf="validateForm.get('username').dirty&&validateForm.get('username').errors">
+        用户名不能为空！
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <span>手机号</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="phone"
+             placeholder="请输入手机号"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <span>邮箱</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="email"
+             placeholder="请输入邮箱"/>
+      <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入正确的邮箱!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <span>所属组织</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <app-org-chooser (selectedEvent)="selectedOrgEvent($event)" [loadOrgData]="user.subSystemId"></app-org-chooser>
+    </nz-form-control>
+  </nz-form-item>
+</form>
