@@ -5,7 +5,6 @@ import {LoginService} from './login.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd';
 import {DataService} from '../services/data.service';
-import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +13,8 @@ import {AuthService} from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public user: User = new User();
+
+  rememberMe = true;
 
   validateForm: FormGroup;
 
@@ -31,24 +32,33 @@ export class LoginComponent implements OnInit {
       password: [null, [Validators.required]],
       rememberMe: [null]
     });
+    if (localStorage.getItem('auth_login_username')) {
+      this.rememberMe = true;
+      this.user.username = localStorage.getItem('auth_login_username');
+      this.user.password = localStorage.getItem('auth_login_password');
+      console.log(this.user);
+    }
+  }
+
+  checkChange() {
+    if (!this.rememberMe) {
+      localStorage.removeItem('auth_login_username');
+      localStorage.removeItem('auth_login_password');
+    }
   }
 
   getFormControl(name) {
     return this.validateForm.controls[name];
   }
 
-  _submitForm() {
-    for (const i in this.validateForm.controls) {
-      if (true) {
-        this.validateForm.controls[i].markAsDirty();
-      }
-    }
-  }
-
   loginEvent() {
     this.user = this.validateForm.value;
     this.loginService.login(this.user).subscribe(data => {
       if (data.access_token) {
+        if (this.rememberMe) {
+          localStorage.setItem('auth_login_username', this.user.username);
+          localStorage.setItem('auth_login_password', this.user.password);
+        }
         this.dataService.setToken(data.access_token);
         this.router.navigateByUrl('frame');
       } else {

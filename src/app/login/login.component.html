@@ -5,11 +5,11 @@
         <img src="./assets/logo.png" alt="" width="32px">
         PMC
       </h3>
-      <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" [nzLayout]="'horizontal'">
+      <form nz-form [formGroup]="validateForm" [nzLayout]="'horizontal'">
         <nz-form-item>
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="username" id="username"/>
+            <input nz-input [nzSize]="'large'" formControlName="username" [(ngModel)]="user.username" id="username"/>
             <nz-form-explain
               *ngIf="getFormControl('username').dirty&&getFormControl('username').hasError('required')">请输入用户名！
             </nz-form-explain>
@@ -18,15 +18,15 @@
         <nz-form-item nz-row style="margin-bottom:8px;">
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input [nzSize]="'large'" formControlName="password" type="password"/>
+            <input nz-input [nzSize]="'large'" formControlName="password" [(ngModel)]="user.password" type="password"/>
             <nz-form-explain
-                 *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！
+              *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码！
             </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nz-row style="margin-bottom:8px;">
           <nz-form-control [nzSpan]="14" [nzOffset]="6">
-            <label nz-checkbox formControlName="rememberMe">
+            <label nz-checkbox formControlName="rememberMe" [(ngModel)]="rememberMe" (ngModelChange)="checkChange()">
               <span>记住我</span>
             </label>
           </nz-form-control>

@@ -17,6 +17,7 @@ export class LoginService {
    * @returns {Observable<any>}
    */
   login(user: User): Observable<any> {
+    // 这块需要写死
     const appId = 'myapp';
     const appScret = 'secret';
     const params = new HttpParams().set('username', user.username)
