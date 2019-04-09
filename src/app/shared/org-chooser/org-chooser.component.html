@@ -1,0 +1,18 @@
+<nz-tree [nzData]="nodes"
+         #treeCom
+         [nzAsyncData]="true"
+         (nzClick)="nzClick($event)"
+         (nzExpandChange)="expandEvent('expand',$event)">
+  <ng-template #nzTreeTemplate let-node>
+          <span class="custom-node un-selectable" [class.active]="activedNode?.origin.id===node?.origin.id">
+          <span *ngIf="!node.isLeaf">
+            <i nz-icon [type]="node.isExpanded ? 'folder-open' : 'folder'"></i>
+            <span class="folder-name">{{node?.origin?.name}}</span>
+          </span>
+          <span *ngIf="node.isLeaf">
+            <i nz-icon type="file"></i>
+            <span class="file-name">{{node?.origin?.name}}</span>
+          </span>
+          </span>
+  </ng-template>
+</nz-tree>

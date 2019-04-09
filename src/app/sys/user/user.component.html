@@ -1,34 +1,44 @@
-<nz-table #nzTable
-          nzShowSizeChanger
-          [nzFrontPagination]="false"
-          [nzData]="dataSet"
-          [nzLoading]="loading"
-          [nzTotal]="total"
-          [(nzPageIndex)]="pageIndex"
-          [(nzPageSize)]="pageSize"
-          (nzPageIndexChange)="searchData()"
-          (nzPageSizeChange)="searchData(true)">
-  <thead nz-thead (nzSortChange)="sort($event)" nzSingleSort>
-  <tr>
-    <th nz-th nzCheckbox>
-      <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate"
-             (ngModelChange)="_checkAll($event)">
-      </label>
-    </th>
-    <th nz-th><span>登录名</span></th>
-    <th nz-th><span>年龄</span></th>
-    <th nz-th><span>邮箱</span></th>
-  </tr>
-  </thead>
-  <tbody nz-tbody>
-  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
-    <td nz-td nzCheckbox>
-      <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)">
-      </label>
-    </td>
-    <td nz-td>{{data.username}}</td>
-    <td nz-td>{{data.age}}</td>
-    <td nz-td>{{data.email}}</td>
-  </tr>
-  </tbody>
-</nz-table>
+<div nz-row [nzGutter]="20">
+  <div nz-col [nzSm]="8">
+    <nz-card [nzTitle]="cardTitle">
+      <ng-template #cardTitle>
+        <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
+      </ng-template>
+      <app-org-chooser *ngIf="subSystem" (selectedEvent)="orgChangeEvent($event)" [loadOrgData]="subSystem.id"></app-org-chooser>
+    </nz-card>
+  </div>
+  <div nz-col [nzSm]="16">
+    <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate">
+      <nz-table #nzTable
+                nzShowSizeChanger
+                [nzFrontPagination]="false"
+                [nzData]="dataSet"
+                [nzLoading]="loading"
+                [nzTotal]="total"
+                [(nzPageIndex)]="pageIndex"
+                [(nzPageSize)]="pageSize"
+                (nzPageIndexChange)="loadUserTable()"
+                (nzPageSizeChange)="loadUserTable(true)">
+        <thead nz-thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th nz-th><span>登录名</span></th>
+          <th nz-th><span>组织ID</span></th>
+          <th nz-th><span>邮箱</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+          <td nz-td>{{data.username}}</td>
+          <td nz-td>{{data.orgId}}</td>
+          <td nz-td>{{data.email}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+    <ng-template #extraTemplate>
+      <button nz-button (click)="addUser()" nzType="primary" class="editable-add-btn"><i nz-icon type="plus-circle" theme="outline"></i>
+        添加
+      </button>
+    </ng-template>
+  </div>
+</div>

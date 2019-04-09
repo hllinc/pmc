@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Observable} from 'rxjs';
 import {SubSystem} from '../models/sub-system';
+import {PageInfoResponse} from '../../models/page-info-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class SubSystemService {
   /**
    * 获取子系统列表
    */
-  getSubSystems(pageNum: number, pageSize: number): Observable<any> {
+  getSubSystems(pageNum: number, pageSize: number): Observable<PageInfoResponse> {
     return this.dataService.get('/sys/subSystem/selectPage?pageNum=' + pageNum + '&pageSize=' + pageSize);
   }
 

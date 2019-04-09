@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Observable} from 'rxjs';
-import {Page} from '../../models/page';
+import {PageInfoResponse} from '../../models/page-info-response';
 
 @Injectable()
 export class UserService {
@@ -14,8 +14,8 @@ export class UserService {
    * @param {Page} page
    * @returns {Observable<any>}
    */
-  getUsersByPage(page: Page): Observable<any> {
-    return this.dataService.get('/sys/user/selectPage?number=' + page.number + '&size=' + page.size);
+  getUsersByPage(pageNum: number, pageSize: number, subSystemId: number): Observable<PageInfoResponse> {
+    return this.dataService.get('/sys/user/selectPage?pageNum=' + pageNum + '&pageSize=' + pageSize + '&subSystemId=' + subSystemId);
   }
 
 }
