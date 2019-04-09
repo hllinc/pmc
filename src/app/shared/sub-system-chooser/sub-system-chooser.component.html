@@ -1,8 +1,13 @@
 系统切换：
 <nz-select nzSize="small" style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="选择子系统"
            [(ngModel)]="selectedSubSystem" (ngModelChange)="changeEvent()" [nzAllowClear]="false">
-  <nz-option *ngFor="let item of subSystems" nzCustomContent [nzLabel]="item.name" [nzValue]="item">
-    <i nz-icon type="desktop"></i>
-    {{item.name}}
+  <ng-container *ngFor="let item of subSystems">
+    <nz-option nzCustomContent *ngIf="!isLoading" [nzLabel]="item.name" [nzValue]="item">
+      <i nz-icon type="desktop"></i>
+      {{item.name}}
+    </nz-option>
+  </ng-container>
+  <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+    <i nz-icon type="loading" class="loading-icon"></i> 加载中...
   </nz-option>
 </nz-select>

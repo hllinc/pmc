@@ -8,6 +8,7 @@ import {SubSystemService} from '../../sys/sub-system/sub-system.service';
   styleUrls: ['./sub-system-chooser.component.css']
 })
 export class SubSystemChooserComponent implements OnInit {
+  isLoading = true;
   // 选中的子系统
   selectedSubSystem: SubSystem;
   // 子系统列表
@@ -19,6 +20,7 @@ export class SubSystemChooserComponent implements OnInit {
   constructor(private subSystemService: SubSystemService) {
     this.subSystemService.getSubSystems(1, 20).subscribe(data => {
       this.subSystems = data.list;
+      this.isLoading = false;
     });
   }
 
