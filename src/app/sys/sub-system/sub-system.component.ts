@@ -16,6 +16,9 @@ export class SubSystemComponent implements OnInit {
 
   dataSet = [];
 
+  total = 1;
+  loading = true;
+
   constructor(private subSystemService: SubSystemService, private modalService: NzModalService) {
 
   }
@@ -27,9 +30,14 @@ export class SubSystemComponent implements OnInit {
   /**
    * 加载列表
    */
-  loadSubSystemTable() {
+  loadSubSystemTable(reset: boolean = false) {
+    if (reset) {
+      this.pageNum = 1;
+    }
     this.subSystemService.getSubSystems(this.pageNum, this.pageSize).subscribe(data => {
       this.dataSet = data.list;
+      this.total = data.total;
+      this.loading = false;
     });
   }
 

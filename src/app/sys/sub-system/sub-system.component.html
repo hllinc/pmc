@@ -3,7 +3,16 @@
     添加
   </button>
 </div>
-<nz-table #basicTable [nzData]="dataSet" nzSize="middle">
+<nz-table #basicTable nzSize="middle"
+          [nzFrontPagination]="false"
+          [nzShowSizeChanger]="true"
+          [nzLoading]="loading"
+          [nzTotal]="total"
+          [nzData]="dataSet"
+          [(nzPageSize)]="pageSize"
+          [(nzPageIndex)]="pageNum"
+          (nzPageIndexChange)="loadSubSystemTable()"
+          (nzPageSizeChange)="loadSubSystemTable(true)">
   <thead>
   <tr>
     <th>序号</th>
