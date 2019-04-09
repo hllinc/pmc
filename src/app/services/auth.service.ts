@@ -30,7 +30,7 @@ export class AuthService {
   initCurrentUser(): Observable<any> {
     if (this.user) {
       return new Observable<any>((subscriber: Subscriber<any>) => {
-        subscriber.next(new ServerData('从缓存中获取用户信息成功！', 'ok', this.user));
+        subscriber.next(this.user);
         subscriber.complete();
       });
     } else {

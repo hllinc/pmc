@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       this.rememberMe = true;
       this.user.username = localStorage.getItem('auth_login_username');
       this.user.password = localStorage.getItem('auth_login_password');
-      console.log(this.user);
     }
   }
 
