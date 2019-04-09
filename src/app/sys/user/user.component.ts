@@ -11,8 +11,9 @@ import {Org} from '../models/org';
 })
 export class UserComponent implements OnInit {
   subSystem: SubSystem;
+  org: Org;
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 20;
   total = 1;
   dataSet: User[] = [];
   loading = false;
@@ -39,6 +40,7 @@ export class UserComponent implements OnInit {
    */
   orgChangeSubSystemEvent(subSystem: SubSystem) {
     this.subSystem = subSystem;
+    this.org = null;
     this.loadUserTable(true);
   }
 
@@ -52,15 +54,17 @@ export class UserComponent implements OnInit {
       this.pageIndex = 1;
     }
     this.loading = true;
-    this.userService.getUsersByPage(this.pageIndex, this.pageSize, this.subSystem.id).subscribe((data: any) => {
+    this.userService.getUsersByPage(this.pageIndex, this.pageSize, this.subSystem.id,
+      this.org ? this.org.id : 0).subscribe((data: any) => {
       this.loading = false;
       this.total = data.total;
       this.dataSet = data.list;
     });
   }
 
-  orgChangeEvent(org: Org){
-
+  orgChangeEvent(org: Org) {
+    this.org = org;
+    this.loadUserTable(true);
   }
 
   /**

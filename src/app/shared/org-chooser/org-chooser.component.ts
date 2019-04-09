@@ -38,7 +38,7 @@ export class OrgChooserComponent implements OnInit {
       this.activedNode = data.node;
     }
     if (this.activedNode) {
-      this.selectedEvent.emit(this.activedNode);
+      this.selectedEvent.emit(this.activedNode.origin);
     } else {
       this.selectedEvent.emit(null);
     }
