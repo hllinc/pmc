@@ -28,7 +28,7 @@ export class LoginService {
         'Authorization': 'Basic ' + btoa(appId + ':' + appScret)
       }
     };
-    if (environment.production) {
+    if (environment.withBackEnd) {
       return this.http.post(environment.serverHost + '/oauth/token', params.toString(), options);
     } else {
       return this.http.post(environment.serverHost + '/oauth/token', params);
@@ -40,7 +40,7 @@ export class LoginService {
    */
   logout(): Observable<any> {
     const options = {headers: {'Authorization': 'Bearer ' + this.dataService.getToken()}};
-    if (environment.production) {
+    if (environment.withBackEnd) {
       return this.http.get(environment.serverHost + '/sys/user/logout?tokenId=' + this.dataService.getToken(), options);
     } else {
       return this.http.get(environment.serverHost + '/sys/user/logout');

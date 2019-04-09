@@ -4,7 +4,8 @@
       <ng-template #cardTitle>
         <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
       </ng-template>
-      <app-org-chooser *ngIf="subSystem" (selectedEvent)="orgChangeEvent($event)" [loadOrgData]="subSystem.id"></app-org-chooser>
+      <app-org-chooser *ngIf="subSystem" (selectedEvent)="orgChangeEvent($event)"
+                       [loadOrgData]="subSystem.id"></app-org-chooser>
     </nz-card>
   </div>
   <div nz-col [nzSm]="16">
@@ -36,8 +37,9 @@
       </nz-table>
     </nz-card>
     <ng-template #extraTemplate>
-      <button nz-button (click)="addUser()" nzType="primary" class="editable-add-btn"><i nz-icon type="plus-circle" theme="outline"></i>
-        添加
+      <button nz-button nzSize="small" (click)="addUser()" nzType="primary">
+        <i nz-icon type="plus-circle" theme="outline"></i>
+        添加ksksk
       </button>
     </ng-template>
   </div>

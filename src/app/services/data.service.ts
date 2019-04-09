@@ -4,9 +4,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
-import {AuthService} from './auth.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class DataService {
@@ -40,7 +38,7 @@ export class DataService {
   get(url: string): Observable<any> {
     // this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     const uri = this.serverHost + url;
-    if (environment.production) {
+    if (environment.withBackEnd) {
       return this.http.get(uri, this.options);
     } else {
       return this.http.get(uri);
@@ -54,7 +52,7 @@ export class DataService {
   delete(url: string): Observable<any> {
     this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
     const uri = this.serverHost + url;
-    if (environment.production) {
+    if (environment.withBackEnd) {
       return this.http.delete(uri, this.options);
     } else {
       return this.http.delete(uri);
@@ -69,7 +67,7 @@ export class DataService {
    */
   post(url: string, body: any = null): Observable<any> {
     this.options.headers['Authorization'] = 'Bearer ' + this.getToken();
-    if (environment.production) {
+    if (environment.withBackEnd) {
       return this.http.post(this.serverHost + url, body && JSON.stringify(body), this.options);
     } else {
       return this.http.post(this.serverHost + url, body && JSON.stringify(body));
