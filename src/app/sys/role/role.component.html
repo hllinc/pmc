@@ -1,22 +1,42 @@
-<app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
-<nz-table #basicTable [nzData]="dataSet">
+<div style="margin-bottom: 16px;">
+  <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="addRole()" nzType="primary" class="editable-add-btn" [disabled]="!subSystem">
+    <i nz-icon type="plus-circle" theme="outline"></i>
+    添加角色
+  </button>
+</div>
+<nz-table #basicTable nzSize="middle"
+          [nzFrontPagination]="false"
+          [nzShowSizeChanger]="true"
+          [nzLoading]="loading"
+          [nzTotal]="total"
+          [nzData]="dataSet"
+          [(nzPageSize)]="pageSize"
+          [(nzPageIndex)]="pageNum"
+          (nzPageIndexChange)="loadRoleTable()"
+          (nzPageSizeChange)="loadRoleTable(true)">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Age</th>
-    <th>Address</th>
-    <th>Action</th>
+    <th>序号</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>操作</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of basicTable.data">
+  <tr *ngFor="let data of basicTable.data; let i = index;">
+    <td>{{startRow+i}}</td>
     <td>{{data.name}}</td>
-    <td>{{data.age}}</td>
-    <td>{{data.address}}</td>
+    <td>{{data.info}}</td>
     <td>
-      <a>Action 一 {{data.name}}</a>
+      <a (click)="setResource(data)">分配权限</a>
       <nz-divider nzType="vertical"></nz-divider>
-      <a>Delete</a>
+      <a (click)="modifyRole(data)">编辑</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <nz-popconfirm [nzTitle]="'确定删除['+data.name+']这条数据?'" (nzOnConfirm)="deleteRole(data.id)">
+        <a nz-popconfirm>删除</a>
+      </nz-popconfirm>
     </td>
   </tr>
   </tbody>

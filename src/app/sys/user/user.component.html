@@ -9,7 +9,7 @@
     </nz-card>
   </div>
   <div nz-col [nzSm]="18">
-    <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate" class="main-content-panel-height" [nzLoading]="!subSystem">
+    <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate" class="main-content-panel-height">
       <nz-table #nzTable
                 nzShowSizeChanger
                 [nzFrontPagination]="false"
@@ -37,8 +37,10 @@
           <td nz-td>{{data.username}}</td>
           <td nz-td>{{data.org?data.org.name:'/'}}</td>
           <td nz-td>
-
-            {{data.roles}}
+            <ng-template *ngIf="data.roles&&data.roles.length > 0;else no_content">
+              <nz-tag [nzColor]="'orange'" *ngFor="let role of data.roles">{{role.name}}</nz-tag>
+            </ng-template>
+            <ng-template #no_content>/</ng-template>
           </td>
           <td nz-td>{{data.phone}}</td>
           <td nz-td>{{data.email}}</td>

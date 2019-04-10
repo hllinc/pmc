@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SubSystemService} from './sub-system.service';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SubSystemFormComponent} from './sub-system-form/sub-system-form.component';
 import {SubSystem} from '../models/sub-system';
 
@@ -20,7 +20,7 @@ export class SubSystemComponent implements OnInit {
   total = 1;
   loading = true;
 
-  constructor(private subSystemService: SubSystemService, private modalService: NzModalService) {
+  constructor(private subSystemService: SubSystemService, private modalService: NzModalService, private messageService: NzMessageService) {
 
   }
 
@@ -62,10 +62,7 @@ export class SubSystemComponent implements OnInit {
           if (newSubSystem) {
             this.subSystemService.addSubSystem(newSubSystem).subscribe(data => {
               modal.close();
-              // this.modalService.success({
-              //   nzTitle: '系统提示',
-              //   nzContent: '添加成功'
-              // });
+              this.messageService.create('success', '添加成功');
               this.loadSubSystemTable();
             });
           }
@@ -95,10 +92,7 @@ export class SubSystemComponent implements OnInit {
           if (newSubSystem) {
             this.subSystemService.modifySubSystem(newSubSystem).subscribe(data => {
               modal.close();
-              // this.modalService.success({
-              //   nzTitle: '系统提示',
-              //   nzContent: '修改成功'
-              // });
+              this.messageService.create('success', '修改成功');
               this.loadSubSystemTable();
             });
           }
@@ -109,10 +103,7 @@ export class SubSystemComponent implements OnInit {
 
   deleteSubSystem(id: number) {
     this.subSystemService.deleteSubSystem(id).subscribe(data => {
-      // this.modalService.success({
-      //   nzTitle: '提示',
-      //   nzContent: '删除成功'
-      // });
+      this.messageService.create('success', '删除成功');
       this.loadSubSystemTable();
     });
   }
