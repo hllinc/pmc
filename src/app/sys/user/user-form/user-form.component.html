@@ -23,7 +23,8 @@
         [nzDropdownStyle]="{ 'max-height': '300px' }"
         [nzNodes]="nodes"
         [nzAsyncData]="true"
-        (nzExpandChange)="expandEvent('expand',$event)" formControlName="orgId">
+        (nzExpandChange)="expandEvent('expand',$event)" formControlName="orgId"
+        (nzOpenChange)="openOrgTree()">
       </nz-tree-select>
       <nz-form-explain *ngIf="validateForm.get('orgId').dirty&&validateForm.get('orgId').errors">
         组织不能为空！

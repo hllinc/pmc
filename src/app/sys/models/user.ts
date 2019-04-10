@@ -3,6 +3,7 @@
  */
 import {BaseModel} from '../../models/base-model';
 import {Role} from './role';
+import {Org} from './org';
 
 export class User extends BaseModel {
   public username: string;
@@ -12,4 +13,5 @@ export class User extends BaseModel {
   public orgId: number;
   public subSystemId: number;
   public roles: Role[];
+  public org: Org;
 }

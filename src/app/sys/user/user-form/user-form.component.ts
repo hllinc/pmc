@@ -21,7 +21,9 @@ export class UserFormComponent implements OnInit {
 
   expandKeys = [];
 
-  constructor(private modal: NzModalRef, private fb: FormBuilder, private subSystemService: UserService,
+  orgTreeSelectLoaded = false;
+
+  constructor(private modal: NzModalRef, private fb: FormBuilder, private userService: UserService,
               private orgService: OrgService) {
   }
 
@@ -29,6 +31,13 @@ export class UserFormComponent implements OnInit {
    * 设置表单值
    */
   setFormValue(user: User) {
+    if (user.org) {
+      this.nodes = [{
+        title: user.org.name,
+        key: user.org.id,
+        isLeaf: user.org.isLeaf
+      }];
+    }
     this.validateForm.setValue({
       id: user.id,
       username: user.username,
@@ -67,25 +76,31 @@ export class UserFormComponent implements OnInit {
       email: [null, [Validators.email]],
       phone: [null]
     });
-    this.orgService.getOrgDataBySubSystemId(this.user.subSystemId).subscribe(data => {
-      const tempNodes = [];
-      for (let i = 0; i < data.length; i++) {
-        const o = data[i];
-        tempNodes.push({
-          title: o.name,
-          key: o.id,
-          isLeaf: o.isLeaf
-        });
-      }
-      this.nodes = tempNodes;
-      // 初始化表单数据
-      if (this.user && this.user.id) {
-        this.subSystemService.getUserById(this.user.id).subscribe(userData => {
-          this.user = userData;
-          this.setFormValue(this.user);
-        });
-      }
-    });
+    // 初始化表单数据
+    if (this.user && this.user.id) {
+      this.userService.getUserById(this.user.id).subscribe(userData => {
+        this.user = userData;
+        this.setFormValue(this.user);
+      });
+    }
+  }
+
+  openOrgTree() {
+    if (!this.orgTreeSelectLoaded) {
+      this.orgService.getOrgDataBySubSystemId(this.user.subSystemId).subscribe(data => {
+        const tempNodes = [];
+        for (let i = 0; i < data.length; i++) {
+          const o = data[i];
+          tempNodes.push({
+            title: o.name,
+            key: o.id,
+            isLeaf: o.isLeaf
+          });
+        }
+        this.nodes = tempNodes;
+        this.orgTreeSelectLoaded = true;
+      });
+    }
   }
 
   /**
