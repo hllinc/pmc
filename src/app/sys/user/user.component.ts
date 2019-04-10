@@ -3,7 +3,7 @@ import {User} from '../models/user';
 import {UserService} from './user.service';
 import {SubSystem} from '../models/sub-system';
 import {Org} from '../models/org';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {UserFormComponent} from './user-form/user-form.component';
 import {PageInfoResponse} from '../../models/page-info-response';
 
@@ -35,7 +35,7 @@ export class UserComponent implements OnInit {
     this.loadUserTable();
   }
 
-  constructor(private userService: UserService, private modalService: NzModalService) {
+  constructor(private userService: UserService, private modalService: NzModalService, private messageService: NzMessageService) {
   }
 
   /**
@@ -99,10 +99,7 @@ export class UserComponent implements OnInit {
             newUser.subSystemId = this.subSystem.id;
             this.userService.addUser(newUser).subscribe(data => {
               modal.close();
-              this.modalService.success({
-                nzTitle: '系统提示',
-                nzContent: '添加成功'
-              });
+              this.messageService.create('success', '添加成功');
               this.loadUserTable();
             });
           }
@@ -136,10 +133,7 @@ export class UserComponent implements OnInit {
           if (newUser) {
             this.userService.modifyUser(newUser).subscribe(data => {
               modal.close();
-              this.modalService.success({
-                nzTitle: '系统提示',
-                nzContent: '修改成功'
-              });
+              this.messageService.create('success', '修改成功');
               this.loadUserTable();
             });
           }
