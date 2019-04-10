@@ -24,7 +24,8 @@
         <tr>
           <th nz-th><span>序号</span></th>
           <th nz-th><span>登录名</span></th>
-          <th nz-th><span>组织ID</span></th>
+          <th nz-th><span>组织</span></th>
+          <th nz-th><span>角色</span></th>
           <th nz-th><span>手机</span></th>
           <th nz-th><span>邮箱</span></th>
           <th nz-th>操作</th>
@@ -34,7 +35,11 @@
         <tr nz-tbody-tr *ngFor="let data of nzTable.data; let i=index;">
           <td nz-td>{{ startRow+i }}</td>
           <td nz-td>{{data.username}}</td>
-          <td nz-td>{{data.orgId}}</td>
+          <td nz-td>{{data.org?data.org.name:'/'}}</td>
+          <td nz-td>
+
+            {{data.roles}}
+          </td>
           <td nz-td>{{data.phone}}</td>
           <td nz-td>{{data.email}}</td>
           <td>
@@ -42,6 +47,10 @@
             <nz-divider nzType="vertical"></nz-divider>
             <nz-popconfirm [nzTitle]="'确定删除['+data.username+']用户吗?'" (nzOnConfirm)="deleteUser(data.id)">
               <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定重置用户['+data.username+']的密码吗?'" (nzOnConfirm)="resetPassword(data.id)">
+              <a nz-popconfirm>重置密码</a>
             </nz-popconfirm>
           </td>
         </tr>

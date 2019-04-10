@@ -156,6 +156,16 @@ export class UserComponent implements OnInit {
     });
   }
 
+  /**
+   * 重置密码
+   * @param id
+   */
+  resetPassword(id: number) {
+    this.userService.resetPassword(id).subscribe(data => {
+      this.messageService.create('success', '重置成功');
+    });
+  }
+
   ngOnInit() {
   }
 

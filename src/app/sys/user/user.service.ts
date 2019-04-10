@@ -52,4 +52,12 @@ export class UserService {
     return this.dataService.delete('/sys/user/delete/' + id);
   }
 
+  /**
+   * 重置密码
+   * @param id
+   */
+  resetPassword(id: number) {
+    return this.dataService.post('/sys/user/resetPassword/' + id);
+  }
+
 }

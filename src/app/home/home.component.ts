@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
 
   constructor() { }
 
