@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../models/user';
-import {NzModalRef} from 'ng-zorro-antd';
+import {NzFormatEmitEvent, NzModalRef, NzTreeNode} from 'ng-zorro-antd';
 import {UserService} from '../user.service';
-import {Org} from '../../models/org';
+import {OrgService} from '../../org/org.service';
 
 @Component({
   selector: 'app-user-form',
@@ -16,26 +16,23 @@ export class UserFormComponent implements OnInit {
   // 表单对象
   validateForm: FormGroup;
 
-  selectedOrg: Org;
+  // 树数据
+  nodes = [];
 
-  constructor(private modal: NzModalRef, private fb: FormBuilder, private subSystemService: UserService) {
-  }
+  expandKeys = [];
 
-  selectedOrgEvent(org: Org) {
-    this.selectedOrg = org;
+  constructor(private modal: NzModalRef, private fb: FormBuilder, private subSystemService: UserService,
+              private orgService: OrgService) {
   }
 
   /**
    * 设置表单值
    */
   setFormValue(user: User) {
-    if (user.orgId) {
-      this.selectedOrg = new Org();
-      this.selectedOrg.id = user.orgId;
-    }
     this.validateForm.setValue({
       id: user.id,
       username: user.username,
+      orgId: user.orgId,
       email: user.email,
       phone: user.phone
     });
@@ -56,11 +53,7 @@ export class UserFormComponent implements OnInit {
   getFormValue() {
     this.validateFormValue();
     if (this.validateForm.valid) {
-      const user = this.validateForm.value;
-      if (this.selectedOrg) {
-        user.orgId = this.selectedOrg.id;
-      }
-      return user;
+      return this.validateForm.value;
     } else {
       return null;
     }
@@ -70,16 +63,52 @@ export class UserFormComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       username: [null, [Validators.required]],
+      orgId: [null, [Validators.required]],
       email: [null, [Validators.email]],
       phone: [null]
     });
-    // 初始化表单数据
-    if (this.user && this.user.id) {
-      this.subSystemService.getUserById(this.user.id).subscribe(data => {
-        this.user = data;
-        this.setFormValue(this.user);
-      });
-    }
+    this.orgService.getOrgDataBySubSystemId(this.user.subSystemId).subscribe(data => {
+      const tempNodes = [];
+      for (let i = 0; i < data.length; i++) {
+        const o = data[i];
+        tempNodes.push({
+          title: o.name,
+          key: o.id,
+          isLeaf: o.isLeaf
+        });
+      }
+      this.nodes = tempNodes;
+      // 初始化表单数据
+      if (this.user && this.user.id) {
+        this.subSystemService.getUserById(this.user.id).subscribe(userData => {
+          this.user = userData;
+          this.setFormValue(this.user);
+        });
+      }
+    });
   }
 
+  /**
+   * 树节点展开事件
+   * @param name
+   * @param e
+   */
+  expandEvent(name: string, e: NzFormatEmitEvent): void {
+    if (name === 'expand') {
+      if (e.node.getChildren().length === 0 && e.node.isExpanded) {
+        this.orgService.getOrgsByParentId(e.node.key).subscribe(data => {
+          const tempChildrenNodes = [];
+          for (let i = 0; i < data.length; i++) {
+            const o = data[i];
+            tempChildrenNodes.push({
+              title: o.name,
+              key: o.id,
+              isLeaf: o.isLeaf
+            });
+          }
+          e.node.addChildren(tempChildrenNodes);
+        });
+      }
+    }
+  }
 }

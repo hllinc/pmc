@@ -12,6 +12,25 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      <span>所属组织</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-tree-select
+        nzPlaceHolder="请选择组织"
+        [nzDefaultExpandedKeys]="expandKeys"
+        [nzDropdownMatchSelectWidth]="true"
+        [nzDropdownStyle]="{ 'max-height': '300px' }"
+        [nzNodes]="nodes"
+        [nzAsyncData]="true"
+        (nzExpandChange)="expandEvent('expand',$event)" formControlName="orgId">
+      </nz-tree-select>
+      <nz-form-explain *ngIf="validateForm.get('orgId').dirty&&validateForm.get('orgId').errors">
+        组织不能为空！
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
     <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
       <span>手机号</span>
     </nz-form-label>
@@ -28,14 +47,6 @@
       <input nz-input formControlName="email"
              placeholder="请输入邮箱"/>
       <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入正确的邮箱!</nz-form-explain>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item nz-row>
-    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <span>所属组织</span>
-    </nz-form-label>
-    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-      <app-org-chooser (selectedEvent)="selectedOrgEvent($event)" [loadOrgData]="user.subSystemId"></app-org-chooser>
     </nz-form-control>
   </nz-form-item>
 </form>

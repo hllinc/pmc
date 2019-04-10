@@ -1,6 +1,6 @@
 <div nz-row [nzGutter]="20">
   <div nz-col [nzSm]="6">
-    <nz-card [nzTitle]="cardTitle">
+    <nz-card [nzTitle]="cardTitle" class="main-content-panel-height" [nzLoading]="!subSystem">
       <ng-template #cardTitle>
         <app-sub-system-chooser (changeSubSystemEvent)="orgChangeSubSystemEvent($event)"></app-sub-system-chooser>
       </ng-template>
@@ -9,7 +9,7 @@
     </nz-card>
   </div>
   <div nz-col [nzSm]="18">
-    <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate">
+    <nz-card nzTitle="用户列表" [nzExtra]="extraTemplate" class="main-content-panel-height" [nzLoading]="!subSystem">
       <nz-table #nzTable
                 nzShowSizeChanger
                 [nzFrontPagination]="false"

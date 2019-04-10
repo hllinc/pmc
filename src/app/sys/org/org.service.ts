@@ -22,7 +22,7 @@ export class OrgService {
    * @param {number} pid
    * @returns {Observable<any>}
    */
-  getOrgsByParentId(pid: number): Observable<any> {
+  getOrgsByParentId(pid: any): Observable<any> {
     return this.dataService.get('/sys/org/getChildrenById/' + pid);
   }
 
