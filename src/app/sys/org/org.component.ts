@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Org} from '../models/org';
 import {OrgService} from './org.service';
-import {NzFormatEmitEvent, NzModalService, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd';
+import {NzFormatEmitEvent, NzMessageService, NzModalService, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd';
 import {SubSystem} from '../models/sub-system';
 
 @Component({
@@ -35,7 +35,8 @@ export class OrgComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private orgService: OrgService,
-              private modalService: NzModalService) {
+              private modalService: NzModalService,
+              private messageService: NzMessageService) {
   }
 
   /**
@@ -118,6 +119,7 @@ export class OrgComponent implements OnInit {
   saveOrg(): void {
     const newOrg = this.validateForm.value;
     this.orgService.updateOrg(newOrg).subscribe(data => {
+      this.messageService.create('success', '保存成功');
       this.activedNode.origin = newOrg;
     });
   }
@@ -159,6 +161,7 @@ export class OrgComponent implements OnInit {
       this.deleteOrgBtnStatus = false;
       // 设置表单值
       this.setFormValue(newNode.origin);
+      this.messageService.create('success', '添加成功');
     });
   }
 
@@ -202,6 +205,7 @@ export class OrgComponent implements OnInit {
           this.activedNode = null;
           // 重置表单
           this.validateForm.reset();
+          this.messageService.create('success', '删除成功');
         });
       },
       nzCancelText: '取消',

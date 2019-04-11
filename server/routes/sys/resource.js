@@ -11,7 +11,7 @@ const {resultData} = require('../../common/utils');
 /**
  * 获取当前用户资源信息
  */
-router.get('/getCurrentUserResources', function (req, res) {
+router.get('/getCurrentUseres', function (req, res) {
   res.type('json');
   let params = req.body,
     ret = {};

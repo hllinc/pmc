@@ -5,9 +5,14 @@
 import {BaseModel} from '../../models/base-model';
 
 export class Resource extends BaseModel {
-  name: string;
-  url: string;
-  type: number;
-  icon: string;
-  children: Resource[];
+  public name: string;
+  public url: string;
+  public type: number;
+  public icon: string;
+  public info: string;
+  public isLeaf: boolean;
+  public parentId: number;
+  public subSystemId: number;
+  public orderNo: number;
+  public children: Resource[];
 }

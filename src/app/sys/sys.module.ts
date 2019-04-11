@@ -14,6 +14,7 @@ import { SubSystemFormComponent } from './sub-system/sub-system-form/sub-system-
 import { UserFormComponent } from './user/user-form/user-form.component';
 import {RoleService} from './role/role.service';
 import { RoleFormComponent } from './role/role-form/role-form.component';
+import {ResourceService} from './resource/resource.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { RoleFormComponent } from './role/role-form/role-form.component';
     SubSystemService,
     OrgService,
     UserService,
-    RoleService
+    RoleService,
+    ResourceService
   ],
   entryComponents: [
     SubSystemFormComponent,
