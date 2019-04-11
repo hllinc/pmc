@@ -60,6 +60,7 @@ export class OrgComponent implements OnInit {
     if (data.node === this.activedNode) {
       // 置空当前激活的节点以正常添加根节点
       this.activedNode = null;
+      this.orgPropLoading = true;
     } else {
       this.activedNode = data.node;
     }
