@@ -80,7 +80,7 @@ export class ResourceComponent implements OnInit {
   /**
    * 设置表单值
    */
-  setFormValue(resource: Resource) {
+  setFormValue(resource: any) {
     this.validateForm.setValue({
       id: resource.id,
       name: resource.name,
@@ -131,17 +131,16 @@ export class ResourceComponent implements OnInit {
    * 添加节点
    */
   addOrg(): void {
-    const resource = {
-      parentId: this.activedNode ? this.activedNode.origin.id : null,
-      name: '新建节点',
-      subSystemId: this.selectedSubSystem.id,
-      isLeaf: true,
-      type: 1,
-      icon: 'file',
-      url: 'http://',
-      info: '描述',
-      orderNo: 0
-    };
+    const resource = new Resource();
+    resource.parentId = this.activedNode ? this.activedNode.origin.id : null;
+    resource.name = '新建节点';
+    resource.subSystemId = this.selectedSubSystem.id;
+    resource.isLeaf = true;
+    resource.type = 1;
+    resource.icon = 'file';
+    resource.url = 'http://';
+    resource.info = '描述';
+    resource.orderNo = 0;
     this.resourceService.addResource(resource).subscribe(data => {
       const node = {
         id: data.id,
@@ -184,27 +183,14 @@ export class ResourceComponent implements OnInit {
       nzOnOk: () => {
         this.resourceService.deleteById(this.activedNode.origin.id).subscribe(data => {
           // 如果是根节点
-          if (this.activedNode.level === 0) {
-            this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {
-              if (node === this.activedNode) {
-                // 删除节点
-                this.treeCom.nzTreeService.rootNodes.splice(index, 1);
-                return;
-              }
-            });
-          } else {
+          if(this.activedNode.getParentNode()){
             // 如果是子节点
-            this.activedNode.getParentNode().getChildren().forEach((node, index, array) => {
-              if (node === this.activedNode) {
-                // 删除节点
-                this.activedNode.getParentNode().getChildren().splice(index, 1);
-                // 如果父节点下没有子节点，则将父节点的类型变为叶子节点
-                if (this.activedNode.getParentNode().getChildren().length === 0) {
-                  this.activedNode.getParentNode().isLeaf = true;
-                }
-                return;
-              }
-            });
+            if (this.activedNode.getParentNode().getChildren().length == 1) {
+              this.activedNode.getParentNode().isLeaf = true;
+            }
+            this.activedNode.remove();
+          }else{
+            this.activedNode.remove();
           }
           // 可删除
           this.deleteResourceBtnStatus = true;
@@ -224,7 +210,6 @@ export class ResourceComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      info: [null],
       parentId: [null],
       info: [null],
       type: [null, [Validators.required]],
