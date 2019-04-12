@@ -49,6 +49,7 @@ export class OrgComponent implements OnInit {
     this.orgService.getOrgDataBySubSystemId(subSystem.id).subscribe(data => {
       this.nodes = data;
       this.orgLoading = false;
+      this.orgPropLoading = true;
       this.addOrgBtnStatus = false;
       // 重置表单
       this.validateForm.reset();

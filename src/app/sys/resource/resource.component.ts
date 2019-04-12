@@ -49,6 +49,7 @@ export class ResourceComponent implements OnInit {
     this.resourceService.getResourceDataBySubSystemId(subSystem.id).subscribe(data => {
       this.nodes = data;
       this.resourceLoading = false;
+      this.resourcePropLoading = true;
       this.addResourceBtnStatus = false;
       // 重置表单
       this.validateForm.reset();
