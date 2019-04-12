@@ -106,8 +106,8 @@ export class ResourceComponent implements OnInit {
    * @param name
    * @param e
    */
-  expandEvent(name: string, e: NzFormatEmitEvent): void {
-    if (name === 'expand') {
+  expandEvent(e: Required<NzFormatEmitEvent>): void {
+    if (e.eventName === 'expand') {
       if (e.node.getChildren().length === 0 && e.node.isExpanded) {
         this.resourceService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
           e.node.addChildren(data);
@@ -155,14 +155,14 @@ export class ResourceComponent implements OnInit {
         // 添加子节点到该父节点下
         this.activedNode.addChildren([newNode]);
         // 设置父节点展开
-        this.activedNode.setExpanded(true);
+        this.activedNode.isExpanded = true;
       } else {
         // 添加根节点
         this.treeCom.nzTreeService.rootNodes.push(newNode);
       }
       // 选中新增节点
       this.activedNode = newNode;
-      this.activedNode.setSelected(true);
+      this.activedNode.isSelected = true;
       // 可删除
       this.deleteResourceBtnStatus = false;
       // 设置表单值
@@ -182,14 +182,19 @@ export class ResourceComponent implements OnInit {
       nzOkType: 'danger',
       nzOnOk: () => {
         this.resourceService.deleteById(this.activedNode.origin.id).subscribe(data => {
-          // 如果是根节点
-          if(this.activedNode.getParentNode()){
-            // 如果是子节点
+          if (this.activedNode.level === 0) {
+            // 如果是根节点
+            this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {
+              if (node === this.activedNode) {
+                // 删除节点
+                this.treeCom.nzTreeService.rootNodes.splice(index, 1);
+                return;
+              }
+            });
+          } else {
             if (this.activedNode.getParentNode().getChildren().length == 1) {
               this.activedNode.getParentNode().isLeaf = true;
             }
-            this.activedNode.remove();
-          }else{
             this.activedNode.remove();
           }
           // 可删除
