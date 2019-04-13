@@ -101,6 +101,9 @@ export class OrgComponent implements OnInit {
     if (e.eventName === 'expand') {
       if (e.node.getChildren().length === 0 && e.node.isExpanded) {
         this.orgService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
+          for (let i = 0; i < data.length; i++) {
+            data[i]['key'] = data[i]['id'];
+          }
           e.node.addChildren(data);
         });
       }
@@ -178,7 +181,7 @@ export class OrgComponent implements OnInit {
               }
             });
           } else {
-            if (this.activedNode.getParentNode().getChildren().length == 1) {
+            if (this.activedNode.getParentNode().getChildren().length === 1) {
               this.activedNode.getParentNode().isLeaf = true;
             }
             this.activedNode.remove();
