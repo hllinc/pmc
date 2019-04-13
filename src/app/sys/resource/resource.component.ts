@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubSystem} from '../models/sub-system';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NzFormatEmitEvent, NzMessageService, NzModalService, NzTreeNode} from 'ng-zorro-antd';
+import {NzFormatEmitEvent, NzMessageService, NzModalService, NzTreeComponent, NzTreeNode} from 'ng-zorro-antd';
 import {ResourceService} from './resource.service';
 import {Resource} from '../models/resource';
 
@@ -16,7 +16,11 @@ export class ResourceComponent implements OnInit {
   validateForm: FormGroup;
 
   // 树数据
-  nodes = [];
+  nodes = [{
+    name: '根节点',
+    key: 'root',
+    expanded: true
+  }];
   // 当前选择的节点
   activedNode: NzTreeNode;
 
@@ -39,7 +43,10 @@ export class ResourceComponent implements OnInit {
     this.selectedSubSystem = subSystem;
     this.activedNode = null;
     this.resourceService.getResourceDataBySubSystemId(subSystem.id).subscribe(data => {
-      this.nodes = data;
+      const rootNode = this.treeCom.getTreeNodeByKey('root');
+      rootNode.clearChildren();
+      rootNode.addChildren(data);
+      // this.nodes = data;
       // 重置表单
       this.validateForm.reset();
     });
@@ -143,7 +150,7 @@ export class ResourceComponent implements OnInit {
         this.activedNode.isExpanded = true;
       } else {
         // 添加根节点
-        this.treeCom.nzTreeService.rootNodes.push(newNode);
+        this.treeCom.getTreeNodeByKey('root').addChildren([newNode]);
       }
       // 选中新增节点
       this.activedNode = newNode;
@@ -165,6 +172,7 @@ export class ResourceComponent implements OnInit {
       nzOkType: 'danger',
       nzOnOk: () => {
         this.resourceService.deleteById(this.activedNode.origin.id).subscribe(data => {
+          console.log(this.activedNode.level);
           if (this.activedNode.level === 0) {
             // 如果是根节点
             this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {
