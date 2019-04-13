@@ -54,7 +54,6 @@ export class ResourceComponent implements OnInit {
       const rootNode = this.treeCom.getTreeNodeByKey('root');
       rootNode.clearChildren();
       rootNode.addChildren(data);
-      // this.nodes = data;
       // 重置表单
       this.validateForm.reset();
     });
@@ -130,16 +129,17 @@ export class ResourceComponent implements OnInit {
    * 添加节点
    */
   addOrg(): void {
-    const resource = new Resource();
-    resource.parentId = this.activedNode && this.activedNode.key !== 'root' ? this.activedNode.origin.id : null;
-    resource.name = '新建节点';
-    resource.subSystemId = this.selectedSubSystem.id;
-    resource.isLeaf = true;
-    resource.type = 1;
-    resource.icon = 'file';
-    resource.url = 'http://';
-    resource.info = '描述';
-    resource.orderNo = 0;
+    const resource = {
+      parentId: this.activedNode && this.activedNode.key !== 'root' ? this.activedNode.origin.id : null,
+      name: '新建节点',
+      subSystemId: this.selectedSubSystem.id,
+      isLeaf: true,
+      type: 1,
+      icon: 'file',
+      url: 'http://',
+      info: '描述',
+      orderNo: 0
+    };
     this.resourceService.addResource(resource).subscribe(data => {
       const node = {
         id: data.id,
@@ -179,7 +179,6 @@ export class ResourceComponent implements OnInit {
       nzOkType: 'danger',
       nzOnOk: () => {
         this.resourceService.deleteById(this.activedNode.origin.id).subscribe(data => {
-          console.log(this.activedNode.level);
           if (this.activedNode.level === 0) {
             // 如果是根节点
             this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {

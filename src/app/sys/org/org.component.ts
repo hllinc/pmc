@@ -14,17 +14,14 @@ export class OrgComponent implements OnInit {
 
   // 表单对象
   validateForm: FormGroup;
-
-  // 组织机构属性面板遮罩
-  orgPropLoading = true;
-  // 组织机构面板遮罩
-  orgLoading = true;
-
-  // 按钮状态
-  addOrgBtnStatus = true;
-  deleteOrgBtnStatus = true;
   // 树数据
-  nodes = [];
+  nodes = [{
+    id: 'root',
+    name: '根节点',
+    key: 'root',
+    info: '',
+    expanded: true
+  }];
 
   activedNode: NzTreeNode;
 
@@ -47,10 +44,12 @@ export class OrgComponent implements OnInit {
     this.selectedSubSystem = subSystem;
     this.activedNode = null;
     this.orgService.getOrgDataBySubSystemId(subSystem.id).subscribe(data => {
-      this.nodes = data;
-      this.orgLoading = false;
-      this.orgPropLoading = true;
-      this.addOrgBtnStatus = false;
+      for (let i = 0; i < data.length; i++) {
+        data[i]['key'] = data[i]['id'];
+      }
+      const rootNode = this.treeCom.getTreeNodeByKey('root');
+      rootNode.clearChildren();
+      rootNode.addChildren(data);
       // 重置表单
       this.validateForm.reset();
     });
@@ -62,18 +61,13 @@ export class OrgComponent implements OnInit {
     if (data.node === this.activedNode) {
       // 置空当前激活的节点以正常添加根节点
       this.activedNode = null;
-      this.orgPropLoading = true;
     } else {
       this.activedNode = data.node;
     }
     if (this.activedNode) {
       // this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
-      this.addOrgBtnStatus = false;
-      this.deleteOrgBtnStatus = false;
-      this.orgPropLoading = false;
       this.setFormValue(this.activedNode.origin);
     } else {
-      this.deleteOrgBtnStatus = true;
       this.validateForm.reset();
     }
   }
@@ -85,7 +79,6 @@ export class OrgComponent implements OnInit {
     this.validateForm.setValue({
       id: org.id,
       name: org.name,
-      parentId: org.parentId,
       info: org.info
     });
   }
@@ -104,8 +97,8 @@ export class OrgComponent implements OnInit {
    * @param name
    * @param e
    */
-  expandEvent(name: string, e: NzFormatEmitEvent): void {
-    if (name === 'expand') {
+  expandEvent(e: Required<NzFormatEmitEvent>): void {
+    if (e.eventName === 'expand') {
       if (e.node.getChildren().length === 0 && e.node.isExpanded) {
         this.orgService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
           e.node.addChildren(data);
@@ -130,7 +123,7 @@ export class OrgComponent implements OnInit {
    */
   addOrg(): void {
     const org = {
-      parentId: this.activedNode ? this.activedNode.origin.id : null,
+      parentId: this.activedNode && this.activedNode.key !== 'root' ? this.activedNode.origin.id : null,
       name: '新建节点',
       subSystemId: this.selectedSubSystem.id,
       isLeaf: true,
@@ -150,16 +143,14 @@ export class OrgComponent implements OnInit {
         // 添加子节点到该父节点下
         this.activedNode.addChildren([newNode]);
         // 设置父节点展开
-        this.activedNode.setExpanded(true);
+        this.activedNode.isExpanded = true;
       } else {
         // 添加根节点
-        this.treeCom.nzTreeService.rootNodes.push(newNode);
+        this.treeCom.getTreeNodeByKey('root').addChildren([newNode]);
       }
       // 选中新增节点
       this.activedNode = newNode;
-      this.activedNode.setSelected(true);
-      // 可删除
-      this.deleteOrgBtnStatus = false;
+      this.activedNode.isSelected = true;
       // 设置表单值
       this.setFormValue(newNode.origin);
       this.messageService.create('success', '添加成功');
@@ -177,8 +168,8 @@ export class OrgComponent implements OnInit {
       nzOkType: 'danger',
       nzOnOk: () => {
         this.orgService.deleteById(this.activedNode.origin.id).subscribe(data => {
-          // 如果是根节点
           if (this.activedNode.level === 0) {
+            // 如果是根节点
             this.treeCom.nzTreeService.rootNodes.forEach((node, index, array) => {
               if (node === this.activedNode) {
                 // 删除节点
@@ -187,21 +178,11 @@ export class OrgComponent implements OnInit {
               }
             });
           } else {
-            // 如果是子节点
-            this.activedNode.getParentNode().getChildren().forEach((node, index, array) => {
-              if (node === this.activedNode) {
-                // 删除节点
-                this.activedNode.getParentNode().getChildren().splice(index, 1);
-                // 如果父节点下没有子节点，则将父节点的类型变为叶子节点
-                if (this.activedNode.getParentNode().getChildren().length === 0) {
-                  this.activedNode.getParentNode().isLeaf = true;
-                }
-                return;
-              }
-            });
+            if (this.activedNode.getParentNode().getChildren().length == 1) {
+              this.activedNode.getParentNode().isLeaf = true;
+            }
+            this.activedNode.remove();
           }
-          // 可删除
-          this.deleteOrgBtnStatus = true;
           // 置空当前激活的节点以正常添加根节点
           this.activedNode = null;
           // 重置表单
@@ -218,8 +199,7 @@ export class OrgComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      info: [null],
-      parentId: [null]
+      info: [null]
     });
   }
 }
