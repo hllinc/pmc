@@ -29,7 +29,7 @@
     </ng-template>
   </div>
   <div nz-col [nzSm]="16">
-    <nz-card nzTitle="属性设置" [nzLoading]="!activedNode">
+    <nz-card nzTitle="属性设置" [nzLoading]="!activedNode || activedNode.key == 'root'">
       <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
         <nz-form-item nz-row>
           <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>

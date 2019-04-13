@@ -17,8 +17,13 @@ export class ResourceComponent implements OnInit {
 
   // 树数据
   nodes = [{
+    id: 'root',
     name: '根节点',
     key: 'root',
+    info: '',
+    type: '',
+    icon: '',
+    url: '',
     expanded: true
   }];
   // 当前选择的节点
@@ -43,6 +48,9 @@ export class ResourceComponent implements OnInit {
     this.selectedSubSystem = subSystem;
     this.activedNode = null;
     this.resourceService.getResourceDataBySubSystemId(subSystem.id).subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        data[i]['key'] = data[i]['id'];
+      }
       const rootNode = this.treeCom.getTreeNodeByKey('root');
       rootNode.clearChildren();
       rootNode.addChildren(data);
@@ -76,7 +84,6 @@ export class ResourceComponent implements OnInit {
     this.validateForm.setValue({
       id: resource.id,
       name: resource.name,
-      parentId: resource.parentId,
       info: resource.info,
       type: resource.type,
       icon: resource.icon,
@@ -124,7 +131,7 @@ export class ResourceComponent implements OnInit {
    */
   addOrg(): void {
     const resource = new Resource();
-    resource.parentId = this.activedNode ? this.activedNode.origin.id : null;
+    resource.parentId = this.activedNode && this.activedNode.key !== 'root' ? this.activedNode.origin.id : null;
     resource.name = '新建节点';
     resource.subSystemId = this.selectedSubSystem.id;
     resource.isLeaf = true;
@@ -204,7 +211,6 @@ export class ResourceComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      parentId: [null],
       info: [null],
       type: [null, [Validators.required]],
       icon: [null],
