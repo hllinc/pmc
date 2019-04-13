@@ -15,17 +15,9 @@ export class ResourceComponent implements OnInit {
   // 表单对象
   validateForm: FormGroup;
 
-  // 组织机构属性面板遮罩
-  resourcePropLoading = true;
-  // 组织机构面板遮罩
-  resourceLoading = true;
-
-  // 按钮状态
-  addResourceBtnStatus = true;
-  deleteResourceBtnStatus = true;
   // 树数据
   nodes = [];
-
+  // 当前选择的节点
   activedNode: NzTreeNode;
 
   // 选中的子系统
@@ -48,9 +40,6 @@ export class ResourceComponent implements OnInit {
     this.activedNode = null;
     this.resourceService.getResourceDataBySubSystemId(subSystem.id).subscribe(data => {
       this.nodes = data;
-      this.resourceLoading = false;
-      this.resourcePropLoading = true;
-      this.addResourceBtnStatus = false;
       // 重置表单
       this.validateForm.reset();
     });
@@ -62,18 +51,13 @@ export class ResourceComponent implements OnInit {
     if (data.node === this.activedNode) {
       // 置空当前激活的节点以正常添加根节点
       this.activedNode = null;
-      this.resourcePropLoading = true;
     } else {
       this.activedNode = data.node;
     }
     if (this.activedNode) {
       // this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
-      this.addResourceBtnStatus = false;
-      this.deleteResourceBtnStatus = false;
-      this.resourcePropLoading = false;
       this.setFormValue(this.activedNode.origin);
     } else {
-      this.deleteResourceBtnStatus = true;
       this.validateForm.reset();
     }
   }
@@ -164,8 +148,6 @@ export class ResourceComponent implements OnInit {
       // 选中新增节点
       this.activedNode = newNode;
       this.activedNode.isSelected = true;
-      // 可删除
-      this.deleteResourceBtnStatus = false;
       // 设置表单值
       this.setFormValue(newNode.origin);
       this.messageService.create('success', '添加成功');
@@ -198,8 +180,6 @@ export class ResourceComponent implements OnInit {
             }
             this.activedNode.remove();
           }
-          // 可删除
-          this.deleteResourceBtnStatus = true;
           // 置空当前激活的节点以正常添加根节点
           this.activedNode = null;
           // 重置表单
