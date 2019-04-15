@@ -86,6 +86,7 @@ export class ResourceComponent implements OnInit {
       info: resource.info,
       type: resource.type,
       icon: resource.icon,
+      orderNo: resource.orderNo,
       url: resource.url
     });
   }
@@ -216,6 +217,7 @@ export class ResourceComponent implements OnInit {
       info: [null],
       type: [null, [Validators.required]],
       icon: [null],
+      orderNo: [null],
       url: [null, [Validators.required]]
     });
   }
