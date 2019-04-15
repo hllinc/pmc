@@ -4,6 +4,8 @@ import {User} from '../../models/user';
 import {NzFormatEmitEvent, NzModalRef, NzTreeNode} from 'ng-zorro-antd';
 import {UserService} from '../user.service';
 import {OrgService} from '../../org/org.service';
+import {RoleService} from '../../role/role.service';
+import {Role} from '../../models/role';
 
 @Component({
   selector: 'app-user-form',
@@ -16,6 +18,8 @@ export class UserFormComponent implements OnInit {
   // 表单对象
   validateForm: FormGroup;
 
+  roles: Role[];
+
   // 树数据
   nodes = [];
 
@@ -24,7 +28,7 @@ export class UserFormComponent implements OnInit {
   orgTreeSelectLoaded = false;
 
   constructor(private modal: NzModalRef, private fb: FormBuilder, private userService: UserService,
-              private orgService: OrgService) {
+              private orgService: OrgService, private roleService: RoleService) {
   }
 
   /**
@@ -43,7 +47,8 @@ export class UserFormComponent implements OnInit {
       username: user.username,
       orgId: user.orgId,
       email: user.email,
-      phone: user.phone
+      phone: user.phone,
+      roles: user.roles.map(role => role.id)
     });
   }
 
@@ -74,7 +79,11 @@ export class UserFormComponent implements OnInit {
       username: [null, [Validators.required]],
       orgId: [null, [Validators.required]],
       email: [null, [Validators.email]],
-      phone: [null]
+      phone: [null],
+      roles: [null, [Validators.required]]
+    });
+    this.roleService.getRolesByPage(1, 100, this.user.subSystemId).subscribe(data => {
+      this.roles = data.list;
     });
     // 初始化表单数据
     if (this.user && this.user.id) {

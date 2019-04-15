@@ -3,7 +3,6 @@ import {SubSystem} from '../models/sub-system';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzFormatEmitEvent, NzMessageService, NzModalService, NzTreeComponent, NzTreeNode} from 'ng-zorro-antd';
 import {ResourceService} from './resource.service';
-import {Resource} from '../models/resource';
 
 @Component({
   selector: 'app-resource',

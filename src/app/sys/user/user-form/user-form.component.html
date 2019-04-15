@@ -47,7 +47,19 @@
     <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
       <input nz-input formControlName="email"
              placeholder="请输入邮箱"/>
-      <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入正确的邮箱!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      <span>角色</span>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-select nzMode="tags" nzPlaceHolder="选择角色" formControlName="roles">
+        <nz-option *ngFor="let option of roles" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="validateForm.get('roles').dirty&&validateForm.get('roles').errors">
+        角色不能为空！
+      </nz-form-explain>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -37,9 +37,9 @@
           <td nz-td>{{data.username}}</td>
           <td nz-td>{{data.org?data.org.name:'/'}}</td>
           <td nz-td>
-            <ng-template *ngIf="data.roles&&data.roles.length > 0;else no_content">
+            <div *ngIf="data.roles && data.roles.length > 0;else no_content">
               <nz-tag [nzColor]="'orange'" *ngFor="let role of data.roles">{{role.name}}</nz-tag>
-            </ng-template>
+            </div>
             <ng-template #no_content>/</ng-template>
           </td>
           <td nz-td>{{data.phone}}</td>
