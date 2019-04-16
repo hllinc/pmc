@@ -6,6 +6,7 @@ import {Org} from '../models/org';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {UserFormComponent} from './user-form/user-form.component';
 import {PageInfoResponse} from '../../models/page-info-response';
+import {Role} from '../models/role';
 
 @Component({
   selector: 'app-user',
@@ -96,6 +97,15 @@ export class UserComponent implements OnInit {
         onClick: (componentInstance) => {
           const newUser = componentInstance.getFormValue();
           if (newUser) {
+            if (newUser.roles.length > 0) {
+              const roles = [];
+              for (let i = 0; i < newUser.roles.length; i++) {
+                const role = new Role();
+                role.id = newUser.roles[i];
+                roles.push(role);
+              }
+              newUser.roles = roles;
+            }
             newUser.subSystemId = this.subSystem.id;
             this.userService.addUser(newUser).subscribe(data => {
               modal.close();
@@ -131,6 +141,15 @@ export class UserComponent implements OnInit {
         onClick: (componentInstance) => {
           const newUser = componentInstance.getFormValue();
           if (newUser) {
+            if (newUser.roles.length > 0) {
+              const roles = [];
+              for (let i = 0; i < newUser.roles.length; i++) {
+                const role = new Role();
+                role.id = newUser.roles[i];
+                roles.push(role);
+              }
+              newUser.roles = roles;
+            }
             this.userService.modifyUser(newUser).subscribe(data => {
               modal.close();
               this.messageService.create('success', '修改成功');
