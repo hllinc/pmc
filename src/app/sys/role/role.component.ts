@@ -158,7 +158,7 @@ export class RoleComponent implements OnInit {
           if (rr) {
             this.roleService.setRoleResource(rr).subscribe(data => {
               modal.close();
-              this.messageService.create('success', '修改成功');
+              this.messageService.create('success', '分配成功');
             });
           }
         }

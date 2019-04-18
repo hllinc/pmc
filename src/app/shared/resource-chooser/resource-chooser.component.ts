@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Org} from '../../sys/models/org';
 import {ResourceService} from '../../sys/resource/resource.service';
-import {NzFormatEmitEvent} from 'ng-zorro-antd';
+import {NzFormatEmitEvent, NzTreeNode} from 'ng-zorro-antd';
 import {Role} from '../../sys/models/role';
+import {RoleResource} from '../../sys/models/role-resource';
 
 @Component({
   selector: 'app-resource-chooser',
@@ -10,34 +11,38 @@ import {Role} from '../../sys/models/role';
   styleUrls: ['./resource-chooser.component.css']
 })
 export class ResourceChooserComponent implements OnInit {
-
-  defaultCheckedKeys = [];
-  defaultSelectedKeys = [];
-
   @ViewChild('treeCom') treeCom;
   // 树数据
   nodes = [];
-  // 向外发送数据触发器
-  @Output() selectedEvent = new EventEmitter<Org>();
+  // 初始选中的节点
+  defaultCheckedKeys = [];
+
+  // 传入的角色参数变量
+  paramRole: Role;
 
   /**
-   * 传入的角色参数
+   * 传入的角色参数方法
    * @param role
    */
   @Input()
   set role(role: Role) {
+    this.paramRole = role;
     this.resourceService.getSubSystemAllResourceBySubSystemId(role.subSystemId).subscribe(data => {
       this.formatNodeData(data);
       this.nodes = data;
       // 设置默认选中
       this.resourceService.getResourceByRoleId(role.id).subscribe(res => {
-        this.defaultSelectedKeys = res.map((item) => {
+        this.defaultCheckedKeys = res.map((item) => {
           return item['resourceId'];
         });
       });
     });
   }
 
+  /**
+   * 数据格式转换
+   * @param arr
+   */
   formatNodeData(arr: any) {
     arr.map((item) => {
       item['title'] = item['name'];
@@ -49,14 +54,43 @@ export class ResourceChooserComponent implements OnInit {
     });
   }
 
+  /**
+   * 获取checked状态的keys
+   * @param arr
+   */
+  getCheckedKeys(arr: NzTreeNode[]) {
+    let result = [];
+    for (let i = 0; i < arr.length; i++) {
+      const node = arr[i];
+      result.push(node.key);
+      if (node.children.length > 0) {
+        result = result.concat(this.getCheckedKeys(node.children));
+      }
+    }
+    return result;
+  }
 
-  getSelectedResources(): any{
-
+  /**
+   * 获取选中的节点
+   */
+  getSelectedResources(): RoleResource[] {
+    let needSaveToDataBaseKeys;
+    const halfCheckedList = this.treeCom.nzTreeService.getHalfCheckedNodeList();
+    const checkedList = this.treeCom.nzTreeService.getCheckedNodeList();
+    const halfCheckedKeys = halfCheckedList.map((item) => {
+      return item.key;
+    });
+    const checkedKeys = this.getCheckedKeys(checkedList);
+    needSaveToDataBaseKeys = halfCheckedKeys.concat(checkedKeys);
+    return needSaveToDataBaseKeys.map((item) => {
+      const rr = new RoleResource();
+      rr.resourceId = item;
+      rr.roleId = this.paramRole.id;
+      return rr;
+    });
   }
 
   nzEvent(event: NzFormatEmitEvent): void {
-    const set = new Set();
-    console.log(event.checkedKeys);
   }
 
   constructor(private resourceService: ResourceService) {

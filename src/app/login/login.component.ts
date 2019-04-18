@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   loginEvent() {
     this.user = this.validateForm.value;
     this.loginService.login(this.user).subscribe(data => {
-      if (data.access_token) {
+      if (data['access_token']) {
         if (this.rememberMe) {
           localStorage.setItem('auth_login_username', this.user.username);
           localStorage.setItem('auth_login_password', this.user.password);

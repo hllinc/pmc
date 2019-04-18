@@ -3,6 +3,7 @@ import {DataService} from '../../services/data.service';
 import {Observable} from 'rxjs';
 import {PageInfoResponse} from '../../models/page-info-response';
 import {Role} from '../models/role';
+import {RoleResource} from '../models/role-resource';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class RoleService {
    * 给角色分配资源
    * @param roleResource
    */
-  setRoleResource(roleResource: any): Observable<any> {
-    return this.dataService.post('/sys/resource/setRoleResource', roleResource);
+  setRoleResource(roleResources: RoleResource[]): Observable<any> {
+    return this.dataService.post('/sys/resource/setRoleResource', roleResources);
   }
 
   /**
