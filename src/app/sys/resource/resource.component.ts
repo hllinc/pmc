@@ -107,7 +107,7 @@ export class ResourceComponent implements OnInit {
   expandEvent(e: Required<NzFormatEmitEvent>): void {
     if (e.eventName === 'expand') {
       if (e.node.getChildren().length === 0 && e.node.isExpanded) {
-        this.resourceService.getOrgsByParentId(e.node.origin.id).subscribe(data => {
+        this.resourceService.getResourceByParentId(e.node.origin.id).subscribe(data => {
           for (let i = 0; i < data.length; i++) {
             data[i]['key'] = data[i]['id'];
           }

@@ -23,6 +23,14 @@ export class RoleService {
   }
 
   /**
+   * 给角色分配资源
+   * @param roleResource
+   */
+  setRoleResource(roleResource: any): Observable<any> {
+    return this.dataService.post('/sys/resource/setRoleResource', roleResource);
+  }
+
+  /**
    * 根据id查询单个角色
    * @param id
    */

@@ -4,6 +4,7 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {RoleService} from './role.service';
 import {RoleFormComponent} from './role-form/role-form.component';
 import {Role} from '../models/role';
+import {ResourceChooserComponent} from '../../shared/resource-chooser/resource-chooser.component';
 
 @Component({
   selector: 'app-role',
@@ -126,7 +127,7 @@ export class RoleComponent implements OnInit {
    */
   deleteRole(id: number) {
     this.roleService.delete(id).subscribe(data => {
-      this.messageService.create('success', '删除成功')
+      this.messageService.create('success', '删除成功');
       this.loadRoleTable();
     });
   }
@@ -136,7 +137,33 @@ export class RoleComponent implements OnInit {
    * @param role
    */
   setResource(role: Role) {
-
+    const modal = this.modalService.create({
+      nzTitle: '给【' + role.name + '】角色分配资源',
+      nzContent: ResourceChooserComponent,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        role: role
+      },
+      nzFooter: [{
+        label: '取消',
+        onClick: (componentInstance) => {
+          modal.close();
+        }
+      }, {
+        label: '分配',
+        type: 'primary',
+        onClick: (componentInstance: ResourceChooserComponent) => {
+          // setRoleResource
+          const rr = componentInstance.getSelectedResources();
+          if (rr) {
+            this.roleService.setRoleResource(rr).subscribe(data => {
+              modal.close();
+              this.messageService.create('success', '修改成功');
+            });
+          }
+        }
+      }]
+    });
   }
 
 }

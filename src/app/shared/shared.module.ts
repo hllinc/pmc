@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {SubSystemChooserComponent} from './sub-system-chooser/sub-system-chooser.component';
 import { OrgChooserComponent } from './org-chooser/org-chooser.component';
+import { ResourceChooserComponent } from './resource-chooser/resource-chooser.component';
 
 @NgModule({
   imports: [
@@ -12,14 +13,15 @@ import { OrgChooserComponent } from './org-chooser/org-chooser.component';
     ReactiveFormsModule,
     NgZorroAntdModule
   ],
-  declarations: [SubSystemChooserComponent, OrgChooserComponent],
+  declarations: [SubSystemChooserComponent, OrgChooserComponent, ResourceChooserComponent],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
     SubSystemChooserComponent,
-    OrgChooserComponent
+    OrgChooserComponent,
+    ResourceChooserComponent
   ]
 })
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Observable} from 'rxjs';
 import {Resource} from '../models/resource';
@@ -9,6 +9,14 @@ import {Resource} from '../models/resource';
 export class ResourceService {
 
   constructor(private dataService: DataService) {
+  }
+
+  /**
+   * 根据子系统id获取该子系统下的所有资源树
+   * @param id
+   */
+  getSubSystemAllResourceBySubSystemId(id: number): Observable<any> {
+    return this.dataService.get('/sys/resource/getTreeBySubSystemId/' + id);
   }
 
   /**
@@ -24,8 +32,16 @@ export class ResourceService {
    * @param {number} pid
    * @returns {Observable<any>}
    */
-  getOrgsByParentId(pid: any): Observable<any> {
+  getResourceByParentId(pid: any): Observable<any> {
     return this.dataService.get('/sys/resource/getChildrenById/' + pid);
+  }
+
+  /**
+   * 根据角色id获取资源列表
+   * @param roleId
+   */
+  getResourceByRoleId(roleId: number): Observable<any> {
+    return this.dataService.get('/sys/resource/getByRoleId/' + roleId);
   }
 
   /**

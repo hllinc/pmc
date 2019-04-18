@@ -75,8 +75,8 @@
             <span>排序</span>
           </nz-form-label>
           <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="orderNo"
-                   placeholder="请输入序号"/>
+            <nz-input-number formControlName="orderNo" [nzMin]="1" [nzMax]="100" [nzStep]="1"
+                             placeholder="请输入序号"></nz-input-number>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nz-row>
