@@ -56,7 +56,7 @@ export class FrameComponent implements OnInit, AfterContentInit {
       nzOnOk: () => {
         this.loginService.logout().subscribe(data => {
           this.dataService.clearToken();
-          this.authService.setUser(null);
+          this.authService.clearCurrentAuthInfo();
           this.router.navigate(['/login']);
         });
       }

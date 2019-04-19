@@ -47,14 +47,6 @@ export class AuthService {
   }
 
   /**
-   * 设置用户值
-   * @param {User} user
-   */
-  setUser(user: User) {
-    this.user = user;
-  }
-
-  /**
    * 获取用户值
    * @returns {User}
    */
@@ -68,6 +60,14 @@ export class AuthService {
    */
   getCurrentUserResources() {
     return this.currentUserResources;
+  }
+
+  /**
+   * 清空当前用户相关信息
+   */
+  clearCurrentAuthInfo() {
+    this.currentUserResources = null;
+    this.user = null;
   }
 
   /**
