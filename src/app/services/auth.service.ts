@@ -81,11 +81,16 @@ export class AuthService {
       if (user) {
         this.redirectUrl = redirectUrl;
         this.user = user;
-        this.initCurrentUserResources().subscribe(data => {
-          this.currentUserResources = data;
+        if (!this.currentUserResources) {
+          this.initCurrentUserResources().subscribe(data => {
+            this.currentUserResources = data;
+            subscriber.next(true);
+            subscriber.complete();
+          });
+        } else {
           subscriber.next(true);
           subscriber.complete();
-        });
+        }
       } else {
         this.redirectUrl = redirectUrl;
         this.currentUserResources = null;
