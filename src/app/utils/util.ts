@@ -71,4 +71,19 @@ export class Util {
     return target;
   }
 
+  /**
+   * 数据格式转换
+   * @param arr
+   */
+  public static formatNodeData(arr: any) {
+    arr.map((item) => {
+      item['title'] = item['name'];
+      item['key'] = item['id'];
+      if (item['children']) {
+        this.formatNodeData(item['children']);
+      }
+      return item;
+    });
+  }
+
 }

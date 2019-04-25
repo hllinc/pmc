@@ -18,13 +18,12 @@
     <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
       <nz-tree-select
         nzPlaceHolder="请选择组织"
-        [nzDefaultExpandedKeys]="expandKeys"
         [nzDropdownMatchSelectWidth]="true"
         [nzDropdownStyle]="{ 'max-height': '300px' }"
         [nzNodes]="nodes"
-        [nzAsyncData]="true"
-        (nzExpandChange)="expandEvent('expand',$event)" formControlName="orgId"
-        (nzOpenChange)="openOrgTree()">
+        [nzAsyncData]="false"
+        [nzDefaultExpandAll]="true"
+        formControlName="orgId">
       </nz-tree-select>
       <nz-form-explain *ngIf="validateForm.get('orgId').dirty&&validateForm.get('orgId').errors">
         组织不能为空！

@@ -27,6 +27,14 @@ export class OrgService {
   }
 
   /**
+   * 根据子系统id获取组织树所有层级数据
+   * @param subSystemId
+   */
+  getOrgTreeBySubSystemId(subSystemId: number): Observable<any> {
+    return this.dataService.get('/sys/org/getTreeBySubSystemId/' + subSystemId);
+  }
+
+  /**
    * 添加组织
    * @param {Org} org
    * @returns {Observable<any>}

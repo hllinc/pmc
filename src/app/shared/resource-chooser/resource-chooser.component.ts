@@ -4,6 +4,7 @@ import {ResourceService} from '../../sys/resource/resource.service';
 import {NzFormatEmitEvent, NzTreeNode} from 'ng-zorro-antd';
 import {Role} from '../../sys/models/role';
 import {RoleResource} from '../../sys/models/role-resource';
+import {Util} from '../../utils/util';
 
 @Component({
   selector: 'app-resource-chooser',
@@ -28,7 +29,7 @@ export class ResourceChooserComponent implements OnInit {
   set role(role: Role) {
     this.paramRole = role;
     this.resourceService.getSubSystemAllResourceBySubSystemId(role.subSystemId).subscribe(data => {
-      this.formatNodeData(data);
+      Util.formatNodeData(data);
       this.nodes = data;
       // 设置默认选中
       this.resourceService.getResourceByRoleId(role.id).subscribe(res => {
@@ -36,21 +37,6 @@ export class ResourceChooserComponent implements OnInit {
           return item['resourceId'];
         });
       });
-    });
-  }
-
-  /**
-   * 数据格式转换
-   * @param arr
-   */
-  formatNodeData(arr: any) {
-    arr.map((item) => {
-      item['title'] = item['name'];
-      item['key'] = item['id'];
-      if (item['children']) {
-        this.formatNodeData(item['children']);
-      }
-      return item;
     });
   }
 

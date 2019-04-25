@@ -6,6 +6,7 @@ import {UserService} from '../user.service';
 import {OrgService} from '../../org/org.service';
 import {RoleService} from '../../role/role.service';
 import {Role} from '../../models/role';
+import {Util} from '../../../utils/util';
 
 @Component({
   selector: 'app-user-form',
@@ -22,10 +23,6 @@ export class UserFormComponent implements OnInit {
 
   // 树数据
   nodes = [];
-
-  expandKeys = [];
-
-  orgTreeSelectLoaded = false;
 
   constructor(private modal: NzModalRef, private fb: FormBuilder, private userService: UserService,
               private orgService: OrgService, private roleService: RoleService) {
@@ -82,8 +79,14 @@ export class UserFormComponent implements OnInit {
       phone: [null],
       roles: [null, [Validators.required]]
     });
+    // 加载角色列表
     this.roleService.getRolesByPage(1, 100, this.user.subSystemId).subscribe(data => {
       this.roles = data.list;
+    });
+    // 加载组织机构树
+    this.orgService.getOrgTreeBySubSystemId(this.user.subSystemId).subscribe(data => {
+      Util.formatNodeData(data);
+      this.nodes = data;
     });
     // 初始化表单数据
     if (this.user && this.user.id) {
@@ -91,48 +94,6 @@ export class UserFormComponent implements OnInit {
         this.user = userData;
         this.setFormValue(this.user);
       });
-    }
-  }
-
-  openOrgTree() {
-    if (!this.orgTreeSelectLoaded) {
-      this.orgService.getOrgDataBySubSystemId(this.user.subSystemId).subscribe(data => {
-        const tempNodes = [];
-        for (let i = 0; i < data.length; i++) {
-          const o = data[i];
-          tempNodes.push({
-            title: o.name,
-            key: o.id,
-            isLeaf: o.isLeaf
-          });
-        }
-        this.nodes = tempNodes;
-        this.orgTreeSelectLoaded = true;
-      });
-    }
-  }
-
-  /**
-   * 树节点展开事件
-   * @param name
-   * @param e
-   */
-  expandEvent(name: string, e: NzFormatEmitEvent): void {
-    if (name === 'expand') {
-      if (e.node.getChildren().length === 0 && e.node.isExpanded) {
-        this.orgService.getOrgsByParentId(e.node.key).subscribe(data => {
-          const tempChildrenNodes = [];
-          for (let i = 0; i < data.length; i++) {
-            const o = data[i];
-            tempChildrenNodes.push({
-              title: o.name,
-              key: o.id,
-              isLeaf: o.isLeaf
-            });
-          }
-          e.node.addChildren(tempChildrenNodes);
-        });
-      }
     }
   }
 }
