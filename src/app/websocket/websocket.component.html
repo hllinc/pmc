@@ -1,0 +1,5 @@
+<p *ngFor="let m of message">
+  {{m}}
+</p>
+<textarea nz-input nzAutosize [(ngModel)]="sendMessage"></textarea>
+<button nz-button nzType="primary" (click)="sendMessageTo()">发送</button>
