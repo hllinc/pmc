@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-websocket',
   templateUrl: './websocket.component.html',
   styleUrls: ['./websocket.component.css']
 })
-export class WebsocketComponent {
+export class WebsocketComponent implements OnInit, OnDestroy {
 
   ws: WebSocket;//定义websocket
   message = [];
@@ -15,8 +15,12 @@ export class WebsocketComponent {
   }
 
   ngOnInit() {
-    if (!this.ws) {
-      this.connectWs();
+    this.connectWs();
+  }
+
+  ngOnDestroy() {
+    if (this.ws != null) {
+      this.ws.close();
     }
   }
 
@@ -29,7 +33,6 @@ export class WebsocketComponent {
     if (this.ws != null) {
       this.ws.close();
     }
-    ;
     this.ws = new WebSocket('ws://localhost:8080/auth/websocket/1');
     this.ws.onopen = (event) => {
       //socket 开启后执行，可以向后端传递信息
