@@ -41,7 +41,6 @@ export class WebsocketComponent implements OnInit, OnDestroy {
     this.ws.onopen = (event) => {
       //socket 开启后执行，可以向后端传递信息
       console.log('WebSocket connected!');
-
     };
     this.ws.onmessage = (event) => {
       //socket 获取后端传递到前端的信息
