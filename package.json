@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run server | ng serve --configuration hmr -o",
-    "start-with-backend": "ng serve --configuration hmrWithBackend -o --proxy-config proxy.conf.json",
+    "start-with-backend": "ng serve --port 4300 --configuration hmrWithBackend -o --proxy-config proxy.conf.json",
     "build-prod": "ng build --prod --named-chunks --base-href /pmc/",
     "test": "ng test",
     "e2e": "ng e2e --hmr --proxy-config proxy.conf.json",
